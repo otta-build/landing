@@ -2,12 +2,14 @@ import { SITE } from "../config";
 
 export type PricingTier = {
   id: string;
-  index: string; // "01".."05"
+  index: string; // "01".."04"
   name: string;
-  price: string; // "$20" | "Contact"
+  price: string; // "$20" | "Contact" | "Free"
   period?: string; // "/mo"
   blurb: string;
-  /** Heading shown above the feature list, e.g. "Everything in Pro, and:" */
+  /** "individual" → first row (3-up); "team" → second row */
+  group: "individual" | "team";
+  /** Heading shown above the feature list, e.g. "Everything in Plus, and:" */
   featuresLead?: string;
   features: string[];
   cta: { label: string; href: string };
@@ -16,12 +18,30 @@ export type PricingTier = {
 
 export const pricingTiers: PricingTier[] = [
   {
-    id: "pro",
+    id: "free",
     index: "01",
-    name: "Pro",
+    name: "Free",
+    price: "Free",
+    group: "individual",
+    blurb: "The local-first AI dev cockpit for solo builders.",
+    features: [
+      "Native desktop app — fully local-first",
+      "Bring your own CLI — Claude, Codex, Cursor, OpenCode",
+      "One local background agent",
+      "Community support",
+    ],
+    cta: { label: "Join waitlist", href: SITE.waitlistUrl },
+  },
+  {
+    id: "plus",
+    index: "02",
+    name: "Plus",
     price: "$20",
     period: "/mo",
+    group: "individual",
     blurb: "The complete AI-native dev workflow for individuals.",
+    featured: true,
+    featuresLead: "Everything in Free, and:",
     features: [
       "Agent-native, multi-surface experience — Desktop / CLI / SDK",
       "Cloud & local background agents",
@@ -31,30 +51,17 @@ export const pricingTiers: PricingTier[] = [
     cta: { label: "Join waitlist", href: SITE.waitlistUrl },
   },
   {
-    id: "plus",
-    index: "02",
-    name: "Plus",
+    id: "pro",
+    index: "03",
+    name: "Pro",
     price: "$100",
     period: "/mo",
-    blurb: "Expanded limits for heavy individual use.",
-    featuresLead: "Everything in Pro, and:",
-    features: [
-      "Expanded rolling rate limits — ~5× the usage of Pro",
-      "Managed cloud runners for remote background agents",
-    ],
-    cta: { label: "Join waitlist", href: SITE.waitlistUrl },
-    featured: true,
-  },
-  {
-    id: "max",
-    index: "03",
-    name: "Max",
-    price: "$200",
-    period: "/mo",
-    blurb: "Maximum throughput and earliest access.",
+    group: "individual",
+    blurb: "Expanded limits and cloud runners for power users.",
     featuresLead: "Everything in Plus, and:",
     features: [
-      "Expanded rolling rate limits — ~10× the usage of Pro",
+      "Expanded rolling rate limits — ~5× the usage of Plus",
+      "Managed cloud runners for remote background agents",
       "Early access to new features",
     ],
     cta: { label: "Join waitlist", href: SITE.waitlistUrl },
@@ -64,6 +71,7 @@ export const pricingTiers: PricingTier[] = [
     index: "04",
     name: "Teams",
     price: "Contact",
+    group: "team",
     blurb: "For growing teams that need tailored plans.",
     features: [
       "Multiple team members — up to 150 seats",
@@ -72,28 +80,11 @@ export const pricingTiers: PricingTier[] = [
       "Single Sign-On (SSO) integration",
       "SAML / SCIM provisioning",
       "Zero Data Retention (ZDR)",
-      "Basic admin controls — model selection, autonomy level, access controls, deny lists",
-    ],
-    cta: { label: "Book a call", href: SITE.bookingUrl },
-  },
-  {
-    id: "enterprise",
-    index: "05",
-    name: "Enterprise",
-    price: "Contact",
-    blurb: "Every feature prior, at enterprise scale.",
-    featuresLead: "Everything prior, and:",
-    features: [
-      "Unlimited team members",
-      "Dedicated compute with partitioned inference pool",
-      "Audit logging and activity trails",
-      "Workflow-readiness improvement program",
-      "Enterprise automation cookbook",
-      "On-premise deployment options",
-      "Full admin controls — encryption keys, data residency, retention, network policy",
-      "Dedicated account manager + priority support with SLAs",
-      "Custom onboarding program",
+      "Admin controls — model selection, autonomy level, access controls, deny lists",
     ],
     cta: { label: "Book a call", href: SITE.bookingUrl },
   },
 ];
+
+export const individualTiers = pricingTiers.filter((t) => t.group === "individual");
+export const teamTiers = pricingTiers.filter((t) => t.group === "team");

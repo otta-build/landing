@@ -18,6 +18,8 @@ const title = `${BRAND} — ${SITE.tagline}`;
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={SITE.subtitle} />
@@ -31,7 +33,20 @@ const title = `${BRAND} — ${SITE.tagline}`;
     <!-- top nav -->
     <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur">
       <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
-        <a href="/" class="text-sm font-bold tracking-tight text-white">{BRAND}</a>
+        <a href="/" class="flex items-center gap-2 text-sm font-bold tracking-tight text-white">
+          <svg class="h-6 w-6" viewBox="0 0 1024 1024" aria-hidden="true">
+            <defs>
+              <linearGradient id="navlogo" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6D5EF7" />
+                <stop offset="1" stop-color="#4332C4" />
+              </linearGradient>
+            </defs>
+            <rect width="1024" height="1024" rx="224" fill="url(#navlogo)" />
+            <circle cx="512" cy="512" r="232" fill="none" stroke="#fff" stroke-width="84" />
+            <circle cx="512" cy="232" r="58" fill="#fff" />
+          </svg>
+          {BRAND}
+        </a>
         <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
           <a href="#pipeline" class="hover:text-white">Pipeline</a>
           <a href="#pricing" class="hover:text-white">Pricing</a>
