@@ -1,0 +1,29 @@
+---
+import { SITE } from "../config";
+---
+
+<section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+  <div class="overflow-hidden rounded-3xl border border-gray-200 bg-gray-50 px-6 py-12 text-center sm:px-12 sm:py-16">
+    <h2 class="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      Ship like a senior engineering org — without the org.
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-gray-600">
+      Join the waitlist for early access, or book a walkthrough to see the gates,
+      the memory layer, and the live delivery record in action.
+    </p>
+    <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href={SITE.waitlistUrl}
+        class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
+      >
+        Join the waitlist
+      </a>
+      <a
+        href={SITE.bookingUrl}
+        class="rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-400"
+      >
+        Book a walkthrough
+      </a>
+    </div>
+  </div>
+</section>

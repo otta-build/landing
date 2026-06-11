@@ -1,0 +1,70 @@
+---
+import "../styles/global.css";
+import { BRAND, SITE } from "../config";
+import Hero from "../components/Hero.astro";
+import Philosophy from "../components/Philosophy.astro";
+import Pipeline from "../components/Pipeline.astro";
+import Differentiators from "../components/Differentiators.astro";
+import Memory from "../components/Memory.astro";
+import Comparison from "../components/Comparison.astro";
+import Pricing from "../components/Pricing.astro";
+import FinalCta from "../components/FinalCta.astro";
+
+const title = `${BRAND} — ${SITE.tagline}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={SITE.subtitle} />
+    <link rel="canonical" href={SITE.website} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={SITE.subtitle} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <!-- top nav -->
+    <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur">
+      <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
+        <a href="/" class="text-sm font-bold tracking-tight text-white">{BRAND}</a>
+        <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+          <a href="#pipeline" class="hover:text-white">Pipeline</a>
+          <a href="#pricing" class="hover:text-white">Pricing</a>
+          <a href={SITE.bookingUrl} class="hover:text-white">Book a call</a>
+        </div>
+        <a
+          href={SITE.waitlistUrl}
+          class="rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-400"
+        >
+          Join waitlist
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <Hero />
+      <Philosophy />
+      <Pipeline />
+      <Differentiators />
+      <Memory />
+      <Comparison />
+      <Pricing />
+      <FinalCta />
+    </main>
+
+    <footer class="border-t border-gray-100">
+      <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
+        <span>© {BRAND}. All rights reserved.</span>
+        <span>
+          Built on
+          <a href={SITE.jeanUrl} class="font-medium text-gray-700 underline-offset-2 hover:underline">Jean</a>
+          · self-hostable
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
