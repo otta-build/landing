@@ -18,8 +18,8 @@ import PricingCard from "./PricingCard.astro";
     {individualTiers.map((tier) => <PricingCard tier={tier} />)}
   </div>
 
-  <!-- Row 2 — teams -->
-  <div class="mx-auto mt-6 max-w-sm">
-    {teamTiers.map((tier) => <PricingCard tier={tier} />)}
+  <!-- Row 2 — teams (full width, spans the 3 columns above) -->
+  <div class="mx-auto mt-6 max-w-5xl">
+    {teamTiers.map((tier) => <PricingCard tier={tier} wide={true} />)}
   </div>
 </section>

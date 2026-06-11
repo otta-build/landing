@@ -1,6 +1,6 @@
 ---
 import type { PricingTier } from "../data/pricing";
-const { tier } = Astro.props as { tier: PricingTier };
+const { tier, wide = false } = Astro.props as { tier: PricingTier; wide?: boolean };
 ---
 
 <article
@@ -43,7 +43,7 @@ const { tier } = Astro.props as { tier: PricingTier };
     {tier.featuresLead && (
       <p class="mb-3 text-sm font-medium text-gray-900">{tier.featuresLead}</p>
     )}
-    <ul class="space-y-3">
+    <ul class:list={["space-y-3", wide && "sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3 sm:space-y-0 lg:grid-cols-3"]}>
       {tier.features.map((feature) => (
         <li class="flex items-start gap-2 text-sm text-gray-600">
           <svg
