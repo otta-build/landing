@@ -1,0 +1,8 @@
+{
+  "name": "otta",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-06-01",
+  "kv_namespaces": [
+    { "binding": "WAITLIST", "id": "31165e1f3f4e4893a235aa2d1461aa19" }
+  ]
+}
