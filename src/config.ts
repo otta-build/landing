@@ -12,5 +12,5 @@ export const SITE = {
   jeanUrl: "https://jean.build",
   tagline: "AI agents that ship production code — and prove it works.",
   subtitle:
-    "Otta is an opinionated, self-hostable AI dev pipeline. Every change is test-driven, visually verified, and gated on acceptance criteria before it merges — with a memory layer your agents actually keep.",
+    "Otta is a GitHub-native, self-hostable autonomous dev platform. An idea becomes a shipped, cost-accounted change with just two human gates — approve the plan, approve the promote. In between, agents test-drive, visually verify, and gate every change before it merges.",
 };

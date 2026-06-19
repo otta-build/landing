@@ -11,9 +11,10 @@ import { pipelineStages } from "../data/content";
       Intent in. Verified release out.
     </h2>
     <p class="mt-4 text-lg text-gray-600">
-      Six stages, each with a gate that can’t be skipped. Most tools show you an
-      agent that writes code — this shows you what fires at every step to make
-      sure that code is correct.
+      Six stages, each with a gate that can’t be skipped. You step in twice —
+      to approve the plan and to approve the promote. Everything between runs
+      autonomously, and every gate is enforced as a GitHub Check before code
+      moves: fast on the way to staging, strict on the way to production.
     </p>
   </div>
 

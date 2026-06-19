@@ -16,11 +16,11 @@ export const proofMetrics = [
 export const pipelineStages = [
   {
     step: "01",
-    name: "Describe",
-    summary: "Plain-language intent becomes a fully-specified issue.",
+    name: "Describe → approve plan",
+    summary: "Plain-language intent becomes a fully-specified, approvable plan.",
     detail:
-      "Say what you want. The system writes a Linear issue with a GIVEN/WHEN/THEN acceptance block, estimate, priority, and milestone — no ticket-grooming ceremony.",
-    enforces: "Acceptance criteria exist before any code does.",
+      "Say what you want. The system writes an issue with a GIVEN/WHEN/THEN acceptance block, estimate, priority, and milestone. You approve the plan — the first of two human gates — and the autonomous run begins.",
+    enforces: "Human gate #1: you sign off the plan before any code exists.",
   },
   {
     step: "02",
@@ -48,11 +48,11 @@ export const pipelineStages = [
   },
   {
     step: "05",
-    name: "Ship · health-gated",
-    summary: "Serialized merge, verified live before the next one.",
+    name: "Approve promote → ship",
+    summary: "You approve the promote; the serialized merge ships, verified live.",
     detail:
-      "Merges hit main one at a time. The deploy waits until the live health endpoint reports the exact merged commit before anything else moves.",
-    enforces: "The thing that deployed is the thing you reviewed.",
+      "A CI-green batch waits on staging behind a strict gate. You approve the promote — the second and final human gate — and merges hit main one at a time. The deploy waits until the live health endpoint reports the exact merged commit before anything else moves.",
+    enforces: "Human gate #2: nothing reaches production until you approve it.",
   },
   {
     step: "06",
@@ -92,8 +92,14 @@ export const differentiators = [
   },
 ];
 
-// Memory / brain layer.
+// Memory / brain layer + the measure → learn flywheel.
 export const memoryLayers = [
+  {
+    name: "Ledger",
+    role: "Every run, measured",
+    detail:
+      "Otta records each run — time, tokens, tool calls, and cost — as an append-only event ledger. You see exactly what every shipped change took to build.",
+  },
   {
     name: "Brain",
     role: "Canonical, exact-text project knowledge",
@@ -113,6 +119,20 @@ export const memoryLayers = [
       "The default is to write nothing. Only durable signal is captured — decisions, fixes, failed approaches — so recall stays sharp instead of drowning in transcripts.",
   },
 ];
+
+// The flywheel — execute, measure, learn, improve. Learn → improve is the
+// direction Otta is built toward (roadmap), not a delivered guarantee.
+export const flywheel = {
+  eyebrow: "The flywheel",
+  heading: "It measures every run — and is built to get cheaper and cleaner over time.",
+  body: "Otta already does the first half of the loop: it executes behind the gates and measures what each run costs. The platform is designed to close the loop — turning that telemetry into lessons that feed the next run’s plan and graduate proven patterns into new gates. The longer it runs on your codebase, the sharper the guard-rails are meant to get.",
+  steps: [
+    { name: "Execute", detail: "Run the work behind the gates.", live: true },
+    { name: "Measure", detail: "Capture time, cost, and defects per run.", live: true },
+    { name: "Learn", detail: "Distill telemetry into durable lessons.", live: false },
+    { name: "Improve", detail: "Feed lessons into plans; graduate patterns into gates.", live: false },
+  ],
+};
 
 // Head-to-head comparison. `us` = this product, `them` = Factory.ai / generic agents.
 export const comparisonRows = [
@@ -155,5 +175,5 @@ export const comparisonRows = [
 
 export const philosophy = {
   quote: "Prompts drift. Gates don’t.",
-  body: `${BRAND} doesn’t bet quality on a clever prompt or a bigger model. The rules that keep code correct — a failing test first, a screenshot of every state, acceptance criteria that map to a real check — are wired into the pipeline as gates that can’t be skipped, no matter which agent or model does the work.`,
+  body: `${BRAND} doesn’t bet quality on a clever prompt or a bigger model. The rules that keep code correct — a failing test first, a screenshot of every state, acceptance criteria that map to a real check — are wired into the pipeline as gates that can’t be skipped, no matter which agent or model does the work. That’s what makes the autonomy safe: you approve the plan and the promote, and the gates hold the line on everything in between.`,
 };
