@@ -154,6 +154,6 @@ export const comparisonRows = [
 ];
 
 export const philosophy = {
-  quote: "Prompts drift. Gates don’t.",
-  body: `${BRAND} doesn’t bet quality on a clever prompt or a bigger model. The rules that keep code correct — a failing test first, a screenshot of every state, acceptance criteria that map to a real check — are wired into the pipeline as gates that can’t be skipped, no matter which agent or model does the work.`,
+  quote: "Eliminate comprehension debt.",
+  body: `Historically, relying solely on detached LLM prompts introduced a high level of "comprehension debt," where developers struggled to keep up with verifying messy or unaligned AI outputs. Otta forces agents to adhere strictly to human-authored technical specifications. By incorporating automated QA checkpoints, self-reflection loops, and reputation tracking, it allows agents to autonomously execute heavy software engineering tasks while keeping the developer strictly "above the loop" as an architectural gatekeeper.`,
 };
