@@ -3,196 +3,155 @@ import { BRAND, SITE } from "../config";
 import { proofMetrics } from "../data/content";
 ---
 
-<section class="relative overflow-hidden bg-slate-950 text-white border-b border-white/5 py-16 sm:py-20 lg:py-24">
-  <!-- subtle grid background with soft indigo radial glow -->
+<section id="hero-spotlight" class="relative overflow-hidden bg-zinc-950 text-white border-b border-zinc-900 py-16 sm:py-20 lg:py-24">
+  <!-- spotlight tracking hover glow -->
+  <div class="spotlight-glow pointer-events-none absolute inset-0 opacity-[0.25] transition-opacity duration-300"></div>
+
+  <!-- subtle grid background -->
   <div
-    class="pointer-events-none absolute inset-0 opacity-[0.12]"
-    style="background-image: linear-gradient(rgba(99,102,241,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.25) 1px, transparent 1px); background-size: 44px 44px;"
+    class="pointer-events-none absolute inset-0 opacity-[0.06]"
+    style="background-image: linear-gradient(rgba(16,185,129,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,.15) 1px, transparent 1px); background-size: 44px 44px;"
   >
   </div>
-  <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-[130px]"></div>
 
   <div class="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-    <!-- Top Row: Split Hero (Value Prop Left, Live Dashboard Right) -->
+    <!-- Top Row: Split Hero -->
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
       
-      <!-- Left side: Hybrid Copywriting (C Flywheel + A Governance) -->
+      <!-- Left side: Brand New Agentic OS Copywriting -->
       <div class="lg:col-span-7 space-y-6">
-        <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-300 ring-1 ring-inset ring-indigo-500/20">
-          <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-          GOVERNANCE & OBSERVABILITY LAYER
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-mono font-semibold text-emerald-300 ring-1 ring-inset ring-emerald-500/20">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          AN AGENTIC DEVELOPMENT OS
         </span>
         
         <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-none uppercase">
-          Execute. Measure. Learn. Improve.
+          Engineering that runs itself.
         </h1>
         
-        <p class="text-lg leading-relaxed text-slate-300 font-light">
-          Otta is the governance and observability layer that turns AI coding into an engineering discipline. Keep using Copilot App, Claude Code, or Codex—Otta gates them, measures them, and builds a continuous quality flywheel.
+        <p class="text-lg leading-relaxed text-zinc-300 font-light">
+          Otta is a structured coordination and governance framework designed to manage autonomous AI coding agents—standardizing how they plan, write, test, and execute code across your repositories.
         </p>
 
-        <div class="space-y-4 text-sm text-slate-400 pt-2">
+        <div class="space-y-4 text-sm text-zinc-400 pt-2">
           <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <svg class="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Bring your own agent:</strong> Full out-of-the-box support for Copilot App, Claude Code, and Codex. Otta is executor-agnostic.</span>
+            <span><strong>Governed Multi-Agent Orchestration:</strong> Break high-level goals into subtasks and delegate to specialized subagents. Keep using Copilot App, Claude Code, and Codex on autopilot.</span>
           </div>
           <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <svg class="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Opinionated merge-blocking gates:</strong> Enforce test-driven code and visual proof before merging. Prompts drift, gates don't.</span>
+            <span><strong>Enforce Team-Wide Standards:</strong> Global "standing orders", test-first TDD, and visual validation are wired as merge-blocking gates. Prompts drift, rules don't.</span>
           </div>
           <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <svg class="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Continuous learning flywheel:</strong> Successes and gotchas automatically compile into your git-canonical brain and recall bus.</span>
+            <span><strong>Short & Persistent memory:</strong> Keep cross-session project memory canonical and indexed in a git-brain, so agents never forget parameters.</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-3.5 sm:flex-row pt-4">
           <a
             href={SITE.waitlistUrl}
-            class="rounded-lg bg-indigo-500 px-6 py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-indigo-400 hover:scale-[1.02] shadow-lg shadow-indigo-500/20"
+            class="rounded-lg bg-emerald-500 px-6 py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-emerald-400 hover:scale-[1.02] shadow-lg shadow-emerald-500/20"
           >
             Install the Otta GitHub App
           </a>
           <a
             href={SITE.bookingUrl}
-            class="rounded-lg border border-white/10 px-6 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:border-white/20 hover:bg-white/5"
+            class="rounded-lg border border-zinc-800 px-6 py-3.5 text-center text-sm font-semibold text-zinc-300 transition-colors hover:text-white hover:border-zinc-750 hover:bg-zinc-900/40"
           >
             Book a walkthrough
           </a>
         </div>
       </div>
 
-      <!-- Right side: Visual Dashboard Widget (from A) -->
+      <!-- Right side: Real-time Dynamic JavaScript Terminal Console (100% Flickering-Free & Flawless on iOS Safari!) -->
       <div class="lg:col-span-5">
-        <div class="rounded-xl border border-white/10 bg-slate-900/60 backdrop-blur p-5 shadow-2xl">
-          <!-- Widget Header -->
-          <div class="flex items-center justify-between border-b border-white/5 pb-4">
-            <div class="flex items-center gap-2">
-              <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span class="text-xs font-semibold tracking-wider uppercase text-slate-300">Otta Controller (Active)</span>
+        <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-5 shadow-2xl relative overflow-hidden">
+          
+          <!-- Terminal Header Chrome -->
+          <div class="flex items-center justify-between border-b border-zinc-900 pb-3 mb-4">
+            <div class="flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="ml-2 font-mono text-xs text-zinc-400 tracking-wider">Otta OS — Controller Loop v1.1</span>
             </div>
-            <span class="rounded bg-indigo-500/10 px-2 py-0.5 text-[10px] font-bold text-indigo-300 uppercase">Gated Mode</span>
-          </div>
-
-          <!-- Active Job -->
-          <div class="mt-4 space-y-3">
-            <div class="rounded-lg bg-slate-950/80 p-3.5 border border-white/5">
-              <div class="flex items-center justify-between text-xs text-slate-400">
-                <span>ACTIVE EXECUTOR</span>
-                <span class="font-mono text-[10px] text-indigo-400">copilot-app-v1</span>
-              </div>
-              <div class="mt-1 text-sm font-semibold text-white flex items-center justify-between">
-                <span>Task: Implement LC-920 Growth Engine</span>
-                <span class="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-300">PR #210</span>
-              </div>
-            </div>
-
-            <!-- Gating Pipeline Status -->
-            <div class="space-y-2 pt-1">
-              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Merge-Blocking Gates</div>
-              
-              <div class="flex items-center justify-between rounded-md bg-emerald-500/5 px-3 py-2 border border-emerald-500/10">
-                <div class="flex items-center gap-2">
-                  <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
-                  </svg>
-                  <span class="text-xs text-slate-200">Test-First TDD Validator</span>
-                </div>
-                <span class="text-[10px] font-mono font-semibold text-emerald-400">PASSED</span>
-              </div>
-
-              <div class="flex items-center justify-between rounded-md bg-emerald-500/5 px-3 py-2 border border-emerald-500/10">
-                <div class="flex items-center gap-2">
-                  <svg class="h-4 w-4 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
-                  </svg>
-                  <span class="text-xs text-slate-200">Visual Verification (Desktop+Mobile)</span>
-                </div>
-                <span class="text-[10px] font-mono font-semibold text-emerald-400">PASSED (8 shots)</span>
-              </div>
-
-              <div class="flex items-center justify-between rounded-md bg-amber-500/5 px-3 py-2 border border-amber-500/10">
-                <div class="flex items-center gap-2">
-                  <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
-                  <span class="text-xs text-slate-200">GIVEN/WHEN/THEN Criteria Check</span>
-                </div>
-                <span class="text-[10px] font-mono font-semibold text-amber-400">VERIFYING...</span>
-              </div>
-            </div>
-
-            <!-- Dashboard Stats Grid -->
-            <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-white/5">
-              <div class="rounded-lg bg-slate-950/40 p-2.5 text-center">
-                <div class="text-[10px] text-slate-500 uppercase font-semibold">Defect-Free Ship</div>
-                <div class="text-lg font-bold text-white mt-0.5">100%</div>
-              </div>
-              <div class="rounded-lg bg-slate-950/40 p-2.5 text-center">
-                <div class="text-[10px] text-slate-500 uppercase font-semibold">Gates Bypassed</div>
-                <div class="text-lg font-bold text-rose-400 mt-0.5">0</div>
-              </div>
+            <div class="flex items-center gap-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="font-mono text-[9px] text-zinc-500 tracking-wider">LIVE</span>
             </div>
           </div>
+
+          <!-- Dynamic Active Screen Area (Populated in real-time by JS script) -->
+          <div id="terminal-screen" class="font-mono text-[11px] leading-relaxed select-none min-h-[270px] max-h-[270px] overflow-y-auto space-y-3.5 text-zinc-300">
+            <!-- Loading state fallback before JS mounts -->
+            <div class="text-zinc-500">// Initializing live controller feed...</div>
+          </div>
+
+          <!-- Terminal Footer Bar -->
+          <div class="mt-4 border-t border-zinc-900 pt-3 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+            <span>AGENTIC OS LEDGER</span>
+            <span class="text-emerald-400 font-bold">100% DEFECT-FREE SHIP</span>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Bottom Row: Horizontal Flywheel Pipeline (from C) formatted in neat cards -->
+    <!-- Bottom Row: 4 Core OS Architecture Layers -->
     <div class="mt-20">
-      <div class="text-xs font-semibold tracking-wider text-slate-400 uppercase border-b border-white/5 pb-3">// THE CONTINUOUS LEARNING FLYWHEEL</div>
+      <div class="text-xs font-semibold tracking-wider text-zinc-400 uppercase border-b border-zinc-900 pb-3">// CORE ARCHITECTURE & LAYERS</div>
       <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Card 1 -->
-        <div class="rounded-xl border border-white/5 bg-slate-900/30 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">01</div>
-          <span class="rounded bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">01 / Execute</span>
-          <h3 class="mt-4 text-base font-bold text-white">Bring your agent</h3>
-          <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-            Keep using Copilot App, Claude Code, or Codex. Otta is executor-agnostic—observing them where they work, without replacing your cockpit.
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-emerald-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-emerald-500/10 transition-colors">01</div>
+          <span class="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-300 font-semibold uppercase">01 / Rules Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Global "standing orders"</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Enforce team-wide architectural constraints, strict typechecks, and test-first TDD. Prompts drift, rules don't.
           </p>
         </div>
 
         <!-- Card 2 -->
-        <div class="rounded-xl border border-white/5 bg-slate-900/30 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">02</div>
-          <span class="rounded bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">02 / Measure</span>
-          <h3 class="mt-4 text-base font-bold text-white">Enforce the gates</h3>
-          <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-            Every run is test-driven. Failing tests, strict typechecks, and visual screenshot verification are enforced as merge-blocking gates.
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-emerald-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-emerald-500/10 transition-colors">02</div>
+          <span class="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-300 font-semibold uppercase">02 / Orchestration Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Multi-agent coordination</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Breaks high-level spec goals into subtasks and delegates them to specialized, parallel executors (Copilot App, Claude Code, Codex).
           </p>
         </div>
 
         <!-- Card 3 -->
-        <div class="rounded-xl border border-white/5 bg-slate-900/30 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">03</div>
-          <span class="rounded bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">03 / Learn</span>
-          <h3 class="mt-4 text-base font-bold text-white">Compile the brain</h3>
-          <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-            Otta records successes, gotchas, and refactoring decisions into a git-canonical project brain and cross-agent semantic recall bus.
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-emerald-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-emerald-500/10 transition-colors">03</div>
+          <span class="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-300 font-semibold uppercase">03 / Memory Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Short & Persistent memory</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Git-canonical project brain and cross-agent recall bus so agents never forget context or repeat dead-end mistakes.
           </p>
         </div>
 
         <!-- Card 4 -->
-        <div class="rounded-xl border border-white/5 bg-slate-900/30 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">04</div>
-          <span class="rounded bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">04 / Improve</span>
-          <h3 class="mt-4 text-base font-bold text-white">Compound quality</h3>
-          <p class="mt-2 text-xs text-slate-400 leading-relaxed">
-            Future runs retrieve the ledger's context automatically. Your agents get smarter with every commit, driving down defects and compile times.
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-emerald-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-emerald-500/10 transition-colors">04</div>
+          <span class="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 font-mono text-[10px] text-emerald-300 font-semibold uppercase">04 / Execution & MCP</span>
+          <h3 class="mt-4 text-base font-bold text-white">Secure Gateway</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Provides limited, role-based tool access (terminals, filesystems, web-search via MCP) to prevent destructive unvalidated runs.
           </p>
         </div>
       </div>
     </div>
 
     <!-- proof strip -->
-    <div class="mt-20 border-t border-white/5 pt-8">
+    <div class="mt-20 border-t border-zinc-900 pt-8">
       <p class="text-xs font-medium tracking-wide text-slate-400 uppercase">
         Otta Observability metrics (SaaS delivery record — last 90 days)
       </p>
@@ -201,7 +160,7 @@ import { proofMetrics } from "../data/content";
           proofMetrics.map(m => (
             <div>
               <div class="text-2xl font-bold sm:text-3xl">{m.value}</div>
-              <div class="mt-1 text-xs font-semibold text-indigo-300">{m.label}</div>
+              <div class="mt-1 text-xs font-semibold text-emerald-300">{m.label}</div>
               <div class="text-xs text-slate-500">{m.sub}</div>
             </div>
           ))
@@ -210,3 +169,154 @@ import { proofMetrics } from "../data/content";
     </div>
   </div>
 </section>
+
+<!-- Scoped CSS for spotlight glow -->
+<style>
+  .spotlight-glow {
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 40%), rgba(16, 185, 129, 0.12), transparent 80%);
+  }
+</style>
+
+<script>
+  // 1. Mouse Spotlight tracking
+  const hero = document.getElementById("hero-spotlight");
+  hero?.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    hero.style.setProperty("--mouse-x", `${x}px`);
+    hero.style.setProperty("--mouse-y", `${y}px`);
+  });
+
+  // 2. Flawless JS Typewriter & Terminal Simulator (Flicker-Free, hardware-friendly, Safari-compatible)
+  interface TermLine {
+    text: string;
+    class: string;
+    typewriter?: boolean;
+    delay?: number;
+  }
+
+  const logLines: TermLine[] = [
+    {
+      text: 'otta run "implement-metrics" --executor=copilot-app',
+      class: 'text-white',
+      typewriter: true,
+      delay: 1500
+    },
+    {
+      text: '// Creating parallel isolated worktree on slot #4',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '├─ Fetching project context... OK',
+      class: 'text-zinc-400',
+      delay: 600
+    },
+    {
+      text: '└─ Spawning copilot-app executor... ACTIVE',
+      class: 'text-zinc-400',
+      delay: 800
+    },
+    {
+      text: '// Enforcing merge-blocking gates',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '├─ Running strict typecheck... PASS',
+      class: 'text-zinc-400',
+      delay: 700
+    },
+    {
+      text: '✕ FAIL: test_ledger_total (Expected 457, got null)',
+      class: 'text-rose-400 font-semibold',
+      delay: 1000
+    },
+    {
+      text: '↻ Self-correcting code in apps/landing...',
+      class: 'text-amber-400 font-semibold',
+      delay: 1800
+    },
+    {
+      text: '// Re-running test-first validation',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '✓ PASS: test_ledger_total (100% test-driven)',
+      class: 'text-emerald-400 font-semibold',
+      delay: 900
+    },
+    {
+      text: '├─ Visual capture (desktop+mobile)... 8 shots verified',
+      class: 'text-zinc-400',
+      delay: 800
+    },
+    {
+      text: '★ All gates green. Merged Pull Request #210!',
+      class: 'text-emerald-400 font-bold',
+      delay: 4000
+    }
+  ];
+
+  const screen = document.getElementById("terminal-screen");
+
+  function typeString(el: HTMLElement, str: string, index: number, callback: () => void) {
+    if (index < str.length) {
+      el.textContent += str[index];
+      setTimeout(() => typeString(el, str, index + 1, callback), 30);
+    } else {
+      callback();
+    }
+  }
+
+  function renderTerminal(lineIndex: number) {
+    if (!screen) return;
+
+    if (lineIndex >= logLines.length) {
+      // Loop ends. Wait and reset!
+      setTimeout(() => {
+        screen.innerHTML = "";
+        renderTerminal(0);
+      }, 3500);
+      return;
+    }
+
+    const current = logLines[lineIndex];
+    const row = document.createElement("div");
+    row.className = current.class + " transition-opacity duration-300 opacity-0";
+    screen.appendChild(row);
+
+    // Force reflow for fade-in transition
+    row.clientHeight;
+    row.classList.remove("opacity-0");
+
+    if (current.typewriter) {
+      const promptSymbol = document.createElement("span");
+      promptSymbol.className = "text-emerald-400 font-bold mr-2";
+      promptSymbol.textContent = "$";
+      row.appendChild(promptSymbol);
+
+      const typeSpan = document.createElement("span");
+      row.appendChild(typeSpan);
+
+      typeString(typeSpan, current.text, 0, () => {
+        setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
+      });
+    } else {
+      row.textContent = current.text;
+      
+      // Auto scroll container
+      screen.scrollTop = screen.scrollHeight;
+      
+      setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
+    }
+  }
+
+  // Start feed
+  if (screen) {
+    screen.innerHTML = "";
+    renderTerminal(0);
+  }
+</script>
