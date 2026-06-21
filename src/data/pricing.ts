@@ -32,7 +32,7 @@ export const pricingTiers: PricingTier[] = [
       "PR cycle time + review depth — 7-day teaser",
       "Community support",
     ],
-    cta: { label: "Join waitlist", href: SITE.waitlistUrl },
+    cta: { label: "Get access", href: SITE.waitlistUrl },
   },
   {
     id: "plus",
@@ -51,7 +51,7 @@ export const pricingTiers: PricingTier[] = [
       "Memory + brain sync — cross-device, always fresh",
       "90-day delivery metrics — DORA, PR cycle time, code quality trends",
     ],
-    cta: { label: "Join waitlist", href: SITE.waitlistUrl },
+    cta: { label: "Get access", href: SITE.waitlistUrl },
   },
   {
     id: "pro",
@@ -70,7 +70,7 @@ export const pricingTiers: PricingTier[] = [
       "SPACE / DevEx personal surveys — satisfaction, collaboration, flow tracking",
       "Early access to new features",
     ],
-    cta: { label: "Join waitlist", href: SITE.waitlistUrl },
+    cta: { label: "Get access", href: SITE.waitlistUrl },
   },
   {
     id: "teams",
