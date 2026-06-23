@@ -54,6 +54,10 @@ import { BRAND } from "../config";
       });
       const data = await res.json();
       if (res.ok) {
+        (window as any).posthog?.capture("get_access_requested", {
+          email,
+          already: data.already,
+        });
         status.textContent = data.already
           ? "You're already on the list — talk soon."
           : "You're on the list! We'll be in touch.";
