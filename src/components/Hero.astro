@@ -5,19 +5,15 @@ import { proofMetrics } from "../data/content";
 
 <section id="hero-spotlight" class="relative overflow-hidden bg-zinc-950 text-white">
 
-  <!-- Animated gradient orbs -->
+  <!-- Animated gradient orbs (stronger) -->
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <div class="hero-orb hero-orb-1 absolute -top-60 left-[20%] h-[700px] w-[700px] rounded-full bg-indigo-600/[0.18] blur-[140px]"></div>
-    <div class="hero-orb hero-orb-2 absolute top-40 right-[10%] h-[500px] w-[500px] rounded-full bg-violet-700/[0.12] blur-[120px]"></div>
-    <div class="hero-orb hero-orb-3 absolute bottom-0 left-[40%] h-[400px] w-[400px] rounded-full bg-indigo-500/[0.08] blur-[100px]"></div>
+    <div class="hero-orb hero-orb-1 absolute -top-80 left-[15%] h-[900px] w-[900px] rounded-full bg-indigo-600/[0.22] blur-[160px]"></div>
+    <div class="hero-orb hero-orb-2 absolute top-20 right-[5%] h-[600px] w-[600px] rounded-full bg-violet-600/[0.16] blur-[130px]"></div>
+    <div class="hero-orb hero-orb-3 absolute bottom-20 left-[35%] h-[500px] w-[500px] rounded-full bg-purple-500/[0.10] blur-[110px]"></div>
   </div>
 
-  <!-- Dot grid -->
-  <div
-    class="pointer-events-none absolute inset-0 opacity-[0.035]"
-    style="background-image: radial-gradient(circle, rgba(99,102,241,0.8) 1px, transparent 1px); background-size: 32px 32px;"
-    aria-hidden="true"
-  ></div>
+  <!-- Radial fade — keeps content readable over global grid -->
+  <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.06) 0%, transparent 70%)" aria-hidden="true"></div>
 
   <!-- ─── HERO COPY ─── -->
   <div class="relative mx-auto w-full max-w-4xl px-4 pt-24 pb-10 text-center sm:px-6 sm:pt-32 lg:pt-36">
@@ -54,17 +50,11 @@ import { proofMetrics } from "../data/content";
       </a>
     </div>
 
-    <!-- Scenario label -->
-    <div class="hero-reveal hero-reveal-d4 mt-8 mb-3">
-      <span id="scenario-label" class="inline-block font-mono text-[11px] text-zinc-600 tracking-widest uppercase transition-opacity duration-500">
-        scenario 1 of 2 — flywheel prevents a repeat failure
-      </span>
-    </div>
   </div>
 
   <!-- ─── PIPELINE VISUALIZER ─── -->
   <div class="hero-reveal hero-reveal-d5 relative mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
-    <div class="rounded-2xl border border-zinc-800/60 bg-black/70 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/60">
+    <div class="rounded-2xl border border-zinc-800/60 bg-black/80 backdrop-blur-sm overflow-hidden shadow-2xl shadow-indigo-950/40" style="box-shadow: 0 0 0 1px rgba(99,102,241,0.08), 0 32px 64px -16px rgba(0,0,0,0.8), 0 0 80px -20px rgba(99,102,241,0.15)">
 
       <!-- Window chrome -->
       <div class="flex items-center justify-between border-b border-zinc-900 px-5 py-3">
@@ -111,22 +101,27 @@ import { proofMetrics } from "../data/content";
       </div>
     </div>
 
-    <!-- Scenario controls -->
-    <div class="flex items-center justify-center gap-4 mt-5">
+    <!-- Scenario controls — combined label + dots + arrows -->
+    <div class="flex items-center justify-center gap-3 mt-6">
       <button id="scen-prev" aria-label="Previous scenario"
-        class="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
         <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
       </button>
 
-      <div class="flex items-center gap-2">
-        <button data-dot="0" id="dot-0" aria-label="Scenario 1"
-          class="scenario-dot h-1.5 w-5 rounded-full bg-indigo-500 transition-all duration-300 cursor-pointer hover:bg-indigo-400"></button>
-        <button data-dot="1" id="dot-1" aria-label="Scenario 2"
-          class="scenario-dot h-1.5 w-1.5 rounded-full bg-zinc-700 transition-all duration-300 cursor-pointer hover:bg-zinc-500"></button>
+      <div class="flex flex-col items-center gap-2 min-w-0">
+        <span id="scenario-label" class="font-mono text-[10px] text-zinc-500 tracking-widest uppercase whitespace-nowrap transition-opacity duration-300">
+          scenario 1 of 2 — flywheel prevents a repeat failure
+        </span>
+        <div class="flex items-center gap-1.5">
+          <button data-dot="0" id="dot-0" aria-label="Scenario 1"
+            class="scenario-dot h-1.5 w-5 rounded-full bg-indigo-500 transition-all duration-300 cursor-pointer hover:bg-indigo-400"></button>
+          <button data-dot="1" id="dot-1" aria-label="Scenario 2"
+            class="scenario-dot h-1.5 w-1.5 rounded-full bg-zinc-700 transition-all duration-300 cursor-pointer hover:bg-zinc-500"></button>
+        </div>
       </div>
 
       <button id="scen-next" aria-label="Next scenario"
-        class="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
         <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3l5 5-5 5"/></svg>
       </button>
     </div>
@@ -237,25 +232,26 @@ import { proofMetrics } from "../data/content";
 
 <script>
   // ─── Helpers ───
-  const log       = document.getElementById("pipeline-log")!;
-  const issueEl   = document.getElementById("pipe-issue-label")!;
-  const costEl    = document.getElementById("pipe-cost")!;
-  const elapsedEl = document.getElementById("pipe-elapsed")!;
-  const statusBar = document.getElementById("pipe-status-bar")!;
-  const scenLabel = document.getElementById("scenario-label")!;
+  const log       = document.getElementById("pipeline-log");
+  const issueEl   = document.getElementById("pipe-issue-label");
+  const costEl    = document.getElementById("pipe-cost");
+  const elapsedEl = document.getElementById("pipe-elapsed");
+  const statusBar = document.getElementById("pipe-status-bar");
+  const scenLabel = document.getElementById("scenario-label");
   const STAGES    = ["builder", "reviewer", "qa", "devops"];
 
-  function $badge(n: string) { return document.getElementById(`stage-${n}-badge`); }
-  function $time(n: string)  { return document.getElementById(`stage-${n}-time`); }
-  function $hdr(n: string)   { return document.getElementById(`stage-${n}`); }
+  function $badge(n) { return document.getElementById(`stage-${n}-badge`); }
+  function $time(n)  { return document.getElementById(`stage-${n}-time`); }
+  function $hdr(n)   { return document.getElementById(`stage-${n}`); }
 
-  function setBadge(name: string, state: "waiting"|"active"|"pass"|"skip", label: string) {
+  function setBadge(name, state, label) {
     const b = $badge(name); if (!b) return;
     b.className = `stage-badge mt-2 inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${state}-badge`;
-    (b.querySelector(".stage-label") as HTMLElement).textContent = label;
+    b.querySelector(".stage-label").textContent = label;
   }
 
-  function addLog(text: string, cls = "text-zinc-500") {
+  function addLog(text, cls) {
+    if (!cls) cls = "text-zinc-500";
     const row = document.createElement("div");
     row.className = `${cls} opacity-0 transition-opacity duration-300`;
     row.textContent = text;
@@ -265,12 +261,10 @@ import { proofMetrics } from "../data/content";
     while (log.children.length > 12) log.removeChild(log.children[0]);
   }
 
-  function delay(ms: number) { return new Promise<void>(r => setTimeout(r, ms)); }
-
   let runStart = 0;
-  let costInterval: ReturnType<typeof setInterval> | null = null;
+  let costInterval = null;
 
-  function startCostTicker(ratePerSec: number) {
+  function startCostTicker(ratePerSec) {
     if (costInterval) clearInterval(costInterval);
     costInterval = setInterval(() => {
       const elapsed = (Date.now() - runStart) / 1000;
@@ -295,23 +289,7 @@ import { proofMetrics } from "../data/content";
     statusBar.textContent = "IDLE";
   }
 
-  interface StageDef {
-    name: string;
-    label?: string; // badge label
-    lines: { text: string; cls?: string; delay: number }[];
-    state?: "pass"|"skip";
-  }
-
-  interface RunDef {
-    issue: string;
-    scenario: string;
-    stages: StageDef[];
-    finalLine: string;
-    finalCls?: string;
-    cost: string;
-  }
-
-  const RUNS: RunDef[] = [
+  const RUNS = [
     // ─── SCENARIO 1: Flywheel prevents a class of repeat failure ───
     {
       issue: '"payment-retry-logic" #88',
@@ -444,10 +422,14 @@ import { proofMetrics } from "../data/content";
   ];
 
   // ─── Cancellable delay ───
-  let cancelToken = 0;
+  // cancelToken is ONLY incremented externally (by cancelCurrent).
+  // playRun receives token as a param — it never modifies cancelToken.
+  let cancelToken = 1;
 
-  function cancellableDelay(ms: number, token: number) {
-    return new Promise<boolean>(resolve => {
+  function cancelCurrent() { cancelToken++; }
+
+  function cancellableDelay(ms, token) {
+    return new Promise(resolve => {
       const t = setTimeout(() => resolve(true), ms);
       const check = setInterval(() => {
         if (cancelToken !== token) { clearTimeout(t); clearInterval(check); resolve(false); }
@@ -455,9 +437,7 @@ import { proofMetrics } from "../data/content";
     });
   }
 
-  async function playRun(run: RunDef, runIdx: number): Promise<void> {
-    const token = ++cancelToken;
-
+  async function playRun(run, runIdx, token) {
     resetRun();
     setDots(runIdx);
     scenLabel.textContent = run.scenario;
@@ -507,8 +487,8 @@ import { proofMetrics } from "../data/content";
     await cancellableDelay(5500, token);
   }
 
-  function setDots(runIdx: number) {
-    document.querySelectorAll<HTMLElement>(".scenario-dot").forEach((dot, i) => {
+  function setDots(runIdx) {
+    document.querySelectorAll(".scenario-dot").forEach((dot, i) => {
       const active = i === runIdx;
       dot.style.width       = active ? "1.25rem" : "0.375rem";
       dot.style.background  = active ? "#6366f1" : "#3f3f46";
@@ -517,30 +497,36 @@ import { proofMetrics } from "../data/content";
 
   let currentRun = 0;
 
-  async function startScenario(idx: number) {
-    currentRun = ((idx % RUNS.length) + RUNS.length) % RUNS.length;
-    await playRun(RUNS[currentRun], currentRun);
-    // auto-advance after completion
-    loop();
+  async function autoLoop(token) {
+    while (cancelToken === token) {
+      currentRun = (currentRun + 1) % RUNS.length;
+      await playRun(RUNS[currentRun], currentRun, token);
+    }
   }
 
-  async function loop() {
-    currentRun = (currentRun + 1) % RUNS.length;
-    await playRun(RUNS[currentRun], currentRun);
-    if (cancelToken !== 0) loop(); // keep looping unless externally cancelled and restarted
+  async function startScenario(idx) {
+    cancelCurrent();
+    const token = cancelToken;
+    currentRun = ((idx % RUNS.length) + RUNS.length) % RUNS.length;
+    await playRun(RUNS[currentRun], currentRun, token);
+    if (cancelToken === token) autoLoop(token);
   }
 
   // Wire prev/next/dots
-  document.getElementById("scen-prev")?.addEventListener("click", () => {
+  document.getElementById("scen-prev").addEventListener("click", () => {
     startScenario(currentRun - 1);
   });
-  document.getElementById("scen-next")?.addEventListener("click", () => {
+  document.getElementById("scen-next").addEventListener("click", () => {
     startScenario(currentRun + 1);
   });
-  document.querySelectorAll<HTMLElement>(".scenario-dot").forEach((dot, i) => {
+  document.querySelectorAll(".scenario-dot").forEach((dot, i) => {
     dot.addEventListener("click", () => startScenario(i));
   });
 
   // Kick off
-  playRun(RUNS[0], 0).then(() => loop());
+  (async () => {
+    const token = cancelToken;
+    await playRun(RUNS[0], 0, token);
+    if (cancelToken === token) autoLoop(token);
+  })();
 </script>
