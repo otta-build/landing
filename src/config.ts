@@ -10,6 +10,8 @@ export const SITE = {
   waitlistUrl: "#waitlist",
   // Underlying open-source platform.
   jeanUrl: "https://jean.build",
+  // Otta Pulse GitHub App install URL.
+  pulseInstallUrl: "https://github.com/apps/otta-pulse/installations/new",
   tagline: "AI agents that ship production code — and prove it works.",
   subtitle:
     "Otta is a GitHub-native, self-hostable autonomous dev platform. An idea becomes a shipped, cost-accounted change with just two human gates — approve the plan, approve the promote. In between, agents test-drive, visually verify, and gate every change before it merges.",

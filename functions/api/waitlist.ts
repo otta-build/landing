@@ -1,10 +1,8 @@
 // Cloudflare Pages Function — POST /api/waitlist
-// Stores a waitlist signup in the WAITLIST KV namespace (bound in the Pages project)
-// and fires a Telegram notification (via the Hermes bot) on each new signup.
 interface Env {
   WAITLIST: KVNamespace;
-  TELEGRAM_BOT_TOKEN?: string; // Hermes bot token (Pages secret)
-  TELEGRAM_CHAT_ID?: string; // recipient chat id (Pages secret/var)
+  NOTIFY_URL?: string;    // https://notify.petrenko.cv
+  NOTIFY_SECRET?: string;
 }
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -14,17 +12,12 @@ const json = (body: unknown, status = 200) =>
     headers: { "content-type": "application/json" },
   });
 
-async function notifyTelegram(env: Env, email: string, ref: string | null) {
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
-  const text = `🟣 New Otta waitlist signup\n${email}\nref: ${ref ?? "direct"}`;
-  await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+async function notify(env: Env, message: string) {
+  if (!env.NOTIFY_URL || !env.NOTIFY_SECRET) return;
+  await fetch(`${env.NOTIFY_URL}/send`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      chat_id: env.TELEGRAM_CHAT_ID,
-      text,
-      disable_web_page_preview: true,
-    }),
+    headers: { "content-type": "application/json", "authorization": `Bearer ${env.NOTIFY_SECRET}` },
+    body: JSON.stringify({ channel: "otta", message }),
   }).catch(() => {});
 }
 
@@ -46,8 +39,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const ref = request.headers.get("referer") ?? null;
   await env.WAITLIST.put(key, JSON.stringify({ email, ts: new Date().toISOString(), ref }));
 
-  // fire-and-forget notification — never blocks or fails the signup response
-  context.waitUntil(notifyTelegram(env, email, ref));
+  context.waitUntil(notify(env, `🟣 New Otta Cockpit request\n${email}\nref: ${ref ?? "direct"}`));
 
   return json({ ok: true });
 };

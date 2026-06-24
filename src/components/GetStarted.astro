@@ -1,0 +1,132 @@
+---
+import { SITE } from "../config";
+---
+
+<section id="get-started" class="bg-slate-950 py-20 sm:py-28">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6">
+    <div class="mb-10 text-center">
+      <p class="text-sm font-semibold tracking-wide text-indigo-400 uppercase">
+        Get started
+      </p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        Two ways in — pick yours.
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-base text-slate-300">
+        The Claude Code plugin is free and ships today. The Cockpit desktop app
+        is in early access — request a seat.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <!-- Plugin card -->
+      <div class="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-8">
+        <div class="flex items-center gap-3">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-400">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M6.28 5.22a.75.75 0 0 1 0 1.06L2.56 10l3.72 3.72a.75.75 0 0 1-1.06 1.06L.97 10.53a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Zm7.44 0a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L17.44 10l-3.72-3.72a.75.75 0 0 1 0-1.06ZM11.377 2.011a.75.75 0 0 1 .612.867l-2.5 14.5a.75.75 0 0 1-1.478-.255l2.5-14.5a.75.75 0 0 1 .866-.612Z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-semibold text-white">Claude Code Plugin</h3>
+            <span class="text-xs font-semibold text-emerald-400">Available now · free</span>
+          </div>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-slate-300">
+          Adds the Otta shipping loop — TDD, acceptance gates, visual verification,
+          and auto-PR — to any Claude Code session. Works on your existing repos,
+          no new infra required.
+        </p>
+
+        <div class="mt-6 flex-1">
+          <p class="mb-2 text-xs font-semibold tracking-wide text-slate-400 uppercase">Install</p>
+          <div class="rounded-lg bg-black/40 p-4 font-mono text-sm text-slate-200 space-y-1">
+            <div><span class="select-none text-slate-500">$ </span>/plugin marketplace add wiselancer/otta</div>
+            <div><span class="select-none text-slate-500">$ </span>/plugin install otta</div>
+            <div><span class="select-none text-slate-500">$ </span>/otta:setup</div>
+          </div>
+          <p class="mt-3 text-xs text-slate-400">
+            <code class="font-mono text-slate-300">/otta:setup</code> installs the pre-push gate hook and walks you
+            through the Otta Pulse GitHub App — no secrets on your machine.
+          </p>
+        </div>
+
+        <div class="mt-6">
+          <button
+            id="plugin-copy-btn"
+            type="button"
+            class="w-full rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"
+          >
+            Copy install commands
+          </button>
+        </div>
+      </div>
+
+      <!-- Cockpit card -->
+      <div class="flex flex-col rounded-2xl border border-indigo-500/30 bg-indigo-500/5 p-8">
+        <div class="flex items-center gap-3">
+          <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-400">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M2 4.25A2.25 2.25 0 0 1 4.25 2h11.5A2.25 2.25 0 0 1 18 4.25v8.5A2.25 2.25 0 0 1 15.75 15h-3.105a3.501 3.501 0 0 0 1.1 1.677A.75.75 0 0 1 13.26 18H6.74a.75.75 0 0 1-.484-1.323A3.501 3.501 0 0 0 7.355 15H4.25A2.25 2.25 0 0 1 2 12.75v-8.5Zm1.5 0a.75.75 0 0 1 .75-.75h11.5a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-.75.75H4.25a.75.75 0 0 1-.75-.75v-7.5Z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-semibold text-white">Otta Cockpit</h3>
+            <span class="text-xs font-semibold text-indigo-400">Early access · desktop app</span>
+          </div>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-slate-300">
+          The full autonomous pipeline UI — manage issues, watch runs in real
+          time, review agent decisions, and approve gates from a native desktop
+          app. Powered by the Otta engine GitHub App.
+        </p>
+
+        <ul class="mt-6 flex-1 space-y-2.5 text-sm text-slate-300">
+          {[
+            "Issue → plan → PR with two human gates",
+            "Live run timeline with cost and token accounting",
+            "Parallel worktrees — many issues in flight at once",
+            "Native macOS + Windows · self-hostable engine",
+          ].map(item => (
+            <li class="flex items-start gap-2.5">
+              <svg class="mt-0.5 h-4 w-4 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-8">
+          <a
+            id="cockpit-access-btn"
+            href={SITE.waitlistUrl}
+            class="flex w-full items-center justify-center rounded-lg bg-indigo-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-400"
+          >
+            Request Cockpit access
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const INSTALL_COMMANDS = `/plugin marketplace add wiselancer/otta\n/plugin install otta\n/otta:setup`;
+
+  // Copy install commands button
+  const copyBtn = document.getElementById("plugin-copy-btn");
+  copyBtn?.addEventListener("click", () => {
+    navigator.clipboard.writeText(INSTALL_COMMANDS).then(() => {
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => { copyBtn.textContent = "Copy install commands"; }, 2000);
+    });
+    (window as any).posthog?.capture("plugin_install_cta_clicked");
+  });
+
+  // Cockpit CTA — fire PostHog before scrolling down
+  document.getElementById("cockpit-access-btn")?.addEventListener("click", () => {
+    (window as any).posthog?.capture("cockpit_access_cta_clicked");
+  });
+</script>
