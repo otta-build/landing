@@ -16,144 +16,131 @@ export const proofMetrics = [
 export const pipelineStages = [
   {
     step: "01",
-    name: "Describe",
-    summary: "Plain-language intent becomes a fully-specified issue.",
+    name: "Idea & Session",
+    summary: "An idea becomes a persistent session with memory.",
     detail:
-      "Say what you want. The system writes a Linear issue with a GIVEN/WHEN/THEN acceptance block, estimate, priority, and milestone — no ticket-grooming ceremony.",
-    enforces: "Acceptance criteria exist before any code does.",
+      "Say what you want. Every raw idea is initialized as a dedicated session with its own memory. Teams can pause, resume, and move many sessions forward in parallel without context decay.",
+    enforces: "No context is lost; your ideas compile into structured session streams.",
   },
   {
     step: "02",
-    name: "Isolate",
-    summary: "One agent, one git worktree, zero collisions.",
+    name: "Autonomous Build",
+    summary: "AI executors build across isolated slots.",
     detail:
-      "Every issue builds in its own worktree on its own dev slot. Many issues run in parallel without stepping on each other.",
-    enforces: "Parallel work that never corrupts a shared branch.",
+      "Specialized agents (such as Claude Code or Codex) spin up in their own git worktrees, executing tasks on autopilot without manual ticket-grooming.",
+    enforces: "Parallel dev speed with zero risk of branch collisions.",
   },
   {
     step: "03",
-    name: "Build · test-first",
-    summary: "The failing test is written before the code.",
+    name: "Govern & Gate",
+    summary: "GitHub-App-first merge-blocking verification.",
     detail:
-      "The builder writes the smallest red test, makes it green, then typechecks and opens a PR. Typecheck is not test coverage — and the pipeline knows the difference.",
-    enforces: "No production change ships without a test that proves it.",
+      "Otta's native GitHub App enforces rigorous quality gates before a single line of code is integrated. Strict test-driven TDD, typechecks, and visual screenshot checks must pass.",
+    enforces: "Hard quality gates — never polite suggestions in a prompt.",
   },
   {
     step: "04",
-    name: "Review · prove it",
-    summary: "Runs the tests, opens the browser, checks the criteria.",
+    name: "Measure & Telemetry",
+    summary: "Continuous cycle-time and cost tracking.",
     detail:
-      "The reviewer re-runs the focused tests, browser-verifies the happy path plus loading / empty / error states, and rejects any PR whose acceptance boxes lack real evidence.",
-    enforces: "Visual + behavioral proof, not “it compiles.”",
+      "Otta Pulse logs exact token/API expenses, cycle times, and review depth for every agent run, compiling live DORA metrics for execution visibility.",
+    enforces: "Full budget accountability and quantitative performance ledger.",
   },
   {
     step: "05",
-    name: "Ship · health-gated",
-    summary: "Serialized merge, verified live before the next one.",
+    name: "Self-Learn & Flywheel",
+    summary: "Lessons compile back into preflight rules.",
     detail:
-      "Merges hit main one at a time. The deploy waits until the live health endpoint reports the exact merged commit before anything else moves.",
-    enforces: "The thing that deployed is the thing you reviewed.",
-  },
-  {
-    step: "06",
-    name: "Release · zero ritual",
-    summary: "Merge → semver tag → GitHub Release → release ledger.",
-    detail:
-      "The next version is computed from commit prefixes, tagged, and turned into a GitHub Release and a Linear release entry automatically.",
-    enforces: "A complete, named release history with no manual steps.",
+      "The system analyzes defects and failed runs, committing gotchas back into a git-canonical brain. Past errors automatically graduate into preflight guards so you never repeat a mistake.",
+    enforces: "The platform gets cleaner, faster, and cheaper the longer it works.",
   },
 ];
 
 // Core differentiators vs generic "AI writes code" tools.
 export const differentiators = [
   {
-    title: "Gates that don’t drift",
-    body: "TDD, acceptance criteria, and review threads are enforced as CI checks and agent FAIL conditions — not polite suggestions in a prompt. Prompts drift. Gates don’t.",
+    title: "GitHub-App-First Governance",
+    body: "Otta installs as a native GitHub App. Merge-blocking checks, required visual evidence, and manual promotion gates are enforced at the repository level—meaning agents cannot self-approve or bypass rules.",
   },
   {
-    title: "Visual verification, built in",
-    body: "User-facing work isn’t done until a real screenshot of the happy, loading, empty, and error states has been checked. A DOM measurement is not a picture.",
+    title: "Persistent Session Memory",
+    body: "Most agents start from scratch every run. Otta gives every idea a persistent session with memory, allowing teams to collaborate across parallel streams without repeating mistakes or losing context.",
   },
   {
-    title: "Memory that compounds",
-    body: "A git-canonical brain plus a cross-agent semantic recall bus means your agents remember decisions, gotchas, and dead-ends — across sessions and across tools.",
+    title: "Actionable Measurement",
+    body: "Get real-time DORA metrics, PR cycle times, code quality trends, and exact token/API expense tracking. View exactly how much value your agent fleet is shipping and where they get blocked.",
   },
   {
-    title: "Self-host the whole thing",
-    body: "Built on Jean (Apache-2.0). Your repos, your infra, your data — by default, on every tier. Data control isn’t an enterprise upsell.",
+    title: "The Self-Learning Flywheel",
+    body: "Otta closes the loop between execution and intelligence. Hard-won code retro summaries and fixed bugs compile back into git-canonical brain rules, making future runs faster and cheaper.",
   },
   {
-    title: "Parallel build, serial integration",
-    body: "Many issues build at once in isolated worktrees; they land on main one verified merge at a time. Speed where it’s safe, discipline where it counts.",
+    title: "Vibe Coding, Production Quality",
+    body: "Keep the speed, lose the chaos. Otta turns scattered, speculative vibe-coding sessions into a structured, reliable path to production-ready software.",
   },
   {
-    title: "Proof, not promises",
-    body: "This pipeline ships a real production SaaS every day. The metrics on this page are its own 90-day delivery record — not a demo.",
+    title: "Data Sovereignty & Control",
+    body: "Self-host on your own infrastructure. Your code, secrets, and agent memories remain completely under your control—by default, on every tier.",
   },
 ];
 
 // Memory / brain layer.
 export const memoryLayers = [
   {
-    name: "Brain",
-    role: "Canonical, exact-text project knowledge",
+    name: "Session memory",
+    role: "Context-retentive workspace streams",
     detail:
-      "Decisions, gotchas, and standing rules live in a version-controlled git repo. One hop to current truth, one hop to the reasoning behind it.",
+      "Every new idea or task starts a persistent session with memory. Teams can pause, resume, and run dozens of tasks in parallel without context decay.",
   },
   {
-    name: "Recall bus",
-    role: "Cross-agent semantic memory",
+    name: "Git brain",
+    role: "Version-controlled wisdom ledger",
     detail:
-      "A self-hosted vector memory lets any agent — in any session, on any backend — recall what another already learned. Fuzzy search over hard-won context.",
+      "Decisions, custom architecture guidelines, and bugfixes are stored directly in a private repository. High-signal, structured reference guidelines that agents never drift from.",
   },
   {
-    name: "Signal gate",
-    role: "High-signal by design",
+    name: "Flywheel",
+    role: "Retro → preflight rule translation",
     detail:
-      "The default is to write nothing. Only durable signal is captured — decisions, fixes, failed approaches — so recall stays sharp instead of drowning in transcripts.",
+      "Defects and failed runs are analyzed automatically. Hard-won retro lessons are translated directly into automated preflight checks, ensuring past mistakes are never repeated.",
   },
 ];
 
 // Head-to-head comparison. `us` = this product, `them` = Factory.ai / generic agents.
 export const comparisonRows = [
   {
-    dimension: "Quality gate",
-    us: "Enforced TDD + visual + acceptance gate — proven after the work runs",
-    them: "“Agent-readiness” = static file-existence checks, before the work runs",
+    dimension: "Focus",
+    us: "Governance, measurement, and learning layer wrapping existing execution agents",
+    them: "Raw autonomous coding agents focused purely on file-writing",
+  },
+  {
+    dimension: "Quality gates",
+    us: "GitHub-App-first merge-blocking TDD, visual screenshots, and health checks",
+    them: "Static file checks and code compilation only",
   },
   {
     dimension: "Memory",
-    us: "Git-canonical brain + cross-agent semantic recall of decisions",
-    them: "Filesystem persistence — no curated decision knowledge",
+    us: "Persistent sessions with memory + git-canonical brain for continuous self-learning",
+    them: "Temporary task-based history; no cross-session recall",
+  },
+  {
+    dimension: "Integration",
+    us: "GitHub App, MCP Server, and CLI that fit inside your existing dev setup (Claude Code, Codex)",
+    them: "Siloed web UI or proprietary desktop workspaces that force workflow migration",
+  },
+  {
+    dimension: "Target audience",
+    us: "Teams, small teams, founders, and builders who need delivery discipline",
+    them: "Enterprise teams focused on ticket-to-code volume rather than quality gates",
   },
   {
     dimension: "Data control",
-    us: "Self-hostable on your infra, every tier",
+    us: "Self-hostable on your own infra, every tier",
     them: "On-prem is an Enterprise-only, custom-quote feature",
-  },
-  {
-    dimension: "Built for",
-    us: "Solo founders & 1–5 person teams shipping like a senior org",
-    them: "Enterprise / mid-market; little for small teams",
-  },
-  {
-    dimension: "Cost",
-    us: "Predictable, flat plans",
-    them: "Token metering reviewers call “a blackhole”",
-  },
-  {
-    dimension: "Tooling",
-    us: "Linear / GitHub / GitLab as configuration",
-    them: "Tightly coupled to GitHub + Jira",
-  },
-  {
-    dimension: "Human checkpoints",
-    us: "Acceptance + screenshot evidence gate the merge",
-    them: "Background agents; wrong assumptions surface at PR review",
   },
 ];
 
 export const philosophy = {
-  quote: "Eliminate comprehension debt.",
-  body: `Historically, relying solely on detached LLM prompts introduced a high level of "comprehension debt," where developers struggled to keep up with verifying messy or unaligned AI outputs. Otta forces agents to adhere strictly to human-authored technical specifications. By incorporating automated QA checkpoints, self-reflection loops, and reputation tracking, it allows agents to autonomously execute heavy software engineering tasks while keeping the developer strictly "above the loop" as an architectural gatekeeper.`,
+  quote: "From raw concept to production software — with adaptive gates.",
+  body: "Otta turns vibe coding into a self-learning software factory. Instead of treating AI coding as a one-shot prompt, Otta gives every idea a structured production journey through adaptive quality gates — product clarity, implementation, tests, review, deployment, verification, and real-world feedback. Each gate checks, measures, and improves the work. When something breaks, fails, or produces poor results, Otta learns from that failure, adapts the gate, and prevents the same class of problem from happening again.",
 };

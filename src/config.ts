@@ -10,7 +10,7 @@ export const SITE = {
   waitlistUrl: "#waitlist",
   // Underlying open-source platform.
   jeanUrl: "https://jean.build",
-  tagline: "AI agents that ship production code — and prove it works.",
+  tagline: "The self-learning software factory for vibe-coded ideas.",
   subtitle:
-    "Otta is an opinionated, self-hostable AI dev pipeline. Every change is test-driven, visually verified, and gated on acceptance criteria before it merges — with a memory layer your agents actually keep.",
+    "Otta turns vibe coding into a self-learning software factory — where every idea passes through adaptive quality gates, failures improve the system, and only production-ready software ships.",
 };

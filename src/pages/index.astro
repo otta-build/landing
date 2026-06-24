@@ -46,8 +46,8 @@ const POSTHOG_KEY =
           <svg class="h-6 w-6" viewBox="0 0 1024 1024" aria-hidden="true">
             <defs>
               <linearGradient id="navlogo" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#10B981" />
-                <stop offset="1" stop-color="#047857" />
+                <stop offset="0" stop-color="#7C6CFF" />
+                <stop offset="1" stop-color="#3F2FB8" />
               </linearGradient>
             </defs>
             <rect width="1024" height="1024" rx="232" fill="url(#navlogo)" />
@@ -63,7 +63,7 @@ const POSTHOG_KEY =
         </div>
         <a
           href={SITE.waitlistUrl}
-          class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
+          class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
         >
           Get access
         </a>
@@ -85,11 +85,6 @@ const POSTHOG_KEY =
     <footer class="border-t border-gray-100">
       <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
         <span>© {BRAND}. All rights reserved.</span>
-        <span>
-          Built on
-          <a href={SITE.jeanUrl} class="font-medium text-gray-700 underline-offset-2 hover:underline">Jean</a>
-          · self-hostable
-        </span>
       </div>
     </footer>
   </body>

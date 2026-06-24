@@ -22,11 +22,11 @@ import { BRAND } from "../config";
         required
         autocomplete="email"
         placeholder="you@company.com"
-        class="w-full flex-1 rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+        class="w-full flex-1 rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
       />
       <button
         type="submit"
-        class="rounded-lg bg-emerald-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-400 disabled:opacity-60"
+        class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 disabled:opacity-60"
       >
         Get access
       </button>
@@ -54,14 +54,13 @@ import { BRAND } from "../config";
       });
       const data = await res.json();
       if (res.ok) {
-        (window as any).posthog?.capture("get_access_requested", {
-          email,
-          already: data.already,
-        });
+        if (typeof window !== "undefined" && (window as any).posthog) {
+          (window as any).posthog.capture('get_access_requested', { email });
+        }
         status.textContent = data.already
           ? "You've already requested access — we'll be in touch soon."
           : "Access request received! We'll be in touch.";
-        status.className = "mt-3 min-h-5 text-sm text-emerald-400";
+        status.className = "mt-3 min-h-5 text-sm text-indigo-400";
         form.reset();
       } else {
         status.textContent = data.error || "Something went wrong. Try again.";

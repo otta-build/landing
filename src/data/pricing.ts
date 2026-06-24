@@ -23,7 +23,7 @@ export const pricingTiers: PricingTier[] = [
     name: "Free",
     price: "Free",
     group: "individual",
-    blurb: "The local-first AI dev cockpit for solo builders.",
+    blurb: "The local-first AI dev cockpit for individual builders and teams.",
     features: [
       "Native desktop app — fully local-first",
       "Bring your own CLI — Claude, Codex, Cursor, OpenCode",
