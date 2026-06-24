@@ -35,7 +35,7 @@ import { proofMetrics } from "../data/content";
     </h1>
 
     <p class="hero-reveal hero-reveal-d2 mx-auto max-w-2xl text-lg text-zinc-400 leading-relaxed mb-10">
-      Four specialized agents. Merge-blocking GitHub App gates. A flywheel that turns every failure into a preflight rule — so each build is cheaper and cleaner than the last.
+      Otta turns vibe coding into a self-learning software factory — moving each idea through adaptive quality gates from raw concept to production-ready software, learning from every failure so future builds get better.
     </p>
 
     <!-- CTAs -->
@@ -111,10 +111,24 @@ import { proofMetrics } from "../data/content";
       </div>
     </div>
 
-    <!-- Progress dots -->
-    <div class="flex justify-center gap-2 mt-4">
-      <span id="dot-0" class="h-1.5 w-4 rounded-full bg-indigo-500 transition-all duration-300"></span>
-      <span id="dot-1" class="h-1.5 w-1.5 rounded-full bg-zinc-700 transition-all duration-300"></span>
+    <!-- Scenario controls -->
+    <div class="flex items-center justify-center gap-4 mt-5">
+      <button id="scen-prev" aria-label="Previous scenario"
+        class="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
+        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <button data-dot="0" id="dot-0" aria-label="Scenario 1"
+          class="scenario-dot h-1.5 w-5 rounded-full bg-indigo-500 transition-all duration-300 cursor-pointer hover:bg-indigo-400"></button>
+        <button data-dot="1" id="dot-1" aria-label="Scenario 2"
+          class="scenario-dot h-1.5 w-1.5 rounded-full bg-zinc-700 transition-all duration-300 cursor-pointer hover:bg-zinc-500"></button>
+      </div>
+
+      <button id="scen-next" aria-label="Next scenario"
+        class="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-800 text-zinc-600 transition-all hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/10 active:scale-95">
+        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3l5 5-5 5"/></svg>
+      </button>
     </div>
   </div>
 
@@ -429,82 +443,104 @@ import { proofMetrics } from "../data/content";
     },
   ];
 
-  // Stages we animate sequentially — builder can appear twice in scenario 2
-  async function animateStage(stage: StageDef, stageIdx: number): Promise<void> {
-    const sname = stage.name;
-    const h = $hdr(sname);
-    if (h) {
-      h.className = h.className.replace(/\bstage-(active|done|skip)\b/g, "").trim();
-      h.classList.add("stage-active");
-    }
-    setBadge(sname, "active", stage.label ?? "running");
-    statusBar.textContent = `otta:${sname.toUpperCase()} — ${(stage.label ?? "active").toUpperCase()}`;
+  // ─── Cancellable delay ───
+  let cancelToken = 0;
 
-    const stageStart = Date.now();
-    for (const line of stage.lines) {
-      await delay(line.delay);
-      addLog(line.text, line.cls ?? "text-zinc-500");
-    }
-    await delay(400);
-
-    const elapsed = ((Date.now() - stageStart) / 1000).toFixed(1);
-    const t = $time(sname); if (t) t.textContent = `${elapsed}s`;
-    if (h) {
-      h.classList.remove("stage-active");
-      h.classList.add(stage.state === "skip" ? "stage-skip" : "stage-done");
-    }
-    setBadge(sname, stage.state ?? "pass", stage.state === "skip" ? "merged" : "pass");
+  function cancellableDelay(ms: number, token: number) {
+    return new Promise<boolean>(resolve => {
+      const t = setTimeout(() => resolve(true), ms);
+      const check = setInterval(() => {
+        if (cancelToken !== token) { clearTimeout(t); clearInterval(check); resolve(false); }
+      }, 50);
+    });
   }
 
-  async function playRun(run: RunDef, runIdx: number) {
-    resetRun();
-    await delay(700);
+  async function playRun(run: RunDef, runIdx: number): Promise<void> {
+    const token = ++cancelToken;
 
-    // Update UI labels
-    issueEl.textContent = run.issue;
+    resetRun();
+    setDots(runIdx);
     scenLabel.textContent = run.scenario;
 
-    // Update progress dots
-    const d0 = document.getElementById("dot-0");
-    const d1 = document.getElementById("dot-1");
-    if (runIdx === 0) {
-      d0?.classList.replace("bg-zinc-700", "bg-indigo-500");
-      d0?.classList.replace("w-1.5", "w-4");
-      d1?.classList.replace("bg-indigo-500", "bg-zinc-700");
-      d1?.classList.replace("w-4", "w-1.5");
-    } else {
-      d1?.classList.replace("bg-zinc-700", "bg-indigo-500");
-      d1?.classList.replace("w-1.5", "w-4");
-      d0?.classList.replace("bg-indigo-500", "bg-zinc-700");
-      d0?.classList.replace("w-4", "w-1.5");
-    }
+    if (!await cancellableDelay(600, token)) return;
 
+    issueEl.textContent = run.issue;
     runStart = Date.now();
     startCostTicker(0.004);
-
     addLog(`→ received issue ${run.issue}`, "text-zinc-700");
-    await delay(500);
+
+    if (!await cancellableDelay(500, token)) return;
 
     for (let i = 0; i < run.stages.length; i++) {
-      await animateStage(run.stages[i], i);
-      await delay(350);
+      if (cancelToken !== token) return;
+      const stage = run.stages[i];
+      const sname = stage.name;
+      const h = $hdr(sname);
+      if (h) {
+        h.className = h.className.replace(/\bstage-(active|done|skip)\b/g, "").trim();
+        h.classList.add("stage-active");
+      }
+      setBadge(sname, "active", stage.label ?? "running");
+      statusBar.textContent = `otta:${sname.toUpperCase()} — ${(stage.label ?? "active").toUpperCase()}`;
+
+      const stageStart = Date.now();
+      for (const line of stage.lines) {
+        if (!await cancellableDelay(line.delay, token)) return;
+        addLog(line.text, line.cls ?? "text-zinc-500");
+      }
+      if (!await cancellableDelay(400, token)) return;
+
+      const elapsed = ((Date.now() - stageStart) / 1000).toFixed(1);
+      const t = $time(sname); if (t) t.textContent = `${elapsed}s`;
+      if (h) {
+        h.classList.remove("stage-active");
+        h.classList.add(stage.state === "skip" ? "stage-skip" : "stage-done");
+      }
+      setBadge(sname, stage.state ?? "pass", stage.state === "skip" ? "merged" : "pass");
+      if (!await cancellableDelay(350, token)) return;
     }
 
     stopCostTicker();
     costEl.textContent = run.cost;
     addLog(run.finalLine, run.finalCls ?? "text-indigo-300 font-bold");
     statusBar.textContent = "PIPELINE COMPLETE";
-    await delay(5500);
+    await cancellableDelay(5500, token);
+  }
+
+  function setDots(runIdx: number) {
+    document.querySelectorAll<HTMLElement>(".scenario-dot").forEach((dot, i) => {
+      const active = i === runIdx;
+      dot.style.width       = active ? "1.25rem" : "0.375rem";
+      dot.style.background  = active ? "#6366f1" : "#3f3f46";
+    });
+  }
+
+  let currentRun = 0;
+
+  async function startScenario(idx: number) {
+    currentRun = ((idx % RUNS.length) + RUNS.length) % RUNS.length;
+    await playRun(RUNS[currentRun], currentRun);
+    // auto-advance after completion
+    loop();
   }
 
   async function loop() {
-    let i = 0;
-    while (true) {
-      await playRun(RUNS[i % RUNS.length], i % RUNS.length);
-      i++;
-      await delay(1200);
-    }
+    currentRun = (currentRun + 1) % RUNS.length;
+    await playRun(RUNS[currentRun], currentRun);
+    if (cancelToken !== 0) loop(); // keep looping unless externally cancelled and restarted
   }
 
-  loop();
+  // Wire prev/next/dots
+  document.getElementById("scen-prev")?.addEventListener("click", () => {
+    startScenario(currentRun - 1);
+  });
+  document.getElementById("scen-next")?.addEventListener("click", () => {
+    startScenario(currentRun + 1);
+  });
+  document.querySelectorAll<HTMLElement>(".scenario-dot").forEach((dot, i) => {
+    dot.addEventListener("click", () => startScenario(i));
+  });
+
+  // Kick off
+  playRun(RUNS[0], 0).then(() => loop());
 </script>
