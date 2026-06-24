@@ -20,12 +20,12 @@ import { proofMetrics } from "../data/content";
   ></div>
 
   <!-- ─── HERO COPY ─── -->
-  <div class="relative mx-auto w-full max-w-4xl px-4 pt-24 pb-12 text-center sm:px-6 sm:pt-32 lg:pt-40">
+  <div class="relative mx-auto w-full max-w-4xl px-4 pt-24 pb-10 text-center sm:px-6 sm:pt-32 lg:pt-36">
 
     <!-- Status badge -->
     <div class="hero-reveal inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/10 px-4 py-1.5 mb-8">
       <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-      <span class="text-xs font-semibold text-indigo-300 tracking-wide">Plugin free · Cockpit in early access</span>
+      <span class="text-xs font-semibold text-indigo-300 tracking-wide">GitHub App · executor-agnostic · open core</span>
     </div>
 
     <!-- Main headline -->
@@ -35,40 +35,11 @@ import { proofMetrics } from "../data/content";
     </h1>
 
     <p class="hero-reveal hero-reveal-d2 mx-auto max-w-2xl text-lg text-zinc-400 leading-relaxed mb-10">
-      Otta turns vibe coding into a structured, self-improving production pipeline — adaptive quality gates, persistent memory, and a flywheel that gets smarter after every build.
+      Four specialized agents. Merge-blocking GitHub App gates. A flywheel that turns every failure into a preflight rule — so each build is cheaper and cleaner than the last.
     </p>
 
-    <!-- Install box -->
-    <div class="hero-reveal hero-reveal-d3 mx-auto max-w-md mb-8">
-      <div class="rounded-xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-sm overflow-hidden shadow-xl shadow-black/40">
-        <div class="flex border-b border-zinc-800 text-xs font-semibold">
-          <button data-tab="plugin" class="install-tab install-tab-active flex-1 px-4 py-2.5 transition-colors">
-            Claude Code Plugin
-          </button>
-          <button data-tab="cockpit" class="install-tab flex-1 px-4 py-2.5 text-zinc-500 hover:text-zinc-200 transition-colors">
-            Cockpit App
-          </button>
-        </div>
-        <div id="install-panel-plugin" class="install-panel p-4 font-mono text-sm text-left">
-          <div class="text-zinc-600 text-xs mb-2.5"># 3 commands · free · runs in Claude Code</div>
-          <div class="space-y-1">
-            <div><span class="text-indigo-400 select-none">$ </span><span class="text-zinc-100">/plugin marketplace add otta-build/plugin</span></div>
-            <div><span class="text-indigo-400 select-none">$ </span><span class="text-zinc-100">/plugin install otta</span></div>
-            <div><span class="text-indigo-400 select-none">$ </span><span class="text-zinc-100">/otta:setup</span></div>
-          </div>
-        </div>
-        <div id="install-panel-cockpit" class="install-panel hidden p-4 text-left">
-          <p class="text-sm text-zinc-400 leading-relaxed">Full autonomous pipeline UI — issue management, live run timelines, and agent gate approvals in a native desktop app.</p>
-          <a href="#waitlist" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
-            Request early access
-            <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-
     <!-- CTAs -->
-    <div class="hero-reveal hero-reveal-d4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center mb-12">
+    <div class="hero-reveal hero-reveal-d3 flex flex-col items-center gap-3 sm:flex-row sm:justify-center mb-4">
       <a
         href="#get-started"
         class="rounded-lg bg-indigo-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:bg-indigo-500 hover:scale-[1.02] hover:shadow-indigo-500/40"
@@ -82,6 +53,13 @@ import { proofMetrics } from "../data/content";
         Book a walkthrough
       </a>
     </div>
+
+    <!-- Scenario label -->
+    <div class="hero-reveal hero-reveal-d4 mt-8 mb-3">
+      <span id="scenario-label" class="inline-block font-mono text-[11px] text-zinc-600 tracking-widest uppercase transition-opacity duration-500">
+        scenario 1 of 2 — flywheel prevents a repeat failure
+      </span>
+    </div>
   </div>
 
   <!-- ─── PIPELINE VISUALIZER ─── -->
@@ -94,10 +72,11 @@ import { proofMetrics } from "../data/content";
           <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
           <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
           <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
-          <span class="ml-3 font-mono text-[11px] text-zinc-600">otta · pipeline · <span id="pipe-issue-label" class="text-zinc-500">"ship-analytics-dashboard" #47</span></span>
+          <span class="ml-3 font-mono text-[11px] text-zinc-600">otta · pipeline · <span id="pipe-issue-label" class="text-zinc-500">&nbsp;</span></span>
         </div>
-        <div class="flex items-center gap-3">
-          <span id="pipe-slot" class="font-mono text-[10px] text-zinc-700">slot-02</span>
+        <div class="flex items-center gap-4">
+          <span id="pipe-cost" class="font-mono text-[10px] text-zinc-700">$0.00</span>
+          <span id="pipe-elapsed" class="font-mono text-[10px] text-zinc-700">0s</span>
           <span class="flex items-center gap-1">
             <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
             <span class="font-mono text-[10px] text-zinc-600 tracking-widest uppercase">live</span>
@@ -108,32 +87,34 @@ import { proofMetrics } from "../data/content";
       <!-- Stage headers -->
       <div class="grid grid-cols-4 border-b border-zinc-900">
         {["builder", "reviewer", "qa", "devops"].map((name, i) => (
-          <div id={`stage-${name}`} class={`stage-header border-zinc-900 px-3 py-2.5 ${i < 3 ? "border-r" : ""}`}>
+          <div id={`stage-${name}`} class={`stage-header px-3 py-3 ${i < 3 ? "border-r border-zinc-900" : ""}`}>
             <div class="font-mono text-[9px] text-zinc-700 tracking-widest uppercase mb-1">0{i + 1}</div>
             <div class="font-mono text-[11px] font-bold text-zinc-500">otta:{name}</div>
-            <div id={`stage-${name}-badge`} class="stage-badge mt-1.5 inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider waiting-badge">
-              <span class="stage-dot h-1 w-1 rounded-full bg-zinc-700"></span>
+            <div id={`stage-${name}-badge`} class="stage-badge mt-2 inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider waiting-badge">
+              <span class="stage-dot h-1 w-1 rounded-full"></span>
               <span class="stage-label">waiting</span>
             </div>
-            <div id={`stage-${name}-time`} class="stage-time mt-1 font-mono text-[9px] text-zinc-700 h-3"></div>
+            <div id={`stage-${name}-time`} class="mt-1 font-mono text-[9px] text-zinc-700 h-3"></div>
           </div>
         ))}
       </div>
 
       <!-- Log output -->
-      <div id="pipeline-log" class="font-mono text-[11px] leading-relaxed px-5 py-4 min-h-[160px] max-h-[160px] overflow-hidden text-zinc-400 space-y-1.5">
-        <div class="text-zinc-700">// Waiting for next issue...</div>
+      <div id="pipeline-log" class="font-mono text-[11px] leading-relaxed px-5 py-4 min-h-[168px] max-h-[168px] overflow-hidden space-y-1.5">
+        <div class="text-zinc-800">// initializing otta pipeline...</div>
       </div>
 
-      <!-- Footer bar -->
-      <div class="flex items-center justify-between border-t border-zinc-900 px-5 py-2.5 text-[10px] font-mono">
-        <div class="flex items-center gap-4 text-zinc-700">
-          <span>OTTA PULSE <span class="text-zinc-600">v1.1</span></span>
-          <span id="pipe-cost" class="text-zinc-700">$0.00</span>
-        </div>
-        <div id="pipe-status-bar" class="text-zinc-700">IDLE</div>
+      <!-- Footer -->
+      <div class="flex items-center justify-between border-t border-zinc-900 px-5 py-2">
+        <div class="font-mono text-[10px] text-zinc-700">OTTA PULSE · CHECKS API · GEPA FLYWHEEL</div>
+        <div id="pipe-status-bar" class="font-mono text-[10px] text-zinc-700">IDLE</div>
       </div>
+    </div>
 
+    <!-- Progress dots -->
+    <div class="flex justify-center gap-2 mt-4">
+      <span id="dot-0" class="h-1.5 w-4 rounded-full bg-indigo-500 transition-all duration-300"></span>
+      <span id="dot-1" class="h-1.5 w-1.5 rounded-full bg-zinc-700 transition-all duration-300"></span>
     </div>
   </div>
 
@@ -144,10 +125,10 @@ import { proofMetrics } from "../data/content";
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {[
-        { num: "01", tag: "Rules Layer", title: "Global standing orders", body: "Team-wide constraints, strict typechecks, test-first TDD. Prompts drift, rules don't." },
-        { num: "02", tag: "Orchestration", title: "Multi-agent pipeline", body: "builder → reviewer → qa → devops. Each agent is specialized; none self-approve." },
-        { num: "03", tag: "Memory Layer", title: "Short & persistent memory", body: "Git-canonical brain + cross-agent recall via mem0. Agents never repeat dead ends." },
-        { num: "04", tag: "GEPA Flywheel", title: "Self-learning optimizer", body: "Rich pipeline verdicts feed GEPA. Prompts improve from outcomes — 35× more sample-efficient than RL." },
+        { num: "01", tag: "Rules Layer", title: "Global standing orders", body: "Team-wide constraints, strict typechecks, TDD-first. Prompts drift — rules don't." },
+        { num: "02", tag: "Orchestration", title: "4-stage agent pipeline", body: "builder → reviewer → qa → devops. Specialized roles. None can self-approve." },
+        { num: "03", tag: "Memory Layer", title: "Brain + cross-agent recall", body: "Git-canonical brain + mem0 recall bus. Past failures become preflight guards." },
+        { num: "04", tag: "GEPA Flywheel", title: "Self-learning optimizer", body: "Pipeline verdicts feed GEPA. Prompts rewrite from outcomes — 35× fewer rollouts than RL." },
       ].map(c => (
         <div class="group relative rounded-xl border border-zinc-900 bg-zinc-950 p-5 overflow-hidden transition-all duration-300 hover:border-indigo-500/20 hover:bg-zinc-900/60 hover:-translate-y-0.5">
           <div class="absolute top-3 right-4 font-mono text-5xl font-black text-white/[0.035] group-hover:text-indigo-500/[0.07] transition-colors select-none">{c.num}</div>
@@ -188,17 +169,17 @@ import { proofMetrics } from "../data/content";
   }
 
   @keyframes orb-drift-1 {
-    0%, 100% { transform: translate(0,0) scale(1); }
+    0%,100% { transform: translate(0,0) scale(1); }
     33% { transform: translate(60px,-40px) scale(1.08); }
     66% { transform: translate(-30px,50px) scale(0.95); }
   }
   @keyframes orb-drift-2 {
-    0%, 100% { transform: translate(0,0) scale(1); }
+    0%,100% { transform: translate(0,0) scale(1); }
     40% { transform: translate(-50px,30px) scale(1.05); }
     70% { transform: translate(40px,-60px) scale(0.97); }
   }
   @keyframes orb-drift-3 {
-    0%, 100% { transform: translate(0,0) scale(1); }
+    0%,100% { transform: translate(0,0) scale(1); }
     50% { transform: translate(30px,-30px) scale(1.1); }
   }
   .hero-orb-1 { animation: orb-drift-1 18s ease-in-out infinite; }
@@ -220,263 +201,306 @@ import { proofMetrics } from "../data/content";
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .install-tab-active {
-    color: white;
-    background: rgba(99,102,241,0.12);
-    border-bottom: 1px solid rgba(99,102,241,0.4);
-  }
+  /* Badge states */
+  .waiting-badge { background: rgba(255,255,255,0.03); color: #3f3f46; }
+  .waiting-badge .stage-dot { background: #3f3f46; }
 
-  /* Stage badge states */
-  .waiting-badge  { background: rgba(255,255,255,0.04); color: #52525b; }
-  .active-badge   { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
-  .pass-badge     { background: rgba(52,211,153,0.1);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
-  .fail-badge     { background: rgba(248,113,113,0.1); color: #fca5a5; border: 1px solid rgba(248,113,113,0.25); }
+  .active-badge { background: rgba(99,102,241,0.14); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.28); }
+  .active-badge .stage-dot { background: #818cf8; animation: blink 1s ease-in-out infinite; }
 
-  .active-badge .stage-dot { background: #818cf8; animation: pulse 1s ease-in-out infinite; }
-  .pass-badge   .stage-dot { background: #6ee7b7; }
-  .fail-badge   .stage-dot { background: #fca5a5; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .pass-badge { background: rgba(52,211,153,0.1); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.22); }
+  .pass-badge .stage-dot { background: #6ee7b7; }
 
-  .stage-header.stage-active  { background: rgba(99,102,241,0.04); }
+  .skip-badge { background: rgba(251,191,36,0.08); color: #fcd34d; border: 1px solid rgba(251,191,36,0.2); }
+  .skip-badge .stage-dot { background: #fcd34d; }
+
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  .stage-header.stage-active  { background: rgba(99,102,241,0.05); }
   .stage-header.stage-done    { background: rgba(52,211,153,0.03); }
+  .stage-header.stage-skip    { background: rgba(251,191,36,0.03); }
 </style>
 
 <script>
-  // ── Tab switcher ──
-  document.querySelectorAll<HTMLButtonElement>(".install-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.tab;
-      document.querySelectorAll<HTMLButtonElement>(".install-tab").forEach(t => {
-        const on = t.dataset.tab === target;
-        t.classList.toggle("install-tab-active", on);
-        t.classList.toggle("text-zinc-500", !on);
-        (t as any).style.borderBottom = on ? "1px solid rgba(99,102,241,0.4)" : "";
-      });
-      document.querySelectorAll<HTMLElement>(".install-panel").forEach(p => {
-        p.classList.toggle("hidden", !p.id.endsWith(target ?? ""));
-      });
+  // ─── Helpers ───
+  const log       = document.getElementById("pipeline-log")!;
+  const issueEl   = document.getElementById("pipe-issue-label")!;
+  const costEl    = document.getElementById("pipe-cost")!;
+  const elapsedEl = document.getElementById("pipe-elapsed")!;
+  const statusBar = document.getElementById("pipe-status-bar")!;
+  const scenLabel = document.getElementById("scenario-label")!;
+  const STAGES    = ["builder", "reviewer", "qa", "devops"];
+
+  function $badge(n: string) { return document.getElementById(`stage-${n}-badge`); }
+  function $time(n: string)  { return document.getElementById(`stage-${n}-time`); }
+  function $hdr(n: string)   { return document.getElementById(`stage-${n}`); }
+
+  function setBadge(name: string, state: "waiting"|"active"|"pass"|"skip", label: string) {
+    const b = $badge(name); if (!b) return;
+    b.className = `stage-badge mt-2 inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${state}-badge`;
+    (b.querySelector(".stage-label") as HTMLElement).textContent = label;
+  }
+
+  function addLog(text: string, cls = "text-zinc-500") {
+    const row = document.createElement("div");
+    row.className = `${cls} opacity-0 transition-opacity duration-300`;
+    row.textContent = text;
+    log.appendChild(row);
+    requestAnimationFrame(() => row.classList.remove("opacity-0"));
+    log.scrollTop = log.scrollHeight;
+    while (log.children.length > 12) log.removeChild(log.children[0]);
+  }
+
+  function delay(ms: number) { return new Promise<void>(r => setTimeout(r, ms)); }
+
+  let runStart = 0;
+  let costInterval: ReturnType<typeof setInterval> | null = null;
+
+  function startCostTicker(ratePerSec: number) {
+    if (costInterval) clearInterval(costInterval);
+    costInterval = setInterval(() => {
+      const elapsed = (Date.now() - runStart) / 1000;
+      costEl.textContent = `$${(elapsed * ratePerSec).toFixed(2)}`;
+      elapsedEl.textContent = `${Math.floor(elapsed)}s`;
+    }, 250);
+  }
+  function stopCostTicker() {
+    if (costInterval) { clearInterval(costInterval); costInterval = null; }
+  }
+
+  function resetRun() {
+    log.innerHTML = "";
+    costEl.textContent = "$0.00";
+    elapsedEl.textContent = "0s";
+    stopCostTicker();
+    STAGES.forEach(n => {
+      setBadge(n, "waiting", "waiting");
+      const t = $time(n); if (t) t.textContent = "";
+      const h = $hdr(n); if (h) h.className = h.className.replace(/stage-(active|done|skip)/g, "").trim();
     });
-  });
-
-  // ── Pipeline animation ──
-  interface PipelineRun {
-    issue: string;
-    slot: string;
-    stages: StageScript[];
+    statusBar.textContent = "IDLE";
   }
-  interface StageScript {
+
+  interface StageDef {
     name: string;
-    duration: number; // ms before passing to next
+    label?: string; // badge label
     lines: { text: string; cls?: string; delay: number }[];
-    failLine?: { text: string; cls?: string; delay: number };
-    passes: boolean;
+    state?: "pass"|"skip";
   }
 
-  const RUNS: PipelineRun[] = [
+  interface RunDef {
+    issue: string;
+    scenario: string;
+    stages: StageDef[];
+    finalLine: string;
+    finalCls?: string;
+    cost: string;
+  }
+
+  const RUNS: RunDef[] = [
+    // ─── SCENARIO 1: Flywheel prevents a class of repeat failure ───
     {
-      issue: '"add-analytics-dashboard" #47',
-      slot: "slot-02",
+      issue: '"payment-retry-logic" #88',
+      scenario: "scenario 1 of 2 — flywheel prevents a repeat failure",
+      cost: "$0.21",
+      finalLine: "★ PR #89 merged in 4m12s · flywheel: guard auto-promoted to preflight",
+      finalCls: "text-amber-300 font-bold",
       stages: [
         {
           name: "builder",
-          duration: 9000,
-          passes: true,
           lines: [
-            { text: "→ session context loaded from brain (247 rules)", cls: "text-zinc-500", delay: 400 },
-            { text: "→ created isolated worktree on slot-02", cls: "text-zinc-500", delay: 700 },
-            { text: "→ spawning claude-code executor...", cls: "text-zinc-500", delay: 600 },
-            { text: "  writing failing test: test_dashboard_render", cls: "text-zinc-600", delay: 900 },
-            { text: "✕ FAIL test_dashboard_render (component undefined)", cls: "text-rose-400 font-semibold", delay: 1000 },
-            { text: "  implementing AnalyticsDashboard component...", cls: "text-zinc-500", delay: 1400 },
-            { text: "✓ PASS test_dashboard_render", cls: "text-emerald-400", delay: 900 },
-            { text: "  typecheck: strict mode... PASS", cls: "text-zinc-500", delay: 700 },
-            { text: "  preflight gate: platform-health... PASS", cls: "text-zinc-500", delay: 700 },
-            { text: "→ handing off to otta:reviewer", cls: "text-indigo-400 font-semibold", delay: 500 },
+            { text: "→ loading brain context: 312 rules + 14 project gotchas", cls: "text-zinc-600", delay: 500 },
+            { text: "  ⚡ brain recalled: 'idempotency key missing → duplicate charges'", cls: "text-amber-400 font-semibold", delay: 700 },
+            { text: "  ⚡ brain recalled: 'retry must be exponential, not fixed 500ms'", cls: "text-amber-400 font-semibold", delay: 600 },
+            { text: "→ worktree created on slot-03 · executor: claude-code", cls: "text-zinc-600", delay: 700 },
+            { text: "  writing failing test: test_idempotency_key_present", cls: "text-zinc-600", delay: 800 },
+            { text: "  writing failing test: test_retry_is_exponential", cls: "text-zinc-600", delay: 500 },
+            { text: "✓ PASS test_idempotency_key_present", cls: "text-emerald-400", delay: 900 },
+            { text: "✓ PASS test_retry_is_exponential", cls: "text-emerald-400", delay: 700 },
+            { text: "  typecheck: strict · 0 errors · preflight: PASS", cls: "text-zinc-600", delay: 700 },
           ],
         },
         {
           name: "reviewer",
-          duration: 6500,
-          passes: true,
           lines: [
-            { text: "→ loading spec for issue #47...", cls: "text-zinc-500", delay: 400 },
-            { text: "  AC1: dashboard renders /metrics route ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  AC2: token spend visible per run ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  AC3: mobile breakpoint ≥ 375px ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  AC4: no regressions in existing routes ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  scope: surgical — 3 files touched, 0 unrelated", cls: "text-zinc-600", delay: 600 },
-            { text: "→ spec compliance: PASS — handing to otta:qa", cls: "text-indigo-400 font-semibold", delay: 600 },
+            { text: "→ spec: issue #88 — 3 ACs", cls: "text-zinc-600", delay: 500 },
+            { text: "  AC1: idempotency key on every charge attempt ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC2: retry delay doubles each attempt (max 30s) ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC3: no duplicate charge on network timeout ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  surgical: 2 files · 0 unrelated changes ✓", cls: "text-zinc-600", delay: 600 },
           ],
         },
         {
           name: "qa",
-          duration: 5500,
-          passes: true,
           lines: [
-            { text: "→ adversarially verifying each AC...", cls: "text-zinc-500", delay: 400 },
-            { text: "  AC1 verified: dashboard route returns 200 ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  AC2 verified: cost_events envelope present ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  AC3 verified: viewport 375 snapshot captured ✓", cls: "text-zinc-500", delay: 800 },
-            { text: "  visual diff: 4 desktop + 4 mobile screenshots ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "→ gate: PASS — handing to otta:devops", cls: "text-indigo-400 font-semibold", delay: 600 },
+            { text: "→ adversarial: forcing network timeout during payment...", cls: "text-zinc-600", delay: 600 },
+            { text: "  result: single charge · idempotency key held ✓", cls: "text-emerald-400", delay: 900 },
+            { text: "→ adversarial: sending duplicate webhook events...", cls: "text-zinc-600", delay: 600 },
+            { text: "  result: deduplicated correctly · no double-process ✓", cls: "text-emerald-400", delay: 900 },
+            { text: "  regression: 82 existing payment tests PASS ✓", cls: "text-zinc-500", delay: 700 },
           ],
         },
         {
           name: "devops",
-          duration: 5000,
-          passes: true,
+          state: "skip",
+          label: "merged",
           lines: [
-            { text: "→ opening PR #48 with seeded .pr-body.md", cls: "text-zinc-500", delay: 400 },
-            { text: "  Otta Pulse GitHub App: checks registered", cls: "text-zinc-500", delay: 600 },
-            { text: "  acceptance-gate: ✓  coverage-gate: ✓", cls: "text-emerald-400", delay: 800 },
-            { text: "  visual-gate: ✓  typecheck-gate: ✓", cls: "text-emerald-400", delay: 700 },
-            { text: "★ PR #48 merged · Pulse telemetry logged", cls: "text-indigo-300 font-bold", delay: 1000 },
-            { text: "  flywheel: run verdict stored → GEPA ledger", cls: "text-zinc-600", delay: 700 },
+            { text: "→ PR #89 opened · Otta Pulse checks registered", cls: "text-zinc-600", delay: 500 },
+            { text: "  acceptance-gate ✓  coverage-gate ✓  typecheck-gate ✓", cls: "text-emerald-400", delay: 700 },
+            { text: "  GEPA: verdict stored — idempotency + retry patterns", cls: "text-zinc-600", delay: 700 },
+            { text: "  flywheel: 2 patterns → confidence 0.94 → GRADUATED", cls: "text-amber-400 font-semibold", delay: 800 },
+            { text: "  brain update: new preflight guard added for all future PRs", cls: "text-amber-400", delay: 700 },
           ],
         },
       ],
     },
+
+    // ─── SCENARIO 2: Multi-agent pipeline catches a logic hole CI missed ───
     {
-      issue: '"fix-auth-token-expiry" #52',
-      slot: "slot-01",
+      issue: '"dashboard-export-csv" #103',
+      scenario: "scenario 2 of 2 — pipeline catches what CI missed",
+      cost: "$0.17",
+      finalLine: "★ PR #104 merged · defect rate: 0 on 6 CI-green PRs shipped today",
+      finalCls: "text-indigo-300 font-bold",
       stages: [
         {
           name: "builder",
-          duration: 7000,
-          passes: true,
           lines: [
-            { text: "→ brain recalled: 'token expiry check ≤ not <' (3 prior fixes)", cls: "text-amber-400", delay: 400 },
-            { text: "→ created worktree on slot-01", cls: "text-zinc-500", delay: 600 },
-            { text: "  writing failing test: test_token_expiry_boundary", cls: "text-zinc-600", delay: 800 },
-            { text: "✕ FAIL test_token_expiry_boundary (off-by-one)", cls: "text-rose-400 font-semibold", delay: 900 },
-            { text: "  applying fix: < → <= in auth/middleware.ts:88", cls: "text-zinc-500", delay: 1200 },
-            { text: "✓ PASS test_token_expiry_boundary", cls: "text-emerald-400", delay: 800 },
-            { text: "→ handing off to otta:reviewer", cls: "text-indigo-400 font-semibold", delay: 500 },
+            { text: "→ brain: no prior gotchas for CSV export — clean slate", cls: "text-zinc-600", delay: 500 },
+            { text: "→ worktree: slot-01 · executor: claude-code", cls: "text-zinc-600", delay: 600 },
+            { text: "  TDD: test_csv_headers_match_schema", cls: "text-zinc-600", delay: 800 },
+            { text: "  TDD: test_csv_escapes_special_chars", cls: "text-zinc-600", delay: 500 },
+            { text: "  TDD: test_csv_empty_dataset_returns_headers_only", cls: "text-zinc-600", delay: 500 },
+            { text: "✓ PASS all 3 tests · typecheck: PASS", cls: "text-emerald-400", delay: 900 },
+            { text: "  CI would have shipped this. Otta keeps going.", cls: "text-zinc-700 italic", delay: 700 },
           ],
         },
         {
           name: "reviewer",
-          duration: 5000,
-          passes: true,
           lines: [
-            { text: "  AC1: boundary case test present ✓", cls: "text-zinc-500", delay: 600 },
-            { text: "  AC2: no other auth logic changed ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "  surgical: 1 file, 1 line — no scope creep ✓", cls: "text-zinc-500", delay: 700 },
-            { text: "→ spec compliance: PASS — handing to otta:qa", cls: "text-indigo-400 font-semibold", delay: 600 },
+            { text: "→ spec: issue #103 — 4 ACs", cls: "text-zinc-600", delay: 500 },
+            { text: "  AC1: CSV includes all visible columns ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC2: special chars escaped (RFC 4180) ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC3: empty export returns headers-only row ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC4: export respects active row filters ✗", cls: "text-rose-400 font-semibold", delay: 800 },
+            { text: "  GAPS: filter state not passed to CSV serializer", cls: "text-rose-400", delay: 600 },
+            { text: "→ SPEC-FAIL · returning to builder with gap report", cls: "text-rose-400 font-semibold", delay: 600 },
+          ],
+        },
+        {
+          name: "builder",
+          label: "retry",
+          lines: [
+            { text: "→ builder resuming with reviewer gap report", cls: "text-zinc-600", delay: 500 },
+            { text: "  TDD: test_csv_respects_active_filters", cls: "text-zinc-600", delay: 700 },
+            { text: "✕ FAIL test_csv_respects_active_filters (unfiltered data)", cls: "text-rose-400 font-semibold", delay: 800 },
+            { text: "  fixing: thread filter context into CSV serializer", cls: "text-zinc-600", delay: 1100 },
+            { text: "✓ PASS test_csv_respects_active_filters", cls: "text-emerald-400", delay: 900 },
+            { text: "✓ PASS all 4 tests · handing to reviewer", cls: "text-emerald-400", delay: 600 },
+          ],
+        },
+        {
+          name: "reviewer",
+          label: "verify",
+          lines: [
+            { text: "  AC4: export respects active row filters ✓ (re-verified)", cls: "text-zinc-500", delay: 600 },
+            { text: "→ spec compliance: PASS · all 4 ACs satisfied", cls: "text-indigo-400 font-semibold", delay: 600 },
           ],
         },
         {
           name: "qa",
-          duration: 4500,
-          passes: true,
           lines: [
-            { text: "  adversarial: tried to break boundary... holds ✓", cls: "text-zinc-500", delay: 600 },
-            { text: "  regression: all 47 existing auth tests PASS ✓", cls: "text-zinc-500", delay: 800 },
-            { text: "→ gate: PASS — handing to otta:devops", cls: "text-indigo-400 font-semibold", delay: 600 },
+            { text: "→ adversarial: exporting with 3 active filters applied...", cls: "text-zinc-600", delay: 600 },
+            { text: "  result: CSV contains only filtered rows ✓", cls: "text-emerald-400", delay: 900 },
+            { text: "  adversarial: large dataset (50k rows) export...", cls: "text-zinc-600", delay: 600 },
+            { text: "  result: streaming · no memory spike ✓", cls: "text-emerald-400", delay: 900 },
           ],
         },
         {
           name: "devops",
-          duration: 4000,
-          passes: true,
           lines: [
-            { text: "→ PR #53 opened · all Pulse checks green", cls: "text-zinc-500", delay: 400 },
-            { text: "  GEPA: verdict logged — 'token boundary fix'", cls: "text-zinc-600", delay: 700 },
-            { text: "  flywheel: brain updated — guard promoted to preflight", cls: "text-amber-400", delay: 900 },
-            { text: "★ PR #53 merged · $/PR: $0.18", cls: "text-indigo-300 font-bold", delay: 1000 },
+            { text: "→ PR #104 opened with full evidence body", cls: "text-zinc-600", delay: 500 },
+            { text: "  Pulse gates: acceptance ✓  coverage ✓  typecheck ✓", cls: "text-emerald-400", delay: 700 },
+            { text: "  GEPA: verdict stored — filter-threading pattern", cls: "text-zinc-600", delay: 700 },
+            { text: "  note: this defect was invisible to CI — caught by reviewer", cls: "text-amber-400", delay: 800 },
           ],
         },
       ],
     },
   ];
 
-  const log = document.getElementById("pipeline-log")!;
-  const issueLabel = document.getElementById("pipe-issue-label")!;
-  const slotLabel = document.getElementById("pipe-slot")!;
-  const costEl = document.getElementById("pipe-cost")!;
-  const statusBar = document.getElementById("pipe-status-bar")!;
+  // Stages we animate sequentially — builder can appear twice in scenario 2
+  async function animateStage(stage: StageDef, stageIdx: number): Promise<void> {
+    const sname = stage.name;
+    const h = $hdr(sname);
+    if (h) {
+      h.className = h.className.replace(/\bstage-(active|done|skip)\b/g, "").trim();
+      h.classList.add("stage-active");
+    }
+    setBadge(sname, "active", stage.label ?? "running");
+    statusBar.textContent = `otta:${sname.toUpperCase()} — ${(stage.label ?? "active").toUpperCase()}`;
 
-  const STAGES = ["builder", "reviewer", "qa", "devops"];
-
-  function getBadge(name: string) { return document.getElementById(`stage-${name}-badge`); }
-  function getTime(name: string)  { return document.getElementById(`stage-${name}-time`); }
-  function getHeader(name: string){ return document.getElementById(`stage-${name}`); }
-
-  function setBadge(name: string, state: "waiting"|"active"|"pass"|"fail", label: string) {
-    const b = getBadge(name); if (!b) return;
-    b.className = `stage-badge mt-1.5 inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${state}-badge`;
-    const dot = b.querySelector(".stage-dot") as HTMLElement;
-    const lbl = b.querySelector(".stage-label") as HTMLElement;
-    if (dot) dot.className = `stage-dot h-1 w-1 rounded-full ${state === "active" ? "bg-[#818cf8]" : state === "pass" ? "bg-[#6ee7b7]" : state === "fail" ? "bg-[#fca5a5]" : "bg-zinc-700"}`;
-    if (lbl) lbl.textContent = label;
-  }
-
-  function resetRun() {
-    log.innerHTML = "";
-    STAGES.forEach(n => {
-      setBadge(n, "waiting", "waiting");
-      const t = getTime(n); if (t) t.textContent = "";
-      const h = getHeader(n); if (h) h.classList.remove("stage-active","stage-done");
-    });
-    statusBar.textContent = "IDLE";
-    costEl.textContent = "$0.00";
-  }
-
-  function addLog(text: string, cls = "text-zinc-500") {
-    const row = document.createElement("div");
-    row.className = `${cls} opacity-0 transition-opacity duration-200`;
-    row.textContent = text;
-    log.appendChild(row);
-    requestAnimationFrame(() => { row.classList.remove("opacity-0"); });
-    log.scrollTop = log.scrollHeight;
-    // Keep last N lines
-    while (log.children.length > 14) log.removeChild(log.children[0]);
-  }
-
-  function delay(ms: number) { return new Promise<void>(r => setTimeout(r, ms)); }
-
-  async function runStage(stage: StageScript, startTime: number): Promise<void> {
-    const h = getHeader(stage.name); if (h) h.classList.add("stage-active");
-    setBadge(stage.name, "active", "running");
-    statusBar.textContent = `otta:${stage.name.toUpperCase()} — ACTIVE`;
-
-    let elapsed = 0;
+    const stageStart = Date.now();
     for (const line of stage.lines) {
       await delay(line.delay);
-      elapsed += line.delay;
-      const cost = ((Date.now() - startTime) / 1000 * 0.004).toFixed(2);
-      costEl.textContent = `$${cost}`;
       addLog(line.text, line.cls ?? "text-zinc-500");
     }
-    await delay(Math.max(0, stage.duration - elapsed));
+    await delay(400);
 
-    const h2 = getHeader(stage.name); if (h2) { h2.classList.remove("stage-active"); h2.classList.add("stage-done"); }
-    const runMs = Date.now() - startTime;
-    const t = getTime(stage.name); if (t) t.textContent = `${(runMs / 1000).toFixed(1)}s`;
-    setBadge(stage.name, stage.passes ? "pass" : "fail", stage.passes ? "pass" : "fail");
+    const elapsed = ((Date.now() - stageStart) / 1000).toFixed(1);
+    const t = $time(sname); if (t) t.textContent = `${elapsed}s`;
+    if (h) {
+      h.classList.remove("stage-active");
+      h.classList.add(stage.state === "skip" ? "stage-skip" : "stage-done");
+    }
+    setBadge(sname, stage.state ?? "pass", stage.state === "skip" ? "merged" : "pass");
   }
 
-  async function playRun(run: PipelineRun) {
+  async function playRun(run: RunDef, runIdx: number) {
     resetRun();
-    await delay(900);
-    issueLabel.textContent = run.issue;
-    slotLabel.textContent = run.slot;
-    addLog(`→ received issue ${run.issue}`, "text-zinc-600");
-    await delay(600);
+    await delay(700);
 
-    const runStart = Date.now();
-    for (const stage of run.stages) {
-      await runStage(stage, runStart);
+    // Update UI labels
+    issueEl.textContent = run.issue;
+    scenLabel.textContent = run.scenario;
+
+    // Update progress dots
+    const d0 = document.getElementById("dot-0");
+    const d1 = document.getElementById("dot-1");
+    if (runIdx === 0) {
+      d0?.classList.replace("bg-zinc-700", "bg-indigo-500");
+      d0?.classList.replace("w-1.5", "w-4");
+      d1?.classList.replace("bg-indigo-500", "bg-zinc-700");
+      d1?.classList.replace("w-4", "w-1.5");
+    } else {
+      d1?.classList.replace("bg-zinc-700", "bg-indigo-500");
+      d1?.classList.replace("w-1.5", "w-4");
+      d0?.classList.replace("bg-indigo-500", "bg-zinc-700");
+      d0?.classList.replace("w-4", "w-1.5");
     }
 
-    statusBar.textContent = "★ MERGED · FLYWHEEL UPDATED";
-    await delay(4500);
+    runStart = Date.now();
+    startCostTicker(0.004);
+
+    addLog(`→ received issue ${run.issue}`, "text-zinc-700");
+    await delay(500);
+
+    for (let i = 0; i < run.stages.length; i++) {
+      await animateStage(run.stages[i], i);
+      await delay(350);
+    }
+
+    stopCostTicker();
+    costEl.textContent = run.cost;
+    addLog(run.finalLine, run.finalCls ?? "text-indigo-300 font-bold");
+    statusBar.textContent = "PIPELINE COMPLETE";
+    await delay(5500);
   }
 
   async function loop() {
     let i = 0;
     while (true) {
-      await playRun(RUNS[i % RUNS.length]);
+      await playRun(RUNS[i % RUNS.length], i % RUNS.length);
       i++;
       await delay(1200);
     }
