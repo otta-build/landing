@@ -3,46 +3,153 @@ import { BRAND, SITE } from "../config";
 import { proofMetrics } from "../data/content";
 ---
 
-<section class="relative overflow-hidden bg-slate-950 text-white">
-  <!-- grid backdrop -->
+<section id="hero-spotlight" class="relative overflow-hidden bg-zinc-950 text-white border-b border-zinc-900 py-16 sm:py-20 lg:py-24">
+  <!-- spotlight tracking hover glow -->
+  <div class="spotlight-glow pointer-events-none absolute inset-0 opacity-[0.25] transition-opacity duration-300"></div>
+
+  <!-- subtle grid background -->
   <div
-    class="pointer-events-none absolute inset-0 opacity-[0.18]"
-    style="background-image: linear-gradient(rgba(99,102,241,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.25) 1px, transparent 1px); background-size: 44px 44px;"
+    class="pointer-events-none absolute inset-0 opacity-[0.06]"
+    style="background-image: linear-gradient(rgba(99,102,241,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.15) 1px, transparent 1px); background-size: 44px 44px;"
   >
   </div>
-  <div
-    class="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-indigo-600/30 blur-3xl"
-  >
-  </div>
 
-  <div class="relative mx-auto w-full max-w-7xl px-4 pt-20 pb-16 sm:px-6 sm:pt-28 sm:pb-20">
-    <h1 class="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-      {SITE.tagline}
-    </h1>
+  <div class="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Top Row: Split Hero -->
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+      
+      <!-- Left side: Brand New Agentic OS Copywriting -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-none uppercase">
+          The self-learning AI software factory.
+        </h1>
+        
+        <p class="text-lg leading-relaxed text-zinc-300 font-light">
+          Otta turns vibe coding into a self-learning software factory — moving each idea through adaptive quality gates from raw concept to production-ready software, learning from every failure so future builds get better.
+        </p>
 
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
-      {SITE.subtitle}
-    </p>
+        <div class="space-y-4 text-sm text-zinc-400 pt-2">
+          <div class="flex items-start gap-2.5">
+            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><strong>Adaptive Quality Gates:</strong> Instead of treating AI coding as a one-shot prompt, ideas move through structured gates—product clarity, implementation, tests, review, deployment, verification, and real-world feedback.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><strong>Self-Learning Flywheel:</strong> Each gate checks, measures, and improves the work. When something breaks, Otta learns from that failure and automatically adapts the gate, preventing the same class of problem from happening again.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><strong>Stateful Task Sessions:</strong> Run dozens of features in parallel without chaos. Every task gets its own isolated memory and context ledger, preventing agents from getting confused, drifting from guidelines, or undoing each other's work.</span>
+          </div>
+        </div>
 
-    <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-      <a
-        href="#get-started"
-        class="rounded-lg bg-indigo-500 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-indigo-400"
-      >
-        Get started
-      </a>
-      <a
-        href={SITE.bookingUrl}
-        class="rounded-lg border border-white/20 px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:border-white/40 hover:bg-white/5"
-      >
-        Book a walkthrough
-      </a>
+        <div class="flex flex-col gap-3.5 sm:flex-row pt-4">
+          <a
+            href="#get-started"
+            class="rounded-lg bg-indigo-600 px-6 py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-indigo-500 hover:scale-[1.02] shadow-lg shadow-indigo-500/20"
+          >
+            Get access
+          </a>
+          <a
+            href={SITE.bookingUrl}
+            class="rounded-lg border border-zinc-800 px-6 py-3.5 text-center text-sm font-semibold text-zinc-300 transition-colors hover:text-white hover:border-zinc-750 hover:bg-zinc-900/40"
+          >
+            Book a walkthrough
+          </a>
+        </div>
+      </div>
+
+      <!-- Right side: Real-time Dynamic JavaScript Terminal Console (100% Flickering-Free & Flawless on iOS Safari!) -->
+      <div class="lg:col-span-5">
+        <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-5 shadow-2xl relative overflow-hidden">
+          
+          <!-- Terminal Header Chrome -->
+          <div class="flex items-center justify-between border-b border-zinc-900 pb-3 mb-4">
+            <div class="flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
+              <span class="ml-2 font-mono text-xs text-zinc-400 tracking-wider">Otta Factory — Gate Loop v1.1</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
+              <span class="font-mono text-[9px] text-zinc-500 tracking-wider">LIVE</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Active Screen Area (Populated in real-time by JS script) -->
+          <div id="terminal-screen" class="font-mono text-[11px] leading-relaxed select-none min-h-[270px] max-h-[270px] overflow-y-auto space-y-3.5 text-zinc-300">
+            <!-- Loading state fallback before JS mounts -->
+            <div class="text-zinc-500">// Initializing live controller feed...</div>
+          </div>
+
+          <!-- Terminal Footer Bar -->
+          <div class="mt-4 border-t border-zinc-900 pt-3 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+            <span>FACTORY GATE LEDGER</span>
+            <span class="text-indigo-400 font-bold">100% DEFECT-FREE SHIP</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: 4 Core OS Architecture Layers -->
+    <div class="mt-20">
+      <div class="text-xs font-semibold tracking-wider text-zinc-400 uppercase border-b border-zinc-900 pb-3">// CORE ARCHITECTURE & LAYERS</div>
+      <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Card 1 -->
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">01</div>
+          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">01 / Rules Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Global "standing orders"</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Enforce team-wide architectural constraints, strict typechecks, and test-first TDD. Prompts drift, rules don't.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">02</div>
+          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">02 / Orchestration Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Multi-agent coordination</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Breaks high-level spec goals into subtasks and delegates them to specialized, parallel executors (Claude Code, Codex, or custom subagents).
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">03</div>
+          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">03 / Memory Layer</span>
+          <h3 class="mt-4 text-base font-bold text-white">Short & Persistent memory</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Git-canonical project brain and cross-agent recall bus so agents never forget context or repeat dead-end mistakes.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
+          <div class="absolute top-0 right-0 p-3 font-mono text-4xl font-black text-white/5 group-hover:text-indigo-500/10 transition-colors">04</div>
+          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">04 / Execution & MCP</span>
+          <h3 class="mt-4 text-base font-bold text-white">Secure Gateway</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
+            Provides limited, role-based tool access (terminals, filesystems, web-search via MCP) to prevent destructive unvalidated runs.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- proof strip -->
-    <div class="mt-14 border-t border-white/10 pt-8">
+    <div class="mt-20 border-t border-zinc-900 pt-8">
       <p class="text-xs font-medium tracking-wide text-slate-400 uppercase">
-        Proven shipping a real production SaaS — last 90 days
+        Otta Observability metrics (SaaS delivery record — last 90 days)
       </p>
       <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
         {
@@ -58,3 +165,154 @@ import { proofMetrics } from "../data/content";
     </div>
   </div>
 </section>
+
+<!-- Scoped CSS for spotlight glow -->
+<style>
+  .spotlight-glow {
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 40%), rgba(99, 102, 241, 0.12), transparent 80%);
+  }
+</style>
+
+<script>
+  // 1. Mouse Spotlight tracking
+  const hero = document.getElementById("hero-spotlight");
+  hero?.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    hero.style.setProperty("--mouse-x", `${x}px`);
+    hero.style.setProperty("--mouse-y", `${y}px`);
+  });
+
+  // 2. Flawless JS Typewriter & Terminal Simulator (Flicker-Free, hardware-friendly, Safari-compatible)
+  interface TermLine {
+    text: string;
+    class: string;
+    typewriter?: boolean;
+    delay?: number;
+  }
+
+  const logLines: TermLine[] = [
+    {
+      text: 'Triggered via GitHub App: "implement-metrics" (slot #4)',
+      class: 'text-white',
+      typewriter: true,
+      delay: 1500
+    },
+    {
+      text: '// Creating parallel isolated worktree on slot #4',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '├─ Fetching project context... OK',
+      class: 'text-zinc-400',
+      delay: 600
+    },
+    {
+      text: '└─ Spawning claude-code executor... ACTIVE',
+      class: 'text-zinc-400',
+      delay: 800
+    },
+    {
+      text: '// Enforcing merge-blocking gates',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '├─ Running strict typecheck... PASS',
+      class: 'text-zinc-400',
+      delay: 700
+    },
+    {
+      text: '✕ FAIL: test_ledger_total (Expected 457, got null)',
+      class: 'text-rose-400 font-semibold',
+      delay: 1000
+    },
+    {
+      text: '↻ Self-correcting code in apps/landing...',
+      class: 'text-amber-400 font-semibold',
+      delay: 1800
+    },
+    {
+      text: '// Re-running test-first validation',
+      class: 'text-zinc-500',
+      delay: 800
+    },
+    {
+      text: '✓ PASS: test_ledger_total (100% test-driven)',
+      class: 'text-indigo-400 font-semibold',
+      delay: 900
+    },
+    {
+      text: '├─ Visual capture (desktop+mobile)... 8 shots verified',
+      class: 'text-zinc-400',
+      delay: 800
+    },
+    {
+      text: '★ All gates green. Merged Pull Request #210!',
+      class: 'text-indigo-400 font-bold',
+      delay: 4000
+    }
+  ];
+
+  const screen = document.getElementById("terminal-screen");
+
+  function typeString(el: HTMLElement, str: string, index: number, callback: () => void) {
+    if (index < str.length) {
+      el.textContent += str[index];
+      setTimeout(() => typeString(el, str, index + 1, callback), 30);
+    } else {
+      callback();
+    }
+  }
+
+  function renderTerminal(lineIndex: number) {
+    if (!screen) return;
+
+    if (lineIndex >= logLines.length) {
+      // Loop ends. Wait and reset!
+      setTimeout(() => {
+        screen.innerHTML = "";
+        renderTerminal(0);
+      }, 3500);
+      return;
+    }
+
+    const current = logLines[lineIndex];
+    const row = document.createElement("div");
+    row.className = current.class + " transition-opacity duration-300 opacity-0";
+    screen.appendChild(row);
+
+    // Force reflow for fade-in transition
+    row.clientHeight;
+    row.classList.remove("opacity-0");
+
+    if (current.typewriter) {
+      const promptSymbol = document.createElement("span");
+      promptSymbol.className = "text-indigo-400 font-bold mr-2";
+      promptSymbol.textContent = "→";
+      row.appendChild(promptSymbol);
+
+      const typeSpan = document.createElement("span");
+      row.appendChild(typeSpan);
+
+      typeString(typeSpan, current.text, 0, () => {
+        setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
+      });
+    } else {
+      row.textContent = current.text;
+      
+      // Auto scroll container
+      screen.scrollTop = screen.scrollHeight;
+      
+      setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
+    }
+  }
+
+  // Start feed
+  if (screen) {
+    screen.innerHTML = "";
+    renderTerminal(0);
+  }
+</script>

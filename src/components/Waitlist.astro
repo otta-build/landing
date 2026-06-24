@@ -8,9 +8,9 @@ import { BRAND } from "../config";
       Request access to {BRAND} Cockpit
     </h2>
     <p class="mx-auto mt-4 max-w-xl text-base text-slate-300">
-      The desktop app — autonomous pipeline UI, real-time run timeline, parallel
-      worktrees. We're onboarding teams in waves with founder pricing. Drop your
-      email and we'll reach out.
+      Request early access to the Otta Cockpit desktop app — the full
+      autonomous pipeline UI with issue management, live run timelines, and
+      agent gate approvals. Onboarding in waves with early-access pricing.
     </p>
 
     <form id="waitlist-form" class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
@@ -26,9 +26,9 @@ import { BRAND } from "../config";
       />
       <button
         type="submit"
-        class="rounded-lg bg-indigo-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-400 disabled:opacity-60"
+        class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 disabled:opacity-60"
       >
-        Request access
+        Get access
       </button>
     </form>
     <p id="waitlist-status" class="mt-3 min-h-5 text-sm" role="status" aria-live="polite"></p>
@@ -54,14 +54,13 @@ import { BRAND } from "../config";
       });
       const data = await res.json();
       if (res.ok) {
-        (window as any).posthog?.capture("get_access_requested", {
-          email,
-          already: data.already,
-        });
+        if (typeof window !== "undefined" && (window as any).posthog) {
+          (window as any).posthog.capture('get_access_requested', { email });
+        }
         status.textContent = data.already
-          ? "You're already on the list — talk soon."
-          : "You're on the list! We'll be in touch.";
-        status.className = "mt-3 min-h-5 text-sm text-emerald-400";
+          ? "You've already requested access — we'll be in touch soon."
+          : "Access request received! We'll be in touch.";
+        status.className = "mt-3 min-h-5 text-sm text-indigo-400";
         form.reset();
       } else {
         status.textContent = data.error || "Something went wrong. Try again.";

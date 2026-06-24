@@ -12,7 +12,7 @@ export const SITE = {
   jeanUrl: "https://jean.build",
   // Otta Pulse GitHub App install URL.
   pulseInstallUrl: "https://github.com/apps/otta-pulse/installations/new",
-  tagline: "AI agents that ship production code — and prove it works.",
+  tagline: "The self-learning software factory for vibe-coded ideas.",
   subtitle:
-    "Otta is a GitHub-native, self-hostable autonomous dev platform. An idea becomes a shipped, cost-accounted change with just two human gates — approve the plan, approve the promote. In between, agents test-drive, visually verify, and gate every change before it merges.",
+    "Otta turns vibe coding into a self-learning software factory — where every idea passes through adaptive quality gates, failures improve the system, and only production-ready software ships.",
 };
