@@ -82,35 +82,58 @@ import { proofMetrics } from "../data/content";
         Book a walkthrough
       </a>
     </div>
-
-    <!-- Inline proof strip -->
-    <div class="hero-reveal hero-reveal-d4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-600">
-      <span><span class="font-mono font-bold text-zinc-300">457</span> PRs merged · 90 days</span>
-      <span class="text-zinc-800">·</span>
-      <span><span class="font-mono font-bold text-zinc-300">7 min</span> median PR cycle</span>
-      <span class="text-zinc-800">·</span>
-      <span><span class="font-mono font-bold text-zinc-300">6 / 3</span> blockers caught on CI-green PRs</span>
-    </div>
   </div>
 
-  <!-- ─── LIVE TERMINAL ─── -->
-  <div class="hero-reveal hero-reveal-d5 relative mx-auto w-full max-w-3xl px-4 pb-16 sm:px-6">
-    <div class="rounded-2xl border border-zinc-800/60 bg-black/60 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/60">
+  <!-- ─── PIPELINE VISUALIZER ─── -->
+  <div class="hero-reveal hero-reveal-d5 relative mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
+    <div class="rounded-2xl border border-zinc-800/60 bg-black/70 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/60">
+
+      <!-- Window chrome -->
       <div class="flex items-center justify-between border-b border-zinc-900 px-5 py-3">
         <div class="flex items-center gap-1.5">
-          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700"></span>
-          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700"></span>
-          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700"></span>
-          <span class="ml-3 font-mono text-[11px] text-zinc-600">otta · factory gate loop</span>
+          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-zinc-700/80"></span>
+          <span class="ml-3 font-mono text-[11px] text-zinc-600">otta · pipeline · <span id="pipe-issue-label" class="text-zinc-500">"ship-analytics-dashboard" #47</span></span>
         </div>
-        <div class="flex items-center gap-1.5">
-          <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
-          <span class="font-mono text-[10px] text-zinc-600 tracking-widest uppercase">live</span>
+        <div class="flex items-center gap-3">
+          <span id="pipe-slot" class="font-mono text-[10px] text-zinc-700">slot-02</span>
+          <span class="flex items-center gap-1">
+            <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+            <span class="font-mono text-[10px] text-zinc-600 tracking-widest uppercase">live</span>
+          </span>
         </div>
       </div>
-      <div id="terminal-screen" class="font-mono text-[11px] leading-relaxed px-5 py-4 min-h-[180px] max-h-[180px] overflow-hidden text-zinc-400 space-y-2">
-        <div class="text-zinc-700">// Initializing live controller feed...</div>
+
+      <!-- Stage headers -->
+      <div class="grid grid-cols-4 border-b border-zinc-900">
+        {["builder", "reviewer", "qa", "devops"].map((name, i) => (
+          <div id={`stage-${name}`} class={`stage-header border-zinc-900 px-3 py-2.5 ${i < 3 ? "border-r" : ""}`}>
+            <div class="font-mono text-[9px] text-zinc-700 tracking-widest uppercase mb-1">0{i + 1}</div>
+            <div class="font-mono text-[11px] font-bold text-zinc-500">otta:{name}</div>
+            <div id={`stage-${name}-badge`} class="stage-badge mt-1.5 inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider waiting-badge">
+              <span class="stage-dot h-1 w-1 rounded-full bg-zinc-700"></span>
+              <span class="stage-label">waiting</span>
+            </div>
+            <div id={`stage-${name}-time`} class="stage-time mt-1 font-mono text-[9px] text-zinc-700 h-3"></div>
+          </div>
+        ))}
       </div>
+
+      <!-- Log output -->
+      <div id="pipeline-log" class="font-mono text-[11px] leading-relaxed px-5 py-4 min-h-[160px] max-h-[160px] overflow-hidden text-zinc-400 space-y-1.5">
+        <div class="text-zinc-700">// Waiting for next issue...</div>
+      </div>
+
+      <!-- Footer bar -->
+      <div class="flex items-center justify-between border-t border-zinc-900 px-5 py-2.5 text-[10px] font-mono">
+        <div class="flex items-center gap-4 text-zinc-700">
+          <span>OTTA PULSE <span class="text-zinc-600">v1.1</span></span>
+          <span id="pipe-cost" class="text-zinc-700">$0.00</span>
+        </div>
+        <div id="pipe-status-bar" class="text-zinc-700">IDLE</div>
+      </div>
+
     </div>
   </div>
 
@@ -122,9 +145,9 @@ import { proofMetrics } from "../data/content";
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {[
         { num: "01", tag: "Rules Layer", title: "Global standing orders", body: "Team-wide constraints, strict typechecks, test-first TDD. Prompts drift, rules don't." },
-        { num: "02", tag: "Orchestration", title: "Multi-agent coordination", body: "Breaks goals into subtasks, delegates to parallel executors — Claude Code, Codex, or custom." },
-        { num: "03", tag: "Memory Layer", title: "Short & persistent memory", body: "Git-canonical project brain + cross-agent recall. Agents never forget context or repeat dead ends." },
-        { num: "04", tag: "Execution & MCP", title: "Secure gateway", body: "Role-based tool access — terminals, filesystems, web via MCP — preventing destructive unvalidated runs." },
+        { num: "02", tag: "Orchestration", title: "Multi-agent pipeline", body: "builder → reviewer → qa → devops. Each agent is specialized; none self-approve." },
+        { num: "03", tag: "Memory Layer", title: "Short & persistent memory", body: "Git-canonical brain + cross-agent recall via mem0. Agents never repeat dead ends." },
+        { num: "04", tag: "GEPA Flywheel", title: "Self-learning optimizer", body: "Rich pipeline verdicts feed GEPA. Prompts improve from outcomes — 35× more sample-efficient than RL." },
       ].map(c => (
         <div class="group relative rounded-xl border border-zinc-900 bg-zinc-950 p-5 overflow-hidden transition-all duration-300 hover:border-indigo-500/20 hover:bg-zinc-900/60 hover:-translate-y-0.5">
           <div class="absolute top-3 right-4 font-mono text-5xl font-black text-white/[0.035] group-hover:text-indigo-500/[0.07] transition-colors select-none">{c.num}</div>
@@ -157,7 +180,6 @@ import { proofMetrics } from "../data/content";
 </section>
 
 <style>
-  /* Gradient headline */
   .gradient-heading {
     background: linear-gradient(135deg, #818cf8 0%, #a78bfa 40%, #c084fc 70%, #e879f9 100%);
     -webkit-background-clip: text;
@@ -165,26 +187,24 @@ import { proofMetrics } from "../data/content";
     background-clip: text;
   }
 
-  /* Orb drift animation */
   @keyframes orb-drift-1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(60px, -40px) scale(1.08); }
-    66% { transform: translate(-30px, 50px) scale(0.95); }
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(60px,-40px) scale(1.08); }
+    66% { transform: translate(-30px,50px) scale(0.95); }
   }
   @keyframes orb-drift-2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    40% { transform: translate(-50px, 30px) scale(1.05); }
-    70% { transform: translate(40px, -60px) scale(0.97); }
+    0%, 100% { transform: translate(0,0) scale(1); }
+    40% { transform: translate(-50px,30px) scale(1.05); }
+    70% { transform: translate(40px,-60px) scale(0.97); }
   }
   @keyframes orb-drift-3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -30px) scale(1.1); }
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px,-30px) scale(1.1); }
   }
   .hero-orb-1 { animation: orb-drift-1 18s ease-in-out infinite; }
   .hero-orb-2 { animation: orb-drift-2 22s ease-in-out infinite; }
   .hero-orb-3 { animation: orb-drift-3 15s ease-in-out infinite; }
 
-  /* Reveal animations */
   .hero-reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -200,89 +220,267 @@ import { proofMetrics } from "../data/content";
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Active tab */
   .install-tab-active {
     color: white;
-    background: rgba(99, 102, 241, 0.12);
-    border-bottom: 1px solid rgba(99, 102, 241, 0.4);
+    background: rgba(99,102,241,0.12);
+    border-bottom: 1px solid rgba(99,102,241,0.4);
   }
+
+  /* Stage badge states */
+  .waiting-badge  { background: rgba(255,255,255,0.04); color: #52525b; }
+  .active-badge   { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+  .pass-badge     { background: rgba(52,211,153,0.1);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
+  .fail-badge     { background: rgba(248,113,113,0.1); color: #fca5a5; border: 1px solid rgba(248,113,113,0.25); }
+
+  .active-badge .stage-dot { background: #818cf8; animation: pulse 1s ease-in-out infinite; }
+  .pass-badge   .stage-dot { background: #6ee7b7; }
+  .fail-badge   .stage-dot { background: #fca5a5; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  .stage-header.stage-active  { background: rgba(99,102,241,0.04); }
+  .stage-header.stage-done    { background: rgba(52,211,153,0.03); }
 </style>
 
 <script>
   // ── Tab switcher ──
-  const tabs = document.querySelectorAll<HTMLButtonElement>(".install-tab");
-  const panels = document.querySelectorAll<HTMLElement>(".install-panel");
-  tabs.forEach(tab => {
+  document.querySelectorAll<HTMLButtonElement>(".install-tab").forEach(tab => {
     tab.addEventListener("click", () => {
       const target = tab.dataset.tab;
-      tabs.forEach(t => {
-        t.classList.toggle("install-tab-active", t.dataset.tab === target);
-        t.classList.toggle("text-zinc-500", t.dataset.tab !== target);
-        t.style.borderBottom = t.dataset.tab === target ? "1px solid rgba(99,102,241,0.4)" : "";
+      document.querySelectorAll<HTMLButtonElement>(".install-tab").forEach(t => {
+        const on = t.dataset.tab === target;
+        t.classList.toggle("install-tab-active", on);
+        t.classList.toggle("text-zinc-500", !on);
+        (t as any).style.borderBottom = on ? "1px solid rgba(99,102,241,0.4)" : "";
       });
-      panels.forEach(p => {
+      document.querySelectorAll<HTMLElement>(".install-panel").forEach(p => {
         p.classList.toggle("hidden", !p.id.endsWith(target ?? ""));
       });
     });
   });
 
-  // ── Terminal animation ──
-  interface TermLine { text: string; cls: string; typewriter?: boolean; delay?: number; }
+  // ── Pipeline animation ──
+  interface PipelineRun {
+    issue: string;
+    slot: string;
+    stages: StageScript[];
+  }
+  interface StageScript {
+    name: string;
+    duration: number; // ms before passing to next
+    lines: { text: string; cls?: string; delay: number }[];
+    failLine?: { text: string; cls?: string; delay: number };
+    passes: boolean;
+  }
 
-  const LOG: TermLine[] = [
-    { text: 'Triggered via GitHub App: "implement-metrics" (slot #4)', cls: "text-white", typewriter: true, delay: 1400 },
-    { text: "// Creating parallel isolated worktree on slot #4", cls: "text-zinc-600", delay: 700 },
-    { text: "├─ Fetching project context... OK", cls: "text-zinc-500", delay: 550 },
-    { text: "└─ Spawning claude-code executor... ACTIVE", cls: "text-zinc-500", delay: 750 },
-    { text: "// Enforcing merge-blocking gates", cls: "text-zinc-600", delay: 700 },
-    { text: "├─ Running strict typecheck... PASS", cls: "text-zinc-500", delay: 650 },
-    { text: "✕ FAIL: test_ledger_total (Expected 457, got null)", cls: "text-rose-400 font-semibold", delay: 950 },
-    { text: "↻ Self-correcting — regenerating fix...", cls: "text-amber-400 font-semibold", delay: 1700 },
-    { text: "// Re-running test-first validation", cls: "text-zinc-600", delay: 750 },
-    { text: "✓ PASS: test_ledger_total (100% test-driven)", cls: "text-indigo-400 font-semibold", delay: 850 },
-    { text: "├─ Visual capture (desktop+mobile)... 8 shots verified", cls: "text-zinc-500", delay: 750 },
-    { text: "★ All gates green. Merged Pull Request #210!", cls: "text-indigo-300 font-bold", delay: 3800 },
+  const RUNS: PipelineRun[] = [
+    {
+      issue: '"add-analytics-dashboard" #47',
+      slot: "slot-02",
+      stages: [
+        {
+          name: "builder",
+          duration: 9000,
+          passes: true,
+          lines: [
+            { text: "→ session context loaded from brain (247 rules)", cls: "text-zinc-500", delay: 400 },
+            { text: "→ created isolated worktree on slot-02", cls: "text-zinc-500", delay: 700 },
+            { text: "→ spawning claude-code executor...", cls: "text-zinc-500", delay: 600 },
+            { text: "  writing failing test: test_dashboard_render", cls: "text-zinc-600", delay: 900 },
+            { text: "✕ FAIL test_dashboard_render (component undefined)", cls: "text-rose-400 font-semibold", delay: 1000 },
+            { text: "  implementing AnalyticsDashboard component...", cls: "text-zinc-500", delay: 1400 },
+            { text: "✓ PASS test_dashboard_render", cls: "text-emerald-400", delay: 900 },
+            { text: "  typecheck: strict mode... PASS", cls: "text-zinc-500", delay: 700 },
+            { text: "  preflight gate: platform-health... PASS", cls: "text-zinc-500", delay: 700 },
+            { text: "→ handing off to otta:reviewer", cls: "text-indigo-400 font-semibold", delay: 500 },
+          ],
+        },
+        {
+          name: "reviewer",
+          duration: 6500,
+          passes: true,
+          lines: [
+            { text: "→ loading spec for issue #47...", cls: "text-zinc-500", delay: 400 },
+            { text: "  AC1: dashboard renders /metrics route ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC2: token spend visible per run ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC3: mobile breakpoint ≥ 375px ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC4: no regressions in existing routes ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  scope: surgical — 3 files touched, 0 unrelated", cls: "text-zinc-600", delay: 600 },
+            { text: "→ spec compliance: PASS — handing to otta:qa", cls: "text-indigo-400 font-semibold", delay: 600 },
+          ],
+        },
+        {
+          name: "qa",
+          duration: 5500,
+          passes: true,
+          lines: [
+            { text: "→ adversarially verifying each AC...", cls: "text-zinc-500", delay: 400 },
+            { text: "  AC1 verified: dashboard route returns 200 ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC2 verified: cost_events envelope present ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  AC3 verified: viewport 375 snapshot captured ✓", cls: "text-zinc-500", delay: 800 },
+            { text: "  visual diff: 4 desktop + 4 mobile screenshots ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "→ gate: PASS — handing to otta:devops", cls: "text-indigo-400 font-semibold", delay: 600 },
+          ],
+        },
+        {
+          name: "devops",
+          duration: 5000,
+          passes: true,
+          lines: [
+            { text: "→ opening PR #48 with seeded .pr-body.md", cls: "text-zinc-500", delay: 400 },
+            { text: "  Otta Pulse GitHub App: checks registered", cls: "text-zinc-500", delay: 600 },
+            { text: "  acceptance-gate: ✓  coverage-gate: ✓", cls: "text-emerald-400", delay: 800 },
+            { text: "  visual-gate: ✓  typecheck-gate: ✓", cls: "text-emerald-400", delay: 700 },
+            { text: "★ PR #48 merged · Pulse telemetry logged", cls: "text-indigo-300 font-bold", delay: 1000 },
+            { text: "  flywheel: run verdict stored → GEPA ledger", cls: "text-zinc-600", delay: 700 },
+          ],
+        },
+      ],
+    },
+    {
+      issue: '"fix-auth-token-expiry" #52',
+      slot: "slot-01",
+      stages: [
+        {
+          name: "builder",
+          duration: 7000,
+          passes: true,
+          lines: [
+            { text: "→ brain recalled: 'token expiry check ≤ not <' (3 prior fixes)", cls: "text-amber-400", delay: 400 },
+            { text: "→ created worktree on slot-01", cls: "text-zinc-500", delay: 600 },
+            { text: "  writing failing test: test_token_expiry_boundary", cls: "text-zinc-600", delay: 800 },
+            { text: "✕ FAIL test_token_expiry_boundary (off-by-one)", cls: "text-rose-400 font-semibold", delay: 900 },
+            { text: "  applying fix: < → <= in auth/middleware.ts:88", cls: "text-zinc-500", delay: 1200 },
+            { text: "✓ PASS test_token_expiry_boundary", cls: "text-emerald-400", delay: 800 },
+            { text: "→ handing off to otta:reviewer", cls: "text-indigo-400 font-semibold", delay: 500 },
+          ],
+        },
+        {
+          name: "reviewer",
+          duration: 5000,
+          passes: true,
+          lines: [
+            { text: "  AC1: boundary case test present ✓", cls: "text-zinc-500", delay: 600 },
+            { text: "  AC2: no other auth logic changed ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "  surgical: 1 file, 1 line — no scope creep ✓", cls: "text-zinc-500", delay: 700 },
+            { text: "→ spec compliance: PASS — handing to otta:qa", cls: "text-indigo-400 font-semibold", delay: 600 },
+          ],
+        },
+        {
+          name: "qa",
+          duration: 4500,
+          passes: true,
+          lines: [
+            { text: "  adversarial: tried to break boundary... holds ✓", cls: "text-zinc-500", delay: 600 },
+            { text: "  regression: all 47 existing auth tests PASS ✓", cls: "text-zinc-500", delay: 800 },
+            { text: "→ gate: PASS — handing to otta:devops", cls: "text-indigo-400 font-semibold", delay: 600 },
+          ],
+        },
+        {
+          name: "devops",
+          duration: 4000,
+          passes: true,
+          lines: [
+            { text: "→ PR #53 opened · all Pulse checks green", cls: "text-zinc-500", delay: 400 },
+            { text: "  GEPA: verdict logged — 'token boundary fix'", cls: "text-zinc-600", delay: 700 },
+            { text: "  flywheel: brain updated — guard promoted to preflight", cls: "text-amber-400", delay: 900 },
+            { text: "★ PR #53 merged · $/PR: $0.18", cls: "text-indigo-300 font-bold", delay: 1000 },
+          ],
+        },
+      ],
+    },
   ];
 
-  const screen = document.getElementById("terminal-screen");
+  const log = document.getElementById("pipeline-log")!;
+  const issueLabel = document.getElementById("pipe-issue-label")!;
+  const slotLabel = document.getElementById("pipe-slot")!;
+  const costEl = document.getElementById("pipe-cost")!;
+  const statusBar = document.getElementById("pipe-status-bar")!;
 
-  function typeStr(el: HTMLElement, str: string, i: number, cb: () => void) {
-    if (i < str.length) {
-      el.textContent += str[i];
-      setTimeout(() => typeStr(el, str, i + 1, cb), 25);
-    } else {
-      cb();
-    }
+  const STAGES = ["builder", "reviewer", "qa", "devops"];
+
+  function getBadge(name: string) { return document.getElementById(`stage-${name}-badge`); }
+  function getTime(name: string)  { return document.getElementById(`stage-${name}-time`); }
+  function getHeader(name: string){ return document.getElementById(`stage-${name}`); }
+
+  function setBadge(name: string, state: "waiting"|"active"|"pass"|"fail", label: string) {
+    const b = getBadge(name); if (!b) return;
+    b.className = `stage-badge mt-1.5 inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${state}-badge`;
+    const dot = b.querySelector(".stage-dot") as HTMLElement;
+    const lbl = b.querySelector(".stage-label") as HTMLElement;
+    if (dot) dot.className = `stage-dot h-1 w-1 rounded-full ${state === "active" ? "bg-[#818cf8]" : state === "pass" ? "bg-[#6ee7b7]" : state === "fail" ? "bg-[#fca5a5]" : "bg-zinc-700"}`;
+    if (lbl) lbl.textContent = label;
   }
 
-  function renderLine(idx: number) {
-    if (!screen) return;
-    if (idx >= LOG.length) {
-      setTimeout(() => { screen.innerHTML = ""; renderLine(0); }, 3200);
-      return;
-    }
-    const cur = LOG[idx];
+  function resetRun() {
+    log.innerHTML = "";
+    STAGES.forEach(n => {
+      setBadge(n, "waiting", "waiting");
+      const t = getTime(n); if (t) t.textContent = "";
+      const h = getHeader(n); if (h) h.classList.remove("stage-active","stage-done");
+    });
+    statusBar.textContent = "IDLE";
+    costEl.textContent = "$0.00";
+  }
+
+  function addLog(text: string, cls = "text-zinc-500") {
     const row = document.createElement("div");
-    row.className = cur.cls + " opacity-0 transition-opacity duration-200";
-    screen.appendChild(row);
-    requestAnimationFrame(() => row.classList.remove("opacity-0"));
+    row.className = `${cls} opacity-0 transition-opacity duration-200`;
+    row.textContent = text;
+    log.appendChild(row);
+    requestAnimationFrame(() => { row.classList.remove("opacity-0"); });
+    log.scrollTop = log.scrollHeight;
+    // Keep last N lines
+    while (log.children.length > 14) log.removeChild(log.children[0]);
+  }
 
-    if (cur.typewriter) {
-      const arrow = document.createElement("span");
-      arrow.className = "text-indigo-400 font-bold mr-2";
-      arrow.textContent = "→";
-      row.appendChild(arrow);
-      const span = document.createElement("span");
-      row.appendChild(span);
-      typeStr(span, cur.text, 0, () => {
-        setTimeout(() => renderLine(idx + 1), cur.delay ?? 1000);
-      });
-    } else {
-      row.textContent = cur.text;
-      screen.scrollTop = screen.scrollHeight;
-      setTimeout(() => renderLine(idx + 1), cur.delay ?? 1000);
+  function delay(ms: number) { return new Promise<void>(r => setTimeout(r, ms)); }
+
+  async function runStage(stage: StageScript, startTime: number): Promise<void> {
+    const h = getHeader(stage.name); if (h) h.classList.add("stage-active");
+    setBadge(stage.name, "active", "running");
+    statusBar.textContent = `otta:${stage.name.toUpperCase()} — ACTIVE`;
+
+    let elapsed = 0;
+    for (const line of stage.lines) {
+      await delay(line.delay);
+      elapsed += line.delay;
+      const cost = ((Date.now() - startTime) / 1000 * 0.004).toFixed(2);
+      costEl.textContent = `$${cost}`;
+      addLog(line.text, line.cls ?? "text-zinc-500");
+    }
+    await delay(Math.max(0, stage.duration - elapsed));
+
+    const h2 = getHeader(stage.name); if (h2) { h2.classList.remove("stage-active"); h2.classList.add("stage-done"); }
+    const runMs = Date.now() - startTime;
+    const t = getTime(stage.name); if (t) t.textContent = `${(runMs / 1000).toFixed(1)}s`;
+    setBadge(stage.name, stage.passes ? "pass" : "fail", stage.passes ? "pass" : "fail");
+  }
+
+  async function playRun(run: PipelineRun) {
+    resetRun();
+    await delay(900);
+    issueLabel.textContent = run.issue;
+    slotLabel.textContent = run.slot;
+    addLog(`→ received issue ${run.issue}`, "text-zinc-600");
+    await delay(600);
+
+    const runStart = Date.now();
+    for (const stage of run.stages) {
+      await runStage(stage, runStart);
+    }
+
+    statusBar.textContent = "★ MERGED · FLYWHEEL UPDATED";
+    await delay(4500);
+  }
+
+  async function loop() {
+    let i = 0;
+    while (true) {
+      await playRun(RUNS[i % RUNS.length]);
+      i++;
+      await delay(1200);
     }
   }
 
-  if (screen) { screen.innerHTML = ""; renderLine(0); }
+  loop();
 </script>
