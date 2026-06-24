@@ -54,6 +54,10 @@ import { BRAND } from "../config";
       });
       const data = await res.json();
       if (res.ok) {
+        (window as any).posthog?.capture("get_access_requested", {
+          email,
+          already: data.already,
+        });
         status.textContent = data.already
           ? "You've already requested access — we'll be in touch soon."
           : "Access request received! We'll be in touch.";
