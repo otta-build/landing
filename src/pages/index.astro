@@ -41,42 +41,140 @@ const POSTHOG_KEY =
   </head>
   <body class="bg-white text-gray-900 antialiased">
     <!-- top nav -->
-    <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur">
-      <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
-        <a href="/" class="flex items-center gap-2 text-sm font-bold tracking-tight text-white">
-          <svg class="h-6 w-6" viewBox="0 0 1024 1024" aria-hidden="true">
-            <defs>
-              <linearGradient id="navlogo" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#7C6CFF" />
-                <stop offset="1" stop-color="#3F2FB8" />
-              </linearGradient>
-            </defs>
-            <rect width="1024" height="1024" rx="232" fill="url(#navlogo)" />
-            <path d="M 512 250 A 262 262 0 1 1 304 360" fill="none" stroke="#fff" stroke-width="86" stroke-linecap="round" />
-            <circle cx="512" cy="250" r="70" fill="#fff" />
-          </svg>
-          {BRAND}
+    <!-- Nav glow line -->
+    <div class="pointer-events-none fixed top-0 left-0 right-0 z-30 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent"></div>
+
+    <header id="site-header" class="sticky top-0 z-20 transition-all duration-300 border-b border-white/[0.06] bg-zinc-950/75 backdrop-blur-xl">
+      <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2.5 text-sm font-bold tracking-tight text-white shrink-0">
+          <div class="relative">
+            <svg class="h-7 w-7 drop-shadow-[0_0_8px_rgba(124,108,255,0.6)]" viewBox="0 0 1024 1024" aria-hidden="true">
+              <defs>
+                <linearGradient id="navlogo" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#818cf8" />
+                  <stop offset="1" stop-color="#6d28d9" />
+                </linearGradient>
+              </defs>
+              <rect width="1024" height="1024" rx="232" fill="url(#navlogo)" />
+              <path d="M 512 250 A 262 262 0 1 1 304 360" fill="none" stroke="#fff" stroke-width="86" stroke-linecap="round" />
+              <circle cx="512" cy="250" r="70" fill="#fff" />
+            </svg>
+          </div>
+          <span class="text-white">{BRAND}</span>
         </a>
-        <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-          <a href="#pipeline" class="hover:text-white">Pipeline</a>
-          <a href="#pricing" class="hover:text-white">Pricing</a>
-          <a href="#get-started" class="hover:text-white">Get started</a>
-          <a href={SITE.bookingUrl} class="hover:text-white">Book a call</a>
+
+        <!-- Desktop links -->
+        <div class="hidden items-center gap-1 text-sm md:flex">
+          {[
+            { href: "#pipeline", label: "Pipeline" },
+            { href: "#pricing",  label: "Pricing"  },
+            { href: "#get-started", label: "Get started" },
+            { href: SITE.bookingUrl, label: "Book a call" },
+          ].map(l => (
+            <a href={l.href} class="nav-link rounded-md px-3 py-2 text-zinc-400 transition-colors hover:bg-white/[0.06] hover:text-white">
+              {l.label}
+            </a>
+          ))}
         </div>
-        <div class="flex items-center gap-3">
-          <a href="https://github.com/otta-build" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-slate-400 hover:text-white transition-colors">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+
+        <!-- Right side -->
+        <div class="flex items-center gap-2">
+          <!-- GitHub -->
+          <a href="https://github.com/otta-build" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            class="hidden rounded-md p-2 text-zinc-500 transition-colors hover:bg-white/[0.06] hover:text-white sm:flex">
+            <svg class="h-4.5 w-4.5 h-[18px] w-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" />
             </svg>
           </a>
-          <a
-            href="#get-started"
-            class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
-          >
+
+          <!-- CTA -->
+          <a href="#get-started"
+            class="relative hidden overflow-hidden rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition-all hover:bg-indigo-500 hover:shadow-indigo-500/30 sm:inline-flex items-center gap-1.5">
             Get started
           </a>
+
+          <!-- Hamburger (mobile only) -->
+          <button id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"
+            class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] text-zinc-400 transition-colors hover:bg-white/[0.06] hover:text-white md:hidden">
+            <svg id="hamburger-icon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="4" y1="7" x2="20" y2="7"/>
+              <line x1="4" y1="12" x2="20" y2="12"/>
+              <line x1="4" y1="17" x2="20" y2="17"/>
+            </svg>
+            <svg id="close-icon" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="5" y1="5" x2="19" y2="19"/>
+              <line x1="19" y1="5" x2="5" y2="19"/>
+            </svg>
+          </button>
         </div>
       </nav>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="mobile-menu-closed overflow-hidden border-t border-white/[0.06] md:hidden">
+        <div class="flex flex-col px-4 pb-5 pt-2 space-y-1">
+          {[
+            { href: "#pipeline",    label: "Pipeline"    },
+            { href: "#pricing",     label: "Pricing"     },
+            { href: "#get-started", label: "Get started" },
+            { href: SITE.bookingUrl, label: "Book a call" },
+          ].map(l => (
+            <a href={l.href} class="mobile-nav-link rounded-lg px-4 py-3 text-base font-medium text-zinc-300 transition-colors hover:bg-white/[0.06] hover:text-white">
+              {l.label}
+            </a>
+          ))}
+          <div class="pt-3 border-t border-white/[0.06] flex items-center gap-3">
+            <a href="https://github.com/otta-build" target="_blank" rel="noopener noreferrer"
+              class="flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/[0.06] hover:text-white">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/></svg>
+              otta-build
+            </a>
+            <a href="#get-started"
+              class="ml-auto rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 hover:bg-indigo-500 transition-colors">
+              Get started
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <style is:global>
+      .mobile-menu-closed { max-height: 0; transition: max-height 0.3s ease; }
+      .mobile-menu-open   { max-height: 400px; transition: max-height 0.35s ease; }
+      .nav-link { position: relative; }
+      .nav-link::after {
+        content: "";
+        position: absolute; bottom: 4px; left: 12px; right: 12px; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(129,140,248,0.7), transparent);
+        opacity: 0; transform: scaleX(0.6); transition: opacity 0.2s, transform 0.2s;
+      }
+      .nav-link:hover::after { opacity: 1; transform: scaleX(1); }
+    </style>
+
+    <script is:inline>
+      const btn  = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      const hIcon = document.getElementById("hamburger-icon");
+      const cIcon = document.getElementById("close-icon");
+
+      function toggleMenu(force) {
+        const open = force !== undefined ? force : menu.classList.contains("mobile-menu-closed");
+        menu.classList.toggle("mobile-menu-open",   open);
+        menu.classList.toggle("mobile-menu-closed", !open);
+        hIcon.classList.toggle("hidden", open);
+        cIcon.classList.toggle("hidden", !open);
+        btn.setAttribute("aria-expanded", String(open));
+      }
+
+      btn?.addEventListener("click", () => toggleMenu());
+
+      // Close on nav link tap
+      document.querySelectorAll(".mobile-nav-link").forEach(l => {
+        l.addEventListener("click", () => toggleMenu(false));
+      });
+    </script>
+
     </header>
 
     <main>
