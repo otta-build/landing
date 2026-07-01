@@ -1,0 +1,48 @@
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+import { BRAND, SITE } from "../../config";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = `Blog — ${BRAND}`;
+const description = `Notes on ${BRAND}'s self-learning AI software factory: gated shipping, agent pipelines, and what it takes to ship production-ready code from a vibe-coded idea.`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={`${SITE.website}blog`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-zinc-950 text-white antialiased">
+    <div class="mx-auto max-w-3xl px-6 py-16">
+      <a href="/" class="text-sm font-bold tracking-tight text-white">{BRAND}</a>
+      <h1 class="mt-6 mb-10 text-3xl font-bold text-white">Blog</h1>
+      <ul class="flex flex-col gap-8">
+        {posts.map((post) => (
+          <li class="border-b border-zinc-900 pb-8">
+            <a href={`/blog/${post.id}`} class="text-lg font-bold text-white hover:text-indigo-400 transition-colors">
+              {post.data.title}
+            </a>
+            <p class="mt-2 text-sm text-zinc-400">{post.data.description}</p>
+            <p class="mt-3 text-xs text-zinc-600">
+              {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </body>
+</html>
