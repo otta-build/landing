@@ -22,6 +22,20 @@ const POSTHOG_KEY =
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        const f = d.getElementsByTagName(s)[0];
+        const j = d.createElement(s);
+        const dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-W5J8ZHPR");
+    </script>
+    <!-- End Google Tag Manager -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -40,6 +54,15 @@ const POSTHOG_KEY =
     </script>
   </head>
   <body class="bg-zinc-950 text-white antialiased">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-W5J8ZHPR"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <!-- top nav -->
     <!-- Nav glow line -->
     <div class="pointer-events-none fixed top-0 left-0 right-0 z-30 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent"></div>
