@@ -1,0 +1,50 @@
+---
+import { BRAND, SITE } from "../config";
+import ConsentMode from "../components/ConsentMode.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
+import CookieNotice from "../components/CookieNotice.astro";
+const title = `Cookie & Privacy Notice — ${BRAND}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <ConsentMode />
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        const f = d.getElementsByTagName(s)[0];
+        const j = d.createElement(s);
+        const dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-W5J8ZHPR");
+    </script>
+    <!-- End Google Tag Manager -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="How otta.build uses cookies and analytics, and how you control them." />
+    <link rel="canonical" href={`${SITE.website}privacy`} />
+    <title>{title}</title>
+  </head>
+  <body style="background:#fff;">
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-W5J8ZHPR"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <CookieNotice
+      siteName="Otta"
+      domain="otta.build"
+      contactEmail="privacy@otta.build"
+      updated="2026-07-15"
+    />
+    <ConsentBanner accentColor="#6366f1" privacyUrl="/privacy" />
+  </body>
+</html>
