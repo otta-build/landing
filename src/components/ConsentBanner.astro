@@ -1,0 +1,206 @@
+---
+/**
+ * Consent banner — the visible opt-in that drives Consent Mode v2.
+ *
+ * Renders once per page (bottom, non-modal). On Accept it lifts every ad +
+ * analytics signal to "granted" and persists the choice; on Reject it records
+ * denial (defaults already deny) and hides. Both push a `consent_update`
+ * dataLayer event so GTM can (re)fire consent-gated tags without a reload.
+ *
+ * Pair with <ConsentMode> (sets the default-deny) + <Gtm>. Self-contained,
+ * scoped styles — no Tailwind/utility dependency, safe on any Astro site.
+ *
+ * Hidden by CSS until JS confirms no prior choice exists → no flash for
+ * returning visitors and no layout shift when JS is disabled.
+ */
+interface Props {
+  /** localStorage key — MUST match <ConsentMode storageKey>. Default "lc-consent". */
+  storageKey?: string;
+  /** Primary button / accent colour. Default LeadCognition teal. */
+  accentColor?: string;
+  /** Link to the privacy/cookie policy. Omit to hide the link. */
+  privacyUrl?: string;
+}
+const {
+  storageKey = "lc-consent",
+  accentColor = "#125445",
+  privacyUrl,
+} = Astro.props;
+---
+
+<div
+  id="lc-consent-banner"
+  class="lc-consent"
+  role="dialog"
+  aria-label="Cookie consent"
+  aria-live="polite"
+  hidden
+>
+  <p class="lc-consent__text">
+    We use cookies for analytics and to measure our ads. You can accept or
+    decline non-essential cookies.{
+      privacyUrl && (
+        <>
+          {" "}
+          <a class="lc-consent__link" href={privacyUrl}>
+            Learn more
+          </a>
+          .
+        </>
+      )
+    }
+  </p>
+  <div class="lc-consent__actions">
+    <button type="button" id="lc-consent-reject" class="lc-consent__btn lc-consent__btn--ghost">
+      Decline
+    </button>
+    <button type="button" id="lc-consent-accept" class="lc-consent__btn lc-consent__btn--primary">
+      Accept
+    </button>
+  </div>
+</div>
+
+<style define:vars={{ accentColor }}>
+  .lc-consent {
+    position: fixed;
+    inset: auto 0 0 0;
+    /* Sit above Intercom's launcher (~2.147e9) so Accept is never occluded. */
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+    background: hsl(220, 26%, 14%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.28);
+    font-family:
+      Satoshi,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .lc-consent[hidden] {
+    display: none;
+  }
+  .lc-consent__text {
+    margin: 0;
+    max-width: 68ch;
+  }
+  .lc-consent__link {
+    color: hsl(0, 0%, 100%);
+    text-decoration: underline;
+  }
+  .lc-consent__actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: stretch;
+  }
+  .lc-consent__btn {
+    appearance: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1;
+    min-height: 44px;
+    /* Mobile: full-width split so Accept clears the launcher corner. */
+    flex: 1;
+    transition: opacity 0.15s ease;
+  }
+  .lc-consent__btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .lc-consent__btn--primary {
+    background: var(--accentColor);
+    color: #fff;
+    border: 1px solid var(--accentColor);
+  }
+  .lc-consent__btn--ghost {
+    background: transparent;
+    color: hsl(0, 0%, 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  .lc-consent__btn:hover {
+    opacity: 0.9;
+  }
+
+  /* Desktop: single row, text left, buttons right. */
+  @media (min-width: 640px) {
+    .lc-consent {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding-left: max(1.25rem, env(safe-area-inset-left));
+      padding-right: max(1.25rem, env(safe-area-inset-right));
+    }
+    .lc-consent__actions {
+      flex-shrink: 0;
+    }
+    .lc-consent__btn {
+      flex: 0 0 auto;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ storageKey }}>
+  (function () {
+    var banner = document.getElementById("lc-consent-banner");
+    if (!banner) return;
+
+    function gtag() {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(arguments);
+    }
+
+    function persist(granted) {
+      try {
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify({ granted: granted, ts: Date.now() }),
+        );
+      } catch (_) {
+        /* storage blocked → choice lives only for this page load. */
+      }
+    }
+
+    function apply(granted) {
+      var state = granted ? "granted" : "denied";
+      gtag("consent", "update", {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state,
+        personalization_storage: state,
+      });
+      // Let GTM (re)fire consent-gated tags on the same page.
+      window.dataLayer.push({ event: "consent_update", consent_granted: granted });
+    }
+
+    function decide(granted) {
+      persist(granted);
+      apply(granted);
+      banner.hidden = true;
+    }
+
+    // Only surface the banner when no prior choice is stored.
+    var hasChoice = false;
+    try {
+      hasChoice = !!localStorage.getItem(storageKey);
+    } catch (_) {
+      hasChoice = false;
+    }
+    if (!hasChoice) banner.hidden = false;
+
+    var accept = document.getElementById("lc-consent-accept");
+    var reject = document.getElementById("lc-consent-reject");
+    if (accept) accept.addEventListener("click", function () { decide(true); });
+    if (reject) reject.addEventListener("click", function () { decide(false); });
+  })();
+</script>

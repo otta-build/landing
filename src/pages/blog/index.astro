@@ -2,6 +2,8 @@
 import "../../styles/global.css";
 import { getCollection } from "astro:content";
 import { BRAND, SITE } from "../../config";
+import ConsentMode from "../../components/ConsentMode.astro";
+import ConsentBanner from "../../components/ConsentBanner.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -14,6 +16,7 @@ const description = `Notes on ${BRAND}'s self-learning AI software factory: gate
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <ConsentMode />
     <!-- Google Tag Manager -->
     <script is:inline>
       (function (w, d, s, l, i) {
@@ -67,5 +70,6 @@ const description = `Notes on ${BRAND}'s self-learning AI software factory: gate
         ))}
       </ul>
     </div>
+    <ConsentBanner accentColor="#6366f1" />
   </body>
 </html>

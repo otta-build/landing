@@ -2,6 +2,8 @@
 import "../../styles/global.css";
 import { getCollection, render } from "astro:content";
 import { BRAND, SITE } from "../../config";
+import ConsentMode from "../../components/ConsentMode.astro";
+import ConsentBanner from "../../components/ConsentBanner.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -20,6 +22,7 @@ const title = `${post.data.title} — ${BRAND}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <ConsentMode />
     <!-- Google Tag Manager -->
     <script is:inline>
       (function (w, d, s, l, i) {
@@ -67,5 +70,6 @@ const title = `${post.data.title} — ${BRAND}`;
         <Content />
       </div>
     </article>
+    <ConsentBanner accentColor="#6366f1" />
   </body>
 </html>

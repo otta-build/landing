@@ -10,6 +10,8 @@ import Comparison from "../components/Comparison.astro";
 import Pricing from "../components/Pricing.astro";
 import GetStarted from "../components/GetStarted.astro";
 import FinalCta from "../components/FinalCta.astro";
+import ConsentMode from "../components/ConsentMode.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
 
 const title = `${BRAND} — ${SITE.tagline}`;
 const year = new Date().getFullYear();
@@ -22,6 +24,7 @@ const POSTHOG_KEY =
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <ConsentMode />
     <!-- Google Tag Manager -->
     <script is:inline>
       (function (w, d, s, l, i) {
@@ -392,5 +395,6 @@ const POSTHOG_KEY =
         }
       });
     </script>
+    <ConsentBanner accentColor="#6366f1" />
   </body>
 </html>
