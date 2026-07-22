@@ -10,11 +10,34 @@ import Comparison from "../components/Comparison.astro";
 import Pricing from "../components/Pricing.astro";
 import GetStarted from "../components/GetStarted.astro";
 import FinalCta from "../components/FinalCta.astro";
+import SeoHead from "../components/SeoHead.astro";
+import JsonLd from "../components/JsonLd.astro";
 import ConsentMode from "../components/ConsentMode.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 
 const title = `${BRAND} — ${SITE.tagline}`;
 const year = new Date().getFullYear();
+
+// GEO/SEO structured data — SoftwareApplication + Organization (what LLMs cite).
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: BRAND,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "macOS, Windows, Linux, Web",
+    description: SITE.subtitle,
+    url: SITE.website,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: BRAND,
+    url: SITE.website,
+    sameAs: [SITE.jeanUrl],
+  },
+];
 
 // PostHog project key. Defaults to the dedicated Otta project; override via PUBLIC_POSTHOG_KEY.
 const POSTHOG_KEY =
@@ -44,12 +67,8 @@ const POSTHOG_KEY =
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={SITE.subtitle} />
-    <link rel="canonical" href={SITE.website} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={SITE.subtitle} />
-    <meta property="og:type" content="website" />
-    <title>{title}</title>
+    <SeoHead title={title} />
+    <JsonLd schema={schema} />
     <!-- PostHog Analytics -->
     <script is:inline define:vars={{ phKey: POSTHOG_KEY }}>
       !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r),r=e,void 0!==a?r=e[a]=[]:a="posthog",r.people=r.people||[],r.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},r.people.toString=function(){return r.toString(1)+".people (stub)"},o="init capture register register_once track_pageview register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment get_group_property onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey getNextSurveyStep identify setPersonProperties group reset resetGroups set_config register_config_callback get_config_callback get_property getSessionId".split(" "),n=0;n<o.length;n++)g(r,o[n]);e._i.push([i,s,a])},e.__SV=1.0)} (document,window.posthog||[]);

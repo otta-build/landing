@@ -1,0 +1,10 @@
+---
+// Reusable JSON-LD injector. Structured data is what LLMs cite (GEO) and how
+// Google builds rich results — the highest-leverage on-page SEO/GEO surface.
+interface Props {
+  schema: Record<string, unknown> | Record<string, unknown>[];
+}
+const { schema } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
