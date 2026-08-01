@@ -1,0 +1,4 @@
+.pr-body.md
+node_modules/
+dist/
+.astro/
