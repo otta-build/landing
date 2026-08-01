@@ -35,12 +35,18 @@ bun run build
 
 ## Deploy
 
-Automatic on push to `main` via `.github/workflows/deploy.yml`.
+Cloudflare Pages builds and deploys this repo directly from git — no GitHub
+Actions workflow, no API token, no runner. Push to `main` deploys production;
+every PR gets its own preview URL automatically.
 
-**Do not run `wrangler pages deploy` by hand.** The Pages API token can write
-every project in the Cloudflare account; a manual deploy has previously
-clobbered both otta.build and dataforgtm.ai, which then needed restoring via
-the rollback API.
+Build settings live in the Pages project (`otta`), not in this repo:
+`build_command: bun run build`, `destination_dir: dist`. Node comes from
+`.node-version` (Astro needs >= 22.12).
+
+**Do not run `wrangler pages deploy` by hand.** It bypasses git and
+reintroduces live/repo drift, and the Pages API token can write every project
+in the account — a manual deploy has previously clobbered both otta.build and
+dataforgtm.ai, which then needed restoring via the rollback API.
 
 ## Ownership
 
