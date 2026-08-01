@@ -38,6 +38,33 @@ jobs:
       - name: Verify built inline scripts parse
         run: bun test tests/inline-script-syntax.test.ts
 
+      # otta-build/landing#2: the Pages project also has a GitHub source, so a
+      # push to main used to trigger a SECOND production build inside
+      # Cloudflare — racing this one 37 seconds apart, last writer winning. That
+      # path does not run the syntax guard above, so it could ship the exact
+      # snippet dev#92 cost 90 days of analytics to. Git-integration deploys are
+      # switched off; this fails the run if anyone turns them back on, because
+      # the symptom otherwise is an occasional unguarded deploy nobody sees.
+      - name: Verify Cloudflare git integration stays disabled
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          config="$(curl -sf \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/otta" \
+            | jq -c '.result.source.config // {}')"
+          enabled="$(printf '%s' "$config" | jq -r '.deployments_enabled')"
+          prod="$(printf '%s' "$config" | jq -r '.production_deployments_enabled')"
+          if [ "$enabled" = "true" ] || [ "$prod" = "true" ]; then
+            echo "::error::Cloudflare git-integration deploys are enabled for project 'otta'." >&2
+            echo "Two production deploy paths would race, and the git build skips this workflow's syntax guard." >&2
+            echo "Disable them in Pages → Settings → Builds & deployments, or via the API." >&2
+            exit 1
+          fi
+          echo "✓ git-integration deploys disabled (deployments_enabled=$enabled, production=$prod)"
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
