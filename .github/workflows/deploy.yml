@@ -1,0 +1,45 @@
+name: Deploy otta.build
+
+# otta.build deploys to Cloudflare Pages from this repo's main branch.
+# Runs on ubuntu-latest: this repo is public, so GitHub-hosted minutes are free
+# and builds no longer queue behind otta-build/dev's single self-hosted runner
+# (where a landing deploy sat behind a ~19-minute Tauri build).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & deploy otta.build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+      # Astro requires Node >= 22.12.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build
+        run: bunx astro build
+
+      # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
+      # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
+      # so with posthog undefined they all no-op and a broken pipeline looks
+      # exactly like a dead site. Fail the deploy instead of losing the data.
+      - name: Verify built inline scripts parse
+        run: bun test tests/inline-script-syntax.test.ts
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bunx wrangler pages deploy dist --project-name otta --branch main
