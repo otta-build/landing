@@ -18,12 +18,12 @@ concurrency:
 jobs:
   deploy:
     name: Build & deploy otta.build
-    # Matches otta-build/dev, where this workflow ran before the extraction.
-    # This repo is private in a free org, so GitHub-hosted minutes are
-    # unavailable and a self-hosted runner must be able to serve it. If the
-    # runner is registered against otta-build/dev only, either re-register it
-    # at ORG level or make this repo public and switch to ubuntu-latest.
-    runs-on: [self-hosted, linux, x64, otta-dev]
+    # GitHub-hosted. This repo is PUBLIC, so hosted minutes are free — which is
+    # why the site was extracted here rather than staying in otta-build/dev,
+    # where a private repo in a free org forced everything onto the single
+    # self-hosted Hetzner runner. Deploying no longer queues behind the
+    # ~19-minute cockpit build.
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
