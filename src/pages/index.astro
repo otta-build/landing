@@ -28,9 +28,30 @@ const POSTHOG_KEY =
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={SITE.subtitle} />
     <link rel="canonical" href={SITE.website} />
+    <!--
+      OTT-70: there was no og:image at all, and /og.png resolved to the HTML
+      404 page, so sharing otta.build in Telegram, Slack or X rendered no card.
+      Telegram in particular needs an absolute URL plus explicit width/height
+      to commit to a large preview rather than a thumbnail, and it will not
+      render SVG.
+    -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={SITE.subtitle} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Otta" />
+    <meta property="og:url" content={SITE.website} />
+    <meta property="og:image" content={new URL("/og.png", SITE.website).href} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Otta — the self-learning software factory. Agents build, review, QA and deploy behind gates none of them can approve."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={SITE.subtitle} />
+    <meta name="twitter:image" content={new URL("/og.png", SITE.website).href} />
     <title>{title}</title>
     <!-- PostHog Analytics -->
     <script is:inline define:vars={{ phKey: POSTHOG_KEY }}>
