@@ -19,7 +19,9 @@ export const proofMetrics = [
   { key: "deploy_tag", fallback: "960", label: "releases", sub: "auto-tagged" },
   {
     key: "pr_cycle_p50_minutes",
-    fallback: "7 min",
+    // 8.7 measured from live Pulse once the field shipped, rounded down. The
+    // first value here was a guess made before the endpoint could answer.
+    fallback: "8 min",
     label: "median PR cycle",
     sub: "open → merged",
     unit: "min" as const,
