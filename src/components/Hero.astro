@@ -1,6 +1,6 @@
 ---
 import { BRAND, SITE } from "../config";
-import { proofMetrics } from "../data/content";
+import { proofMetrics, PULSE_STATUS_URL } from "../data/content";
 ---
 
 <section id="hero-spotlight" class="relative overflow-hidden bg-zinc-950 text-white border-b border-zinc-900 py-16 sm:py-20 lg:py-24">
@@ -149,13 +149,23 @@ import { proofMetrics } from "../data/content";
     <!-- proof strip -->
     <div class="mt-20 border-t border-zinc-900 pt-8">
       <p class="text-xs font-medium tracking-wide text-slate-400 uppercase">
-        Otta Observability metrics (SaaS delivery record — last 90 days)
+        Live from Otta Pulse — <a
+          href="https://pulse.otta.build/status"
+          class="underline decoration-dotted underline-offset-2 hover:text-slate-300"
+          rel="noopener">check it yourself</a
+        >
       </p>
       <div class="mt-5 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
         {
           proofMetrics.map(m => (
             <div>
-              <div class="text-2xl font-bold sm:text-3xl">{m.value}</div>
+              <div
+                class="text-2xl font-bold sm:text-3xl"
+                data-pulse-metric={m.key}
+                data-pulse-unit={m.unit ?? ""}
+              >
+                {m.fallback}
+              </div>
               <div class="mt-1 text-xs font-semibold text-indigo-300">{m.label}</div>
               <div class="text-xs text-slate-500">{m.sub}</div>
             </div>
@@ -165,6 +175,42 @@ import { proofMetrics } from "../data/content";
     </div>
   </div>
 </section>
+
+<!--
+  OTT-70: replace the server-rendered fallbacks with live Pulse figures.
+  Progressive enhancement on purpose — the numbers are already in the HTML, so
+  no-JS visitors, crawlers and a Pulse outage all still see real values. A tile
+  is only ever overwritten with a number we actually received.
+-->
+<script is:inline define:vars={{ statusUrl: PULSE_STATUS_URL }}>
+  (async () => {
+    const tiles = document.querySelectorAll("[data-pulse-metric]");
+    if (!tiles.length) return;
+
+    let status;
+    try {
+      const res = await fetch(statusUrl, { signal: AbortSignal.timeout(4000) });
+      if (!res.ok) return; // keep the fallbacks
+      status = await res.json();
+    } catch {
+      return; // offline, blocked, timed out — keep the fallbacks
+    }
+
+    const valueFor = key =>
+      key === "repos" ? status.repos
+      : key === "pr_cycle_p50_minutes" ? status.pr_cycle_p50_minutes
+      : status.event_types?.[key];
+
+    for (const el of tiles) {
+      const raw = valueFor(el.dataset.pulseMetric);
+      if (typeof raw !== "number" || !Number.isFinite(raw)) continue;
+      el.textContent =
+        el.dataset.pulseUnit === "min"
+          ? `${raw < 10 ? Math.round(raw * 10) / 10 : Math.round(raw)} min`
+          : raw.toLocaleString("en-US");
+    }
+  })();
+</script>
 
 <!-- Scoped CSS for spotlight glow -->
 <style>

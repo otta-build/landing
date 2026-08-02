@@ -1,15 +1,32 @@
 // Structured landing-page content. Edit copy here.
 import { BRAND } from "../config";
 
-// Proof metrics — real numbers from shipping LeadCognition (a production AI SaaS)
-// on this exact pipeline, 90-day window.
+// Proof metrics (OTT-70).
+//
+// These were hardcoded for months and drifted badly — measured against the
+// 90-day window they claimed, "457 merged PRs" was really 1,386 and "210
+// releases" was really 813. They now read from Pulse's public /status
+// endpoint at runtime, so the page cannot go stale again.
+//
+// `fallback` is what renders server-side and whatever survives if the fetch
+// fails: real figures, captured 2026-08-02, deliberately rounded DOWN so the
+// static path can never overstate. `key` is the field on /status; `unit`
+// tells the client how to format it.
+export const PULSE_STATUS_URL = "https://pulse.otta.build/status";
+
 export const proofMetrics = [
-  { value: "457", label: "merged PRs", sub: "last 90 days" },
-  { value: "440", label: "production deploys", sub: "GitHub deployments" },
-  { value: "7 min", label: "median PR cycle", sub: "open → merged" },
-  { value: "2.8 min", label: "median CI loop", sub: "feedback speed" },
-  { value: "210", label: "semver releases", sub: "auto-tagged" },
-  { value: "6 / 3", label: "blockers caught", sub: "on 3 CI-green PRs" },
+  { key: "pr_merged", fallback: "1,750", label: "merged PRs", sub: "all time" },
+  { key: "deploy_tag", fallback: "960", label: "releases", sub: "auto-tagged" },
+  {
+    key: "pr_cycle_p50_minutes",
+    fallback: "7 min",
+    label: "median PR cycle",
+    sub: "open → merged",
+    unit: "min" as const,
+  },
+  { key: "gate_verdict", fallback: "2,650", label: "gate verdicts", sub: "enforced at merge" },
+  { key: "issue_shipped", fallback: "560", label: "issues shipped", sub: "idea → production" },
+  { key: "repos", fallback: "65", label: "repos watched", sub: "live" },
 ];
 
 // The pipeline: what fires at each stage and what it ENFORCES.
