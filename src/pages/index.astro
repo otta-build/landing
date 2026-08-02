@@ -13,6 +13,49 @@ import FinalCta from "../components/FinalCta.astro";
 
 const title = `${BRAND} — ${SITE.tagline}`;
 
+// OTT-71 structured data. Kept to what the page actually evidences: Otta is a
+// developer tool, published by a named org, on a site with one page. No
+// aggregateRating, no fabricated offer count — an unverifiable claim in JSON-LD
+// is the kind of thing Google penalises and a reader can check in one click.
+const origin = SITE.website;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${origin}#org`,
+      name: BRAND,
+      url: origin,
+      logo: new URL("/logo.png", origin).href,
+      description: SITE.subtitle,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${origin}#website`,
+      name: BRAND,
+      url: origin,
+      description: SITE.subtitle,
+      publisher: { "@id": `${origin}#org` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: BRAND,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "macOS, Linux",
+      url: origin,
+      description: SITE.subtitle,
+      publisher: { "@id": `${origin}#org` },
+      featureList: [
+        "GitHub-App-first merge-blocking quality gates",
+        "Persistent session memory across agent runs",
+        "DORA metrics and per-run token cost tracking",
+        "Self-learning flywheel that compiles retros into preflight rules",
+        "Self-hostable on your own infrastructure",
+      ],
+    },
+  ],
+};
+
 // PostHog project key. Defaults to the dedicated Otta project; override via PUBLIC_POSTHOG_KEY.
 const POSTHOG_KEY =
   import.meta.env.PUBLIC_POSTHOG_KEY ?? "phc_xP54prf7PUmJCFrtD9W3zBCEyuM3822XmKuz8HBGNFdh";
@@ -53,6 +96,18 @@ const POSTHOG_KEY =
     <meta name="twitter:description" content={SITE.subtitle} />
     <meta name="twitter:image" content={new URL("/og.png", SITE.website).href} />
     <title>{title}</title>
+    <!--
+      OTT-71: the page carried no structured data at all, so nothing told a
+      crawler or an assistant what Otta IS. Emitted via set:html so the payload
+      is JSON built in the frontmatter rather than hand-written markup that can
+      drift out of sync with SITE — and a malformed block is discarded whole,
+      which is precisely how the PostHog snippet silently died (dev#92).
+    -->
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData)}
+    />
     <!-- PostHog Analytics -->
     <script is:inline define:vars={{ phKey: POSTHOG_KEY }}>
       !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);for(r=e,void 0!==a?r=e[a]=[]:a="posthog",r.people=r.people||[],r.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},r.people.toString=function(){return r.toString(1)+".people (stub)"},o="init capture register register_once track_pageview register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment get_group_property onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey getNextSurveyStep identify setPersonProperties group reset resetGroups set_config register_config_callback get_config_callback get_property getSessionId".split(" "),n=0;n<o.length;n++)g(r,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);

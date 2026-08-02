@@ -1,0 +1,29 @@
+# otta.build — OTT-71
+#
+# There was no robots.txt at all. Because the site had no 404 page, Cloudflare
+# Pages answered /robots.txt with the homepage HTML and a 200, so crawlers were
+# handed markup where directives should have been.
+
+User-agent: *
+Allow: /
+
+# Named explicitly rather than left to the wildcard above. Otta's buyers ask an
+# assistant about agent governance before they ask a search engine, so being
+# readable by these is the point, not a side effect. Same list that
+# leadcognition.io's seo-integrity-check enforces — kept in sync on purpose.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://otta.build/sitemap-index.xml
