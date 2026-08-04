@@ -10,6 +10,7 @@ import Comparison from "../components/Comparison.astro";
 import Pricing from "../components/Pricing.astro";
 import Waitlist from "../components/Waitlist.astro";
 import FinalCta from "../components/FinalCta.astro";
+import { answerPages } from "../data/answers";
 
 const title = `${BRAND} — ${SITE.tagline}`;
 
@@ -159,7 +160,26 @@ const POSTHOG_KEY =
     </main>
 
     <footer class="border-t border-gray-100">
-      <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
+      <div class="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
+        <!--
+          Answer pages are linked here, not only listed in the sitemap. A page
+          reachable solely from sitemap.xml is an orphan: crawlers reach it,
+          nothing passes it any authority, and a reader never finds it.
+        -->
+        <h2 class="text-xs font-semibold tracking-wide text-gray-400 uppercase">Answers</h2>
+        <ul class="mt-3 space-y-2">
+          {
+            answerPages.map(page => (
+              <li>
+                <a href={`/${page.slug}/`} class="text-sm text-gray-600 hover:text-gray-900">
+                  {page.prompt}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 border-t border-gray-100 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
         <span>© {BRAND}. All rights reserved.</span>
       </div>
     </footer>
