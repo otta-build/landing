@@ -1,0 +1,15 @@
+# Otta
+
+> Otta is the self-learning software factory for autonomous coding agents. It is
+> GitHub-native: it installs as a GitHub App, orchestrates execution agents (such
+> as Claude Code and Codex) in isolated git worktrees, and enforces merge-blocking
+> quality gates inside your existing pull-request workflow.
+
+## Key pages
+- [Otta home](https://otta.build/): What Otta is, the pipeline, and pricing.
+- [GitHub-native alternative to Devin](https://otta.build/github-native-alternative-to-devin/): How Otta differs from cloud-hosted autonomous coding agents — GitHub-App-first governance, merge-blocking gates, self-hostable on your own infra.
+
+## Positioning
+- GitHub-App-first governance: agents cannot self-approve or bypass repository rules.
+- Persistent session memory and a git-canonical brain for continuous self-learning.
+- Self-hostable on your own infrastructure on every tier.
