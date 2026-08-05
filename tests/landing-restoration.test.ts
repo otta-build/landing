@@ -57,6 +57,10 @@ describe("dark landing restoration", () => {
     expect(getStarted).not.toContain("Cockpit");
   });
 
+  test("constrains install cards inside the mobile grid", () => {
+    expect(getStarted).toContain("otta-card min-w-0 overflow-hidden");
+  });
+
   test("uses verified current product language", () => {
     expect(content).toContain("delivery control plane");
     expect(content).toContain("builder → reviewer → qa → devops");

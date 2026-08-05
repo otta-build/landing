@@ -23,29 +23,29 @@ const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-set
     </div>
 
     <div class="mx-auto mt-12 grid max-w-5xl gap-5 lg:grid-cols-2">
-      <article class="otta-card rounded-3xl p-6 sm:p-8">
+      <article class="otta-card min-w-0 overflow-hidden rounded-3xl p-6 sm:p-8">
         <div class="flex items-center justify-between gap-4">
-          <div>
+          <div class="min-w-0">
             <p class="font-mono text-[10px] font-bold tracking-[0.16em] text-indigo-300 uppercase">Path 01</p>
             <h3 class="mt-2 text-2xl font-bold text-white">Claude Code</h3>
           </div>
-          <span class="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">slash commands</span>
+          <span class="flex-none rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">slash commands</span>
         </div>
         <p class="mt-4 text-sm leading-relaxed text-zinc-400">
           Add the marketplace, install Otta for your user, then initialize the repository.
         </p>
-        <ol class="mt-6 grid gap-3">
+        <ol class="mt-6 grid min-w-0 gap-3">
           {
             claudeCommands.map((command, index) => (
-              <li class="group rounded-xl border border-white/10 bg-black/30 p-3">
-                <div class="flex items-start gap-3">
+              <li class="group min-w-0 rounded-xl border border-white/10 bg-black/30 p-3">
+                <div class="flex min-w-0 items-start gap-3">
                   <span class="mt-0.5 font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
                   <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-zinc-200 sm:text-sm" data-command-text>
                     {command}
                   </code>
                   <button
                     type="button"
-                    class="rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    class="flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
                     data-copy-command={command}
                     aria-label={`Copy ${command}`}
                   >
@@ -62,29 +62,29 @@ const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-set
         </p>
       </article>
 
-      <article class="otta-card rounded-3xl p-6 sm:p-8">
+      <article class="otta-card min-w-0 overflow-hidden rounded-3xl p-6 sm:p-8">
         <div class="flex items-center justify-between gap-4">
-          <div>
+          <div class="min-w-0">
             <p class="font-mono text-[10px] font-bold tracking-[0.16em] text-indigo-300 uppercase">Path 02</p>
             <h3 class="mt-2 text-2xl font-bold text-white">Codex</h3>
           </div>
-          <span class="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">native skills</span>
+          <span class="flex-none rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">native skills</span>
         </div>
         <p class="mt-4 text-sm leading-relaxed text-zinc-400">
           Install Otta from Codex's Plugins surface, then run the setup skill in your repository.
         </p>
-        <ol class="mt-6 grid gap-3">
+        <ol class="mt-6 grid min-w-0 gap-3">
           {
             codexCommands.map((command, index) => (
-              <li class="group rounded-xl border border-white/10 bg-black/30 p-3">
-                <div class="flex items-start gap-3">
+              <li class="group min-w-0 rounded-xl border border-white/10 bg-black/30 p-3">
+                <div class="flex min-w-0 items-start gap-3">
                   <span class="mt-0.5 font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
                   <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-zinc-200 sm:text-sm" data-command-text>
                     {command}
                   </code>
                   <button
                     type="button"
-                    class="rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    class="flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
                     data-copy-command={command}
                     aria-label={`Copy ${command}`}
                   >
