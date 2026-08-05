@@ -39,6 +39,14 @@ jobs:
       - name: Write build-info artifact
         run: bun scripts/write-build-info.mjs
 
+      # otta-build/landing#16: neither workflow runs this file today —
+      # ci.yml (out of scope here, owned by #15) and this workflow both invoke
+      # a single named test file rather than a glob. Running it here means a
+      # missing/malformed artifact fails the deploy instead of shipping
+      # unverifiable; see .pr-body.md for the still-open PR-time gap.
+      - name: Verify build-info artifact
+        run: bun test tests/build-info.test.ts
+
       # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
       # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
       # so with posthog undefined they all no-op and a broken pipeline looks
