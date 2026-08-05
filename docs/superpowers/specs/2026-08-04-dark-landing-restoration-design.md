@@ -62,6 +62,30 @@ refs, with current behavior kept when the versions disagree.
 | Waitlist submission | current waitlist component and API path | Preserve request flow, validation, success state, and analytics capture. |
 | Current install commands | current plugin installation copy | Restore the two-path layout around current commands; never restore stale command strings. |
 
+## Content truth and current positioning
+
+The restoration may improve homepage copy where the current or historical page
+conflicts with verified product state. Copy must follow the 2026-08-04 product
+surface audit and current repository releases:
+
+- lead with Otta as the harness-agnostic agent delivery control plane;
+- describe Pulse as the GitHub enforcement, evidence, and lifecycle spine;
+- describe the Apache plugin as the native workflow surface for Claude Code and
+  Codex;
+- call `builder -> reviewer -> qa -> devops` four specialist stages, never four
+  total gates, layers, integrations, or capabilities;
+- distinguish local workflows, Pulse enforcement, optional telemetry, and LEARN
+  receipts from the separate autonomous-engine roadmap;
+- do not present the dormant Jean-derived Cockpit as active;
+- do not claim a shipped remote cloud-harness connector;
+- do not use volatile event or performance counts as durable claims. Live Pulse
+  figures may remain in the proof strip because they are fetched and labeled as
+  current evidence with static measured fallbacks.
+
+Copy changes remain bounded to accuracy, hierarchy, and fit within the restored
+layout. They do not introduce new pricing, packaging, or market-positioning
+decisions.
+
 ## Component design
 
 ### Global visual system
