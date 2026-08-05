@@ -21,7 +21,7 @@
 - Modify `src/components/Hero.astro`: centered gradient hero, accessible scenario console, current architecture/evidence content, and unchanged Pulse fetch contract.
 - Modify `src/components/Philosophy.astro`, `Pipeline.astro`, `Differentiators.astro`, `Memory.astro`, and `Comparison.astro`: dark narrative surfaces and accurate labels.
 - Modify `src/components/Pricing.astro`, `PricingCard.astro`, `Waitlist.astro`, and `FinalCta.astro`: dark conversion surfaces without changing pricing or waitlist behavior.
-- Modify `src/pages/404.astro`, `src/pages/privacy.astro`, and the consent UI source located by `rg "consent" src`: visually align auxiliary UI without changing semantics or route behavior.
+- Modify `src/pages/404.astro`: visually align the existing auxiliary UI without changing status or route behavior. Consent and privacy are absent and remain scoped to issue #10.
 
 ### Task 1: Pin the restoration contract
 
@@ -313,8 +313,6 @@ rtk git commit -m "feat: restore current Otta setup paths"
 - Modify: `src/components/Waitlist.astro`
 - Modify: `src/components/FinalCta.astro`
 - Modify: `src/pages/404.astro`
-- Modify: `src/pages/privacy.astro`
-- Modify: consent component found with `rg -l "cookie|consent" src`
 - Test: `tests/crawlability.test.ts`
 - Test: `tests/inline-script-syntax.test.ts`
 
@@ -322,9 +320,9 @@ rtk git commit -m "feat: restore current Otta setup paths"
 
 Use the shared dark surface/border/focus tokens. Preserve pricing values, links, and conditional labels. In Waitlist, leave the form ID, input name/type, `/api/waitlist`, JSON payload, `get_access_requested`, success/reset behavior, and failure/email-retention behavior unchanged.
 
-- [ ] **Step 2: Theme 404, privacy, and consent UI**
+- [ ] **Step 2: Theme the existing 404 UI**
 
-Apply the dark canvas and visible focus states while keeping 404 response behavior, privacy copy, consent storage/category semantics, and all control IDs/events unchanged.
+Apply the dark canvas and visible focus states while keeping 404 response behavior unchanged. Confirmed during execution: no privacy or consent source exists in this split repository; do not create a partial replacement under this visual issue.
 
 - [ ] **Step 3: Verify browser-script and crawl contracts**
 
@@ -342,7 +340,7 @@ Expected: PASS for inline scripts, real 404, robots, sitemap, AI crawler rules, 
 Run:
 
 ```bash
-rtk git add src/components/Pricing.astro src/components/PricingCard.astro src/components/Waitlist.astro src/components/FinalCta.astro src/pages/404.astro src/pages/privacy.astro src
+rtk git add src/components/Pricing.astro src/components/PricingCard.astro src/components/Waitlist.astro src/components/FinalCta.astro src/pages/404.astro src
 rtk git commit -m "design: finish dark conversion surfaces"
 ```
 

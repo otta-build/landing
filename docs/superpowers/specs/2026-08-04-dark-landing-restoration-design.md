@@ -56,7 +56,7 @@ refs, with current behavior kept when the versions disagree.
 | Social sharing metadata | `public/og.png` and current head metadata | Preserve current OG asset and metadata. |
 | PostHog initialization and events | current `src/pages/index.astro` and waitlist capture | Preserve initialization and event names. |
 | Inline-script syntax guard | `tests/inline-script-syntax.test.ts` | Preserve and keep in CI/deploy gates. |
-| Consent and privacy | current consent banner behavior and `/privacy` route | Preserve behavior; only theme the visible UI. |
+| Consent and privacy | not present in the split landing repository; tracked separately in `otta-build/landing#10` | Do not fabricate or partially port the compliance surface during visual restoration. |
 | Deployment authority | `.github/workflows/deploy.yml` | Preserve the single GitHub Actions direct-upload path and the git-integration-disabled check. |
 | SEO/GEO routes | current pages, JSON-LD, sitemap, and reusable head behavior | Preserve routes and generated outputs. |
 | Waitlist submission | current waitlist component and API path | Preserve request flow, validation, success state, and analytics capture. |
@@ -127,11 +127,12 @@ access instructions. Each command remains individually copyable. The old
 paste-trap, stale `/plugin install` syntax, and combined copy-all behavior must
 not return.
 
-### Consent, privacy, 404, and auxiliary routes
+### 404 and auxiliary routes
 
-Theme the consent banner and 404 page so they no longer appear visually detached
-from the restored landing page. Do not change consent semantics, privacy copy,
-status codes, metadata, or route behavior.
+Theme the 404 page so it no longer appears visually detached from the restored
+landing page. Do not change status codes, metadata, or route behavior. The
+consent banner and `/privacy` route were found absent from this split repository;
+their port remains the separately scoped compliance work in issue #10.
 
 ## Interaction and accessibility
 
