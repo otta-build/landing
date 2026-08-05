@@ -45,7 +45,7 @@ const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-set
                   </code>
                   <button
                     type="button"
-                    class="flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    class="min-h-11 min-w-11 flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
                     data-copy-command={command}
                     aria-label={`Copy ${command}`}
                   >
@@ -58,7 +58,8 @@ const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-set
           }
         </ol>
         <p class="mt-5 rounded-xl border border-amber-300/15 bg-amber-300/[0.055] px-4 py-3 text-xs leading-relaxed text-amber-100/80">
-          Fully restart Claude Code after installation so the commands and hooks load cleanly.
+          Fully restart Claude Code after installation. If the commands are still
+          missing, open /plugin and enable otta.
         </p>
       </article>
 
@@ -84,7 +85,7 @@ const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-set
                   </code>
                   <button
                     type="button"
-                    class="flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    class="min-h-11 min-w-11 flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
                     data-copy-command={command}
                     aria-label={`Copy ${command}`}
                   >

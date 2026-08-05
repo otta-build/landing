@@ -54,11 +54,14 @@ describe("dark landing restoration", () => {
     expect(getStarted).toContain("/plugin marketplace add otta-build/plugin");
     expect(getStarted).toContain("/plugin install --scope user otta@otta");
     expect(getStarted).toContain("$otta-setup");
+    expect(getStarted).toContain("open /plugin and enable otta");
     expect(getStarted).not.toContain("Cockpit");
   });
 
   test("constrains install cards inside the mobile grid", () => {
     expect(getStarted).toContain("otta-card min-w-0 overflow-hidden");
+    expect(getStarted).toContain("min-h-11 min-w-11");
+    expect(hero).toContain("min-h-11");
   });
 
   test("uses verified current product language", () => {

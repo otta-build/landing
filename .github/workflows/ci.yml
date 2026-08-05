@@ -36,3 +36,9 @@ jobs:
       # analytics (otta-build/dev#92). Catch it on the PR, not after merge.
       - name: Verify built inline scripts parse
         run: bun test tests/inline-script-syntax.test.ts
+
+      - name: Install Playwright Chromium
+        run: bunx playwright install --with-deps chromium
+
+      - name: Verify landing interactions and responsive behavior
+        run: bun run test:e2e
