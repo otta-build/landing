@@ -7,6 +7,7 @@ import Pipeline from "../components/Pipeline.astro";
 import Differentiators from "../components/Differentiators.astro";
 import Memory from "../components/Memory.astro";
 import Comparison from "../components/Comparison.astro";
+import GetStarted from "../components/GetStarted.astro";
 import Pricing from "../components/Pricing.astro";
 import Waitlist from "../components/Waitlist.astro";
 import FinalCta from "../components/FinalCta.astro";
@@ -140,6 +141,7 @@ const POSTHOG_KEY =
         </a>
         <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
           <a href="#pipeline" class="transition-colors hover:text-white">Pipeline</a>
+          <a href="#get-started" class="transition-colors hover:text-white">Get started</a>
           <a href="#pricing" class="hover:text-white">Pricing</a>
           <a href={SITE.bookingUrl} class="hover:text-white">Book a call</a>
         </div>
@@ -159,6 +161,7 @@ const POSTHOG_KEY =
       <Differentiators />
       <Memory />
       <Comparison />
+      <GetStarted />
       <Pricing />
       <Waitlist />
       <FinalCta />
