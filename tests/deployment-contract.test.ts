@@ -62,3 +62,17 @@ test("delivery passes the released Otta v1.12.1 readiness contract", () => {
   expect(contract).toContain('health_url: "https://otta.build/build-info.json"');
   expect(contract).toContain('health_commit_field: "commit"');
 });
+
+test("the final deploy artifact is built after tests and cannot be edge-cached", () => {
+  const workflow = readFileSync(join(root, ".github", "workflows", "deploy.yml"), "utf8");
+  const testIndex = workflow.indexOf("run: bun test");
+  const finalBuildIndex = workflow.indexOf("run: bunx astro build", testIndex + 1);
+  const evidenceIndex = workflow.indexOf("run: bash scripts/write-build-info.sh", finalBuildIndex + 1);
+  const headers = readFileSync(join(root, "public", "_headers"), "utf8");
+
+  expect(testIndex).toBeGreaterThan(-1);
+  expect(finalBuildIndex).toBeGreaterThan(testIndex);
+  expect(evidenceIndex).toBeGreaterThan(finalBuildIndex);
+  expect(headers).toContain("/build-info.json");
+  expect(headers).toMatch(/Cache-Control:\s*no-store/);
+});

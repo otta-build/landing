@@ -53,7 +53,17 @@ jobs:
         if: steps.live.outputs.skip != 'true'
         run: bun install
 
-      - name: Build
+      # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
+      # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
+      # so with posthog undefined they all no-op and a broken pipeline looks
+      # exactly like a dead site. Fail the deploy instead of losing the data.
+      - name: Verify built output and delivery contracts
+        if: steps.live.outputs.skip != 'true'
+        run: bun test
+
+      # Some integration tests intentionally rebuild and remove dist/. Produce
+      # the immutable deployment tree only after every test has finished.
+      - name: Build final deploy artifact
         if: steps.live.outputs.skip != 'true'
         run: bunx astro build
 
@@ -62,14 +72,6 @@ jobs:
         env:
           GITHUB_SHA: ${{ inputs.commit_sha }}
         run: bash scripts/write-build-info.sh
-
-      # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
-      # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
-      # so with posthog undefined they all no-op and a broken pipeline looks
-      # exactly like a dead site. Fail the deploy instead of losing the data.
-      - name: Verify built output and delivery contracts
-        if: steps.live.outputs.skip != 'true'
-        run: bun test
 
       # otta-build/landing#2: the Pages project also has a GitHub source, so a
       # push to main used to trigger a SECOND production build inside
