@@ -17,6 +17,11 @@ import { spawnSync } from "node:child_process";
  * commit that was actually built (`git rev-parse HEAD`), not a checked-in
  * constant — that's the whole point of AC2 ("a stale value must be
  * impossible").
+ *
+ * The artifact is produced by `scripts/write-build-info.mjs`, a standalone
+ * script invoked from `deploy.yml` — not an Astro page under `src/` — because
+ * PR #15 is concurrently changing most of `src/`; this keeps the two
+ * branches' change surfaces disjoint.
  */
 
 const root = join(import.meta.dir, "..");
@@ -28,6 +33,9 @@ const SHA_RE = /^[0-9a-f]{40}$/;
 function build() {
   if (!existsSync(distDir)) {
     spawnSync("bunx", ["astro", "build"], { cwd: root, stdio: "ignore" });
+  }
+  if (!existsSync(artifact)) {
+    spawnSync("bun", ["scripts/write-build-info.mjs"], { cwd: root, stdio: "ignore" });
   }
 }
 

@@ -31,6 +31,14 @@ jobs:
       - name: Build
         run: bunx astro build
 
+      # otta-build/landing#16: stamps dist/build-info.json with this build's
+      # commit SHA, served at otta.build/build-info.json, so
+      # otta-deploy-verify.sh's merge-and-deploy SHA-match check has something
+      # to verify the deploy against instead of nothing (deploy.yml previously
+      # had no endpoint reporting the deployed commit at all).
+      - name: Write build-info artifact
+        run: bun scripts/write-build-info.mjs
+
       # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
       # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
       # so with posthog undefined they all no-op and a broken pipeline looks
