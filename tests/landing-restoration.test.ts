@@ -80,6 +80,8 @@ describe("dark landing restoration", () => {
     expect(waitlist).toContain("get_access_requested");
     expect(waitlist).toContain("btn.removeAttribute(\"disabled\")");
     expect(deployWorkflow).toContain("Verify Cloudflare git integration stays disabled");
-    expect(deployWorkflow).toContain("tests/inline-script-syntax.test.ts");
+    expect(deployWorkflow).toContain("Verify built output and delivery contracts");
+    expect(deployWorkflow).toContain("bun test");
+    expect(deployWorkflow).toContain("otta: health-sha-verify");
   });
 });

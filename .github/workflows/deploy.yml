@@ -1,42 +1,75 @@
 name: Deploy otta.build
+run-name: deploy production ${{ inputs.commit_sha }}
 
 # otta.build deploys to Cloudflare Pages from this repo's main branch.
 # Runs on ubuntu-latest: this repo is public, so GitHub-hosted minutes are free
 # and builds no longer queue behind otta-build/dev's single self-hosted runner
 # (where a landing deploy sat behind a ~19-minute Tauri build).
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Full commit SHA approved by Otta for production
+        required: true
+        type: string
 
 concurrency:
-  group: deploy-landing
-  cancel-in-progress: true
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
   deploy:
     name: Build & deploy otta.build
     runs-on: ubuntu-latest
+    environment: production
     steps:
+      - name: Skip when this exact commit is already live
+        id: live
+        # otta: same-sha-noop
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+        run: |
+          current="$(curl -fsS https://otta.build/build-info.json 2>/dev/null | jq -r '.commit // empty' 2>/dev/null || true)"
+          if [ "$current" = "$COMMIT_SHA" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Exact commit is already live; no deployment mutation needed."
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v5
+        if: steps.live.outputs.skip != 'true'
+        with:
+          ref: ${{ inputs.commit_sha }}
       - uses: oven-sh/setup-bun@v2
+        if: steps.live.outputs.skip != 'true'
       # Astro requires Node >= 22.12.
       - uses: actions/setup-node@v4
+        if: steps.live.outputs.skip != 'true'
         with:
           node-version: "22"
 
       - name: Install dependencies
+        if: steps.live.outputs.skip != 'true'
         run: bun install
 
       - name: Build
+        if: steps.live.outputs.skip != 'true'
         run: bunx astro build
+
+      - name: Emit deployed commit evidence
+        if: steps.live.outputs.skip != 'true'
+        env:
+          GITHUB_SHA: ${{ inputs.commit_sha }}
+        run: bash scripts/write-build-info.sh
 
       # otta-build/dev#92: a syntax error in the PostHog snippet silently killed
       # analytics for 90 days — every capture call is `window.posthog?.capture(...)`,
       # so with posthog undefined they all no-op and a broken pipeline looks
       # exactly like a dead site. Fail the deploy instead of losing the data.
-      - name: Verify built inline scripts parse
-        run: bun test tests/inline-script-syntax.test.ts
+      - name: Verify built output and delivery contracts
+        if: steps.live.outputs.skip != 'true'
+        run: bun test
 
       # otta-build/landing#2: the Pages project also has a GitHub source, so a
       # push to main used to trigger a SECOND production build inside
@@ -46,6 +79,7 @@ jobs:
       # switched off; this fails the run if anyone turns them back on, because
       # the symptom otherwise is an occasional unguarded deploy nobody sees.
       - name: Verify Cloudflare git integration stays disabled
+        if: steps.live.outputs.skip != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -66,7 +100,24 @@ jobs:
           echo "✓ git-integration deploys disabled (deployments_enabled=$enabled, production=$prod)"
 
       - name: Deploy to Cloudflare Pages
+        if: steps.live.outputs.skip != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: bunx wrangler pages deploy dist --project-name otta --branch main
+
+      - name: Verify exact commit is live
+        # otta: health-sha-verify
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+        run: |
+          for attempt in {1..60}; do
+            current="$(curl -fsS https://otta.build/build-info.json 2>/dev/null | jq -r '.commit // empty' 2>/dev/null || true)"
+            if [ "$current" = "$COMMIT_SHA" ]; then
+              echo "Verified live commit $COMMIT_SHA"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Expected $COMMIT_SHA at /build-info.json, observed ${current:-unavailable}" >&2
+          exit 1

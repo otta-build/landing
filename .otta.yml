@@ -1,0 +1,26 @@
+# Otta delivery contract for the production landing page.
+version: "1"
+base: "main"
+staging: null
+
+deploy:
+  default: "production"
+  environments:
+    production:
+      auto: "merge-and-deploy"
+      target: "production"
+      allow_production: true
+      executor: "github-workflow"
+      workflow: "deploy.yml"
+      ref: "main"
+      sha_input: "commit_sha"
+      provider: "none"
+      verify: "health-sha"
+      health_url: "https://otta.build/build-info.json"
+      health_commit_field: "commit"
+
+ci:
+  required: true
+
+pulse:
+  installed: true

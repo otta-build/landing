@@ -9,10 +9,14 @@ describe("landing repository source of truth", () => {
       read(".github/workflows/deploy.yml"),
     ]);
 
-    expect(deployWorkflow).toContain("branches: [main]");
+    expect(deployWorkflow).toContain("workflow_dispatch:");
+    expect(deployWorkflow).toContain("ref: ${{ inputs.commit_sha }}");
+    expect(deployWorkflow).toContain("bash scripts/write-build-info.sh");
     expect(deployWorkflow).toContain("wrangler pages deploy dist --project-name otta --branch main");
     expect(readme).not.toContain("NOT the deployed source");
     expect(readme).not.toContain("does NOT deploy from this repo");
     expect(readme).toContain("production source for https://otta.build");
+    expect(readme).toContain("exact merge commit");
+    expect(readme).toContain("/build-info.json");
   });
 });
