@@ -61,7 +61,7 @@ const POSTHOG_KEY =
   import.meta.env.PUBLIC_POSTHOG_KEY ?? "phc_xP54prf7PUmJCFrtD9W3zBCEyuM3822XmKuz8HBGNFdh";
 ---
 
-<html lang="en">
+<html lang="en" data-theme="otta-dark">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -114,9 +114,15 @@ const POSTHOG_KEY =
       window.posthog.init(phKey,{api_host:'https://us.i.posthog.com', person_profiles:'identified_only'});
     </script>
   </head>
-  <body class="bg-white text-gray-900 antialiased">
+  <body class="bg-[#07070b] text-zinc-100 antialiased">
+    <a
+      href="#main-content"
+      class="fixed left-4 top-4 z-50 -translate-y-24 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-zinc-950 transition-transform focus:translate-y-0"
+    >
+      Skip to content
+    </a>
     <!-- top nav -->
-    <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur">
+    <header class="sticky top-0 z-20 border-b border-white/10 bg-[#07070b]/82 backdrop-blur-xl">
       <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
         <a href="/" class="flex items-center gap-2 text-sm font-bold tracking-tight text-white">
           <svg class="h-6 w-6" viewBox="0 0 1024 1024" aria-hidden="true">
@@ -133,7 +139,7 @@ const POSTHOG_KEY =
           {BRAND}
         </a>
         <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-          <a href="#pipeline" class="hover:text-white">Pipeline</a>
+          <a href="#pipeline" class="transition-colors hover:text-white">Pipeline</a>
           <a href="#pricing" class="hover:text-white">Pricing</a>
           <a href={SITE.bookingUrl} class="hover:text-white">Book a call</a>
         </div>
@@ -146,7 +152,7 @@ const POSTHOG_KEY =
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <Hero />
       <Philosophy />
       <Pipeline />
@@ -158,9 +164,10 @@ const POSTHOG_KEY =
       <FinalCta />
     </main>
 
-    <footer class="border-t border-gray-100">
-      <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
+    <footer class="border-t border-white/10 bg-black/20">
+      <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-zinc-500 sm:flex-row sm:px-6">
         <span>© {BRAND}. All rights reserved.</span>
+        <a href="/privacy" class="transition-colors hover:text-zinc-200">Privacy</a>
       </div>
     </footer>
   </body>
