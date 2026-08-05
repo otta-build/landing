@@ -31,6 +31,48 @@ export const proofMetrics = [
   { key: "repos", fallback: "65", label: "repos watched", sub: "live" },
 ];
 
+export const buildScenarios = [
+  {
+    key: "gate-failure",
+    label: "Gate failure",
+    issue: "PR #184 · authentication regression",
+    status: "Merge blocked",
+    lines: [
+      ["builder", "Regression test added and implementation submitted"],
+      ["reviewer", "Acceptance evidence matches 4 of 5 criteria"],
+      ["qa", "Session expiry path fails in the real browser"],
+      ["pulse", "gate_verdict: fail · merge remains blocked"],
+      ["next", "Return the exact failure to the builder"],
+    ],
+  },
+  {
+    key: "visual-proof",
+    label: "Visual proof",
+    issue: "PR #190 · responsive results grid",
+    status: "Evidence ready",
+    lines: [
+      ["builder", "Focused regression test passes"],
+      ["reviewer", "Scope and acceptance criteria verified"],
+      ["qa", "Desktop and 390px screenshots attached"],
+      ["pulse", "visual evidence receipt linked to the PR"],
+      ["next", "DevOps stage can evaluate release readiness"],
+    ],
+  },
+  {
+    key: "deploy-evidence",
+    label: "Deploy evidence",
+    issue: "Release v1.12.0 · Apache plugin",
+    status: "Verified release",
+    lines: [
+      ["builder", "Claude Code commands and Codex skills packaged"],
+      ["reviewer", "Public install surfaces confirmed"],
+      ["devops", "Tag, artifact, and deployment evidence recorded"],
+      ["pulse", "deploy_tag joined to its originating pull request"],
+      ["next", "Shipped and verified are visible as separate states"],
+    ],
+  },
+] as const;
+
 // The pipeline: what fires at each stage and what it ENFORCES.
 export const pipelineStages = [
   {

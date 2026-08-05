@@ -1,199 +1,198 @@
 ---
-import { BRAND, SITE } from "../config";
-import { proofMetrics, PULSE_STATUS_URL } from "../data/content";
+import { SITE } from "../config";
+import { buildScenarios, proofMetrics, PULSE_STATUS_URL } from "../data/content";
+
+const deliverySurfaces = [
+  {
+    step: "01",
+    label: "Native workflows",
+    title: "Claude Code + Codex",
+    body: "Use deterministic Otta commands or skills without moving code into another editor.",
+  },
+  {
+    step: "02",
+    label: "Specialist stages",
+    title: "Builder → DevOps",
+    body: "Builder, reviewer, QA, and DevOps own different evidence and cannot collapse into self-approval.",
+  },
+  {
+    step: "03",
+    label: "GitHub spine",
+    title: "Pulse enforcement",
+    body: "Lifecycle events and gate verdicts keep acceptance, merge, release, and deploy state inspectable.",
+  },
+  {
+    step: "04",
+    label: "Reviewable learning",
+    title: "Explicit LEARN receipts",
+    body: "Promote durable lessons deliberately instead of silently rewriting the rules after a failure.",
+  },
+];
 ---
 
-<section id="hero-spotlight" class="relative overflow-hidden bg-zinc-950 text-white border-b border-zinc-900 py-16 sm:py-20 lg:py-24">
-  <!-- spotlight tracking hover glow -->
-  <div class="spotlight-glow pointer-events-none absolute inset-0 opacity-[0.25] transition-opacity duration-300"></div>
-
-  <!-- subtle grid background -->
-  <div
-    class="pointer-events-none absolute inset-0 opacity-[0.06]"
-    style="background-image: linear-gradient(rgba(99,102,241,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.15) 1px, transparent 1px); background-size: 44px 44px;"
-  >
-  </div>
+<section
+  id="hero-spotlight"
+  class="relative overflow-hidden border-b border-white/10 bg-[#07070b] pb-20 pt-20 text-white sm:pb-24 sm:pt-28 lg:pb-28 lg:pt-32"
+>
+  <div class="hero-grid pointer-events-none absolute inset-0 opacity-45"></div>
+  <div class="hero-glow pointer-events-none absolute inset-0"></div>
+  <div class="hero-orb hero-orb-left pointer-events-none absolute"></div>
+  <div class="hero-orb hero-orb-right pointer-events-none absolute"></div>
 
   <div class="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-    <!-- Top Row: Split Hero -->
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-      
-      <!-- Left side: Brand New Agentic OS Copywriting -->
-      <div class="lg:col-span-7 space-y-6">
-        
-        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-none uppercase">
-          The self-learning AI software factory.
-        </h1>
-        
-        <p class="text-lg leading-relaxed text-zinc-300 font-light">
-          Otta turns vibe coding into a self-learning software factory — moving each idea through adaptive quality gates from raw concept to production-ready software, learning from every failure so future builds get better.
+    <div class="mx-auto max-w-5xl text-center">
+      <p class="otta-eyebrow">Harness-agnostic agent delivery control</p>
+      <h1 class="text-gradient mt-5 text-5xl font-black tracking-[-0.055em] sm:text-7xl lg:text-[5.8rem] lg:leading-[0.94]">
+        Let agents build.<br />Make delivery prove itself.
+      </h1>
+      <p class="mx-auto mt-7 max-w-3xl text-lg leading-relaxed text-zinc-300 sm:text-xl">
+        Otta gives Claude Code and Codex a disciplined path from issue to verified
+        release—with specialist review stages and Pulse-enforced GitHub evidence.
+      </p>
+      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <a
+          href="#get-started"
+          class="rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-indigo-950/50 transition hover:-translate-y-0.5 hover:bg-indigo-400"
+        >
+          See how it works
+        </a>
+        <a
+          href={SITE.bookingUrl}
+          class="rounded-xl border border-white/15 bg-white/[0.035] px-6 py-3.5 text-sm font-semibold text-zinc-200 transition hover:border-white/30 hover:bg-white/[0.07]"
+        >
+          Book a walkthrough
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="mx-auto mt-16 max-w-5xl overflow-hidden rounded-3xl border border-indigo-300/15 bg-[#0c0c13]/94 shadow-[0_35px_120px_rgba(32,20,88,.42)] backdrop-blur sm:mt-20"
+      data-scenario="gate-failure"
+    >
+      <div class="flex flex-col gap-4 border-b border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div class="flex items-center gap-3">
+          <span class="flex gap-1.5" aria-hidden="true">
+            <span class="h-2.5 w-2.5 rounded-full bg-rose-400/70"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-amber-300/70"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/70"></span>
+          </span>
+          <span class="font-mono text-[11px] font-semibold tracking-[0.12em] text-zinc-400 uppercase">
+            Otta delivery ledger
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2" aria-label="Delivery scenarios">
+          {
+            buildScenarios.map((scenario, index) => (
+              <button
+                type="button"
+                class="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white aria-pressed:border-indigo-400/40 aria-pressed:bg-indigo-400/10 aria-pressed:text-indigo-200"
+                data-scenario-control={scenario.key}
+                aria-controls={`scenario-${scenario.key}`}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                {scenario.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7">
+        {
+          buildScenarios.map((scenario, index) => {
+            const isDefault = index === 0;
+            return (
+              <section
+                id={`scenario-${scenario.key}`}
+                data-scenario-panel={scenario.key}
+                hidden={!isDefault}
+                aria-labelledby={`scenario-title-${scenario.key}`}
+              >
+                <div class="flex flex-col gap-3 border-b border-white/8 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p class="font-mono text-[10px] tracking-[0.16em] text-zinc-500 uppercase">active delivery</p>
+                    <h2 id={`scenario-title-${scenario.key}`} class="mt-1 text-base font-semibold text-zinc-100">
+                      {scenario.issue}
+                    </h2>
+                  </div>
+                  <span class="w-fit rounded-full border border-indigo-400/25 bg-indigo-400/10 px-3 py-1 font-mono text-[10px] font-bold tracking-wide text-indigo-200 uppercase">
+                    {scenario.status}
+                  </span>
+                </div>
+                <ol class="mt-5 grid gap-3 text-left">
+                  {scenario.lines.map(([actor, line], lineIndex) => (
+                    <li class="grid grid-cols-[1.25rem_5.5rem_1fr] items-start gap-2 font-mono text-xs leading-relaxed sm:grid-cols-[1.5rem_6.5rem_1fr] sm:text-sm">
+                      <span class="text-zinc-600">{String(lineIndex + 1).padStart(2, "0")}</span>
+                      <span class={actor === "pulse" ? "text-indigo-300" : "text-zinc-500"}>{actor}</span>
+                      <span class={actor === "next" ? "text-emerald-300" : "text-zinc-300"}>{line}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <div class="mt-16 sm:mt-20">
+      <div class="flex items-end justify-between gap-6 border-b border-white/10 pb-3">
+        <p class="font-mono text-[10px] font-semibold tracking-[0.16em] text-zinc-500 uppercase">
+          Delivery surfaces
         </p>
-
-        <div class="space-y-4 text-sm text-zinc-400 pt-2">
-          <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span><strong>Adaptive Quality Gates:</strong> Instead of treating AI coding as a one-shot prompt, ideas move through structured gates—product clarity, implementation, tests, review, deployment, verification, and real-world feedback.</span>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span><strong>Self-Learning Flywheel:</strong> Each gate checks, measures, and improves the work. When something breaks, Otta learns from that failure and automatically adapts the gate, preventing the same class of problem from happening again.</span>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <svg class="h-5 w-5 text-indigo-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span><strong>Stateful Task Sessions:</strong> Run dozens of features in parallel without chaos. Every task gets its own isolated memory and context ledger, preventing agents from getting confused, drifting from guidelines, or undoing each other's work.</span>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-3.5 sm:flex-row pt-4">
-          <a
-            href={SITE.waitlistUrl}
-            class="rounded-lg bg-indigo-600 px-6 py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-indigo-500 hover:scale-[1.02] shadow-lg shadow-indigo-500/20"
-          >
-            Get access
-          </a>
-          <a
-            href={SITE.bookingUrl}
-            class="rounded-lg border border-zinc-800 px-6 py-3.5 text-center text-sm font-semibold text-zinc-300 transition-colors hover:text-white hover:border-zinc-750 hover:bg-zinc-900/40"
-          >
-            Book a walkthrough
-          </a>
-        </div>
+        <span class="hidden text-xs text-zinc-600 sm:block">local workflow → GitHub evidence</span>
       </div>
-
-      <!-- Right side: Real-time Dynamic JavaScript Terminal Console (100% Flickering-Free & Flawless on iOS Safari!) -->
-      <div class="lg:col-span-5">
-        <div class="rounded-xl border border-zinc-800 bg-zinc-950 p-5 shadow-2xl relative overflow-hidden">
-          
-          <!-- Terminal Header Chrome -->
-          <div class="flex items-center justify-between border-b border-zinc-900 pb-3 mb-4">
-            <div class="flex items-center gap-1.5">
-              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
-              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
-              <span class="h-2 w-2 rounded-full bg-zinc-850"></span>
-              <span class="ml-2 font-mono text-xs text-zinc-400 tracking-wider">Otta Factory — Gate Loop v1.1</span>
-            </div>
-            <div class="flex items-center gap-1">
-              <span class="h-1.5 w-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
-              <span class="font-mono text-[9px] text-zinc-500 tracking-wider">LIVE</span>
-            </div>
-          </div>
-
-          <!-- Dynamic Active Screen Area (Populated in real-time by JS script) -->
-          <div id="terminal-screen" class="font-mono text-[11px] leading-relaxed select-none min-h-[270px] max-h-[270px] overflow-y-auto space-y-3.5 text-zinc-300">
-            <!-- Loading state fallback before JS mounts -->
-            <div class="text-zinc-500">// Initializing live controller feed...</div>
-          </div>
-
-          <!-- Terminal Footer Bar -->
-          <div class="mt-4 border-t border-zinc-900 pt-3 flex items-center justify-between text-[10px] font-mono text-zinc-500">
-            <span>FACTORY GATE LEDGER</span>
-            <span class="text-indigo-400 font-bold">100% DEFECT-FREE SHIP</span>
-          </div>
-
-        </div>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          deliverySurfaces.map(surface => (
+            <article class="otta-card rounded-2xl p-5">
+              <div class="flex items-center justify-between gap-3">
+                <span class="font-mono text-[10px] font-bold text-indigo-300">{surface.step}</span>
+                <span class="text-[10px] font-semibold tracking-wide text-zinc-500 uppercase">{surface.label}</span>
+              </div>
+              <h2 class="mt-5 text-base font-semibold text-white">{surface.title}</h2>
+              <p class="mt-2 text-xs leading-relaxed text-zinc-400">{surface.body}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
 
-    <!-- Bottom Row: 4 Core OS Architecture Layers -->
-    <div class="mt-20">
-      <div class="text-xs font-semibold tracking-wider text-zinc-400 uppercase border-b border-zinc-900 pb-3">// CORE ARCHITECTURE & LAYERS</div>
-      <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Card 1 -->
-        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">01 / Rules Layer</span>
-          <h3 class="mt-4 text-base font-bold text-white">Global "standing orders"</h3>
-          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
-            Enforce team-wide architectural constraints, strict typechecks, and test-first TDD. Prompts drift, rules don't.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">02 / Orchestration Layer</span>
-          <h3 class="mt-4 text-base font-bold text-white">Multi-agent coordination</h3>
-          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
-            Breaks high-level spec goals into subtasks and delegates them to specialized, parallel executors (Claude Code, Codex, or custom subagents).
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">03 / Memory Layer</span>
-          <h3 class="mt-4 text-base font-bold text-white">Short & Persistent memory</h3>
-          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
-            Git-canonical project brain and cross-agent recall bus so agents never forget context or repeat dead-end mistakes.
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="rounded-xl border border-zinc-900 bg-zinc-950 p-5 relative overflow-hidden group hover:border-indigo-500/10 transition-all">
-          <span class="rounded bg-indigo-600/10 border border-indigo-500/20 px-2 py-0.5 font-mono text-[10px] text-indigo-300 font-semibold uppercase">04 / Execution & MCP</span>
-          <h3 class="mt-4 text-base font-bold text-white">Secure Gateway</h3>
-          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">
-            Provides limited, role-based tool access (terminals, filesystems, web-search via MCP) to prevent destructive unvalidated runs.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- proof strip -->
-    <div class="mt-20 border-t border-zinc-900 pt-8">
-      <p class="text-xs font-medium tracking-wide text-slate-400 uppercase">
+    <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20">
+      <p class="text-xs font-medium tracking-wide text-zinc-400 uppercase">
         Live from Otta Pulse — <a
           href="https://pulse.otta.build/status"
-          class="underline decoration-dotted underline-offset-2 hover:text-slate-300"
+          class="underline decoration-dotted underline-offset-4 transition hover:text-zinc-200"
           rel="noopener">check it yourself</a
         >
       </p>
-      {/*
-        Bento variant. The six figures were a uniform six-across row, which gave
-        every number the same weight — so nothing said which one is the proof.
-        Merged PRs is the headline claim and gate verdicts is the governance
-        claim, so those two take double-width cells and the rest stay quiet.
-
-        Cell spans are chosen so the grid closes: 2+2 wide plus 4 single cells
-        is 8 units, which divides evenly by both 2 and 4 columns and leaves no
-        orphan hole at any breakpoint.
-
-        data-pulse-metric / data-pulse-unit are carried through unchanged — the
-        live fetch finds tiles by those attributes, so restyling must not drop
-        them or the page silently reverts to static fallbacks.
-      */}
       <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {
-          proofMetrics.map(m => {
-            const feature = m.key === "pr_merged";
-            const wide = feature || m.key === "gate_verdict";
+          proofMetrics.map(metric => {
+            const feature = metric.key === "pr_merged";
+            const wide = feature || metric.key === "gate_verdict";
             return (
-              <div
+              <article
                 class={[
-                  "rounded-xl border p-4 transition-colors",
+                  "rounded-2xl border p-4 transition-colors sm:p-5",
                   wide ? "col-span-2" : "",
                   feature
-                    ? "border-indigo-500 bg-indigo-600"
-                    : "border-zinc-900 bg-zinc-950 hover:border-zinc-800",
+                    ? "border-indigo-400/60 bg-gradient-to-br from-indigo-500 to-indigo-700 shadow-xl shadow-indigo-950/40"
+                    : "border-white/10 bg-white/[0.025] hover:border-white/20",
                 ].join(" ")}
               >
                 <div
-                  class={`text-2xl font-bold tracking-tight tabular-nums sm:text-3xl ${feature ? "text-white" : "text-white"}`}
-                  data-pulse-metric={m.key}
-                  data-pulse-unit={m.unit ?? ""}
+                  class="text-2xl font-bold tracking-tight text-white tabular-nums sm:text-3xl"
+                  data-pulse-metric={metric.key}
+                  data-pulse-unit={metric.unit ?? ""}
                 >
-                  {m.fallback}
+                  {metric.fallback}
                 </div>
                 <div class={`mt-1 text-xs font-semibold ${feature ? "text-indigo-100" : "text-indigo-300"}`}>
-                  {m.label}
+                  {metric.label}
                 </div>
-                <div class={`text-xs ${feature ? "text-indigo-200/80" : "text-slate-500"}`}>
-                  {m.sub}
-                </div>
-              </div>
+                <div class={`text-xs ${feature ? "text-indigo-200/80" : "text-zinc-500"}`}>{metric.sub}</div>
+              </article>
             );
           })
         }
@@ -202,12 +201,6 @@ import { proofMetrics, PULSE_STATUS_URL } from "../data/content";
   </div>
 </section>
 
-<!--
-  OTT-70: replace the server-rendered fallbacks with live Pulse figures.
-  Progressive enhancement on purpose — the numbers are already in the HTML, so
-  no-JS visitors, crawlers and a Pulse outage all still see real values. A tile
-  is only ever overwritten with a number we actually received.
--->
 <script is:inline define:vars={{ statusUrl: PULSE_STATUS_URL }}>
   (async () => {
     const tiles = document.querySelectorAll("[data-pulse-metric]");
@@ -216,10 +209,10 @@ import { proofMetrics, PULSE_STATUS_URL } from "../data/content";
     let status;
     try {
       const res = await fetch(statusUrl, { signal: AbortSignal.timeout(4000) });
-      if (!res.ok) return; // keep the fallbacks
+      if (!res.ok) return;
       status = await res.json();
     } catch {
-      return; // offline, blocked, timed out — keep the fallbacks
+      return;
     }
 
     const valueFor = key =>
@@ -238,153 +231,77 @@ import { proofMetrics, PULSE_STATUS_URL } from "../data/content";
   })();
 </script>
 
-<!-- Scoped CSS for spotlight glow -->
-<style>
-  .spotlight-glow {
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 40%), rgba(99, 102, 241, 0.12), transparent 80%);
-  }
-</style>
-
 <script>
-  // 1. Mouse Spotlight tracking
+  const scenarioShell = document.querySelector<HTMLElement>("[data-scenario]");
+  const controls = document.querySelectorAll<HTMLButtonElement>("[data-scenario-control]");
+  const panels = document.querySelectorAll<HTMLElement>("[data-scenario-panel]");
+
+  for (const control of controls) {
+    control.addEventListener("click", () => {
+      const key = control.dataset.scenarioControl;
+      if (!key) return;
+
+      scenarioShell?.setAttribute("data-scenario", key);
+      for (const candidate of controls) {
+        candidate.setAttribute("aria-pressed", String(candidate === control));
+      }
+      for (const panel of panels) {
+        panel.hidden = panel.dataset.scenarioPanel !== key;
+      }
+    });
+  }
+
   const hero = document.getElementById("hero-spotlight");
-  hero?.addEventListener("mousemove", (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    hero.style.setProperty("--mouse-x", `${x}px`);
-    hero.style.setProperty("--mouse-y", `${y}px`);
-  });
-
-  // 2. Flawless JS Typewriter & Terminal Simulator (Flicker-Free, hardware-friendly, Safari-compatible)
-  interface TermLine {
-    text: string;
-    class: string;
-    typewriter?: boolean;
-    delay?: number;
-  }
-
-  const logLines: TermLine[] = [
-    {
-      text: 'Triggered via GitHub App: "implement-metrics" (slot #4)',
-      class: 'text-white',
-      typewriter: true,
-      delay: 1500
-    },
-    {
-      text: '// Creating parallel isolated worktree on slot #4',
-      class: 'text-zinc-500',
-      delay: 800
-    },
-    {
-      text: '├─ Fetching project context... OK',
-      class: 'text-zinc-400',
-      delay: 600
-    },
-    {
-      text: '└─ Spawning claude-code executor... ACTIVE',
-      class: 'text-zinc-400',
-      delay: 800
-    },
-    {
-      text: '// Enforcing merge-blocking gates',
-      class: 'text-zinc-500',
-      delay: 800
-    },
-    {
-      text: '├─ Running strict typecheck... PASS',
-      class: 'text-zinc-400',
-      delay: 700
-    },
-    {
-      text: '✕ FAIL: test_ledger_total (Expected 457, got null)',
-      class: 'text-rose-400 font-semibold',
-      delay: 1000
-    },
-    {
-      text: '↻ Self-correcting code in apps/landing...',
-      class: 'text-amber-400 font-semibold',
-      delay: 1800
-    },
-    {
-      text: '// Re-running test-first validation',
-      class: 'text-zinc-500',
-      delay: 800
-    },
-    {
-      text: '✓ PASS: test_ledger_total (100% test-driven)',
-      class: 'text-indigo-400 font-semibold',
-      delay: 900
-    },
-    {
-      text: '├─ Visual capture (desktop+mobile)... 8 shots verified',
-      class: 'text-zinc-400',
-      delay: 800
-    },
-    {
-      text: '★ All gates green. Merged Pull Request #210!',
-      class: 'text-indigo-400 font-bold',
-      delay: 4000
-    }
-  ];
-
-  const screen = document.getElementById("terminal-screen");
-
-  function typeString(el: HTMLElement, str: string, index: number, callback: () => void) {
-    if (index < str.length) {
-      el.textContent += str[index];
-      setTimeout(() => typeString(el, str, index + 1, callback), 30);
-    } else {
-      callback();
-    }
-  }
-
-  function renderTerminal(lineIndex: number) {
-    if (!screen) return;
-
-    if (lineIndex >= logLines.length) {
-      // Loop ends. Wait and reset!
-      setTimeout(() => {
-        screen.innerHTML = "";
-        renderTerminal(0);
-      }, 3500);
-      return;
-    }
-
-    const current = logLines[lineIndex];
-    const row = document.createElement("div");
-    row.className = current.class + " transition-opacity duration-300 opacity-0";
-    screen.appendChild(row);
-
-    // Force reflow for fade-in transition
-    row.clientHeight;
-    row.classList.remove("opacity-0");
-
-    if (current.typewriter) {
-      const promptSymbol = document.createElement("span");
-      promptSymbol.className = "text-indigo-400 font-bold mr-2";
-      promptSymbol.textContent = "→";
-      row.appendChild(promptSymbol);
-
-      const typeSpan = document.createElement("span");
-      row.appendChild(typeSpan);
-
-      typeString(typeSpan, current.text, 0, () => {
-        setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
-      });
-    } else {
-      row.textContent = current.text;
-      
-      // Auto scroll container
-      screen.scrollTop = screen.scrollHeight;
-      
-      setTimeout(() => renderTerminal(lineIndex + 1), current.delay || 1000);
-    }
-  }
-
-  // Start feed
-  if (screen) {
-    screen.innerHTML = "";
-    renderTerminal(0);
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (hero && !reducedMotion.matches) {
+    hero.addEventListener("pointermove", event => {
+      const rect = hero.getBoundingClientRect();
+      hero.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
+      hero.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);
+    });
   }
 </script>
+
+<style>
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(139, 124, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 124, 255, 0.055) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, black, transparent 72%);
+  }
+
+  .hero-glow {
+    background: radial-gradient(700px circle at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(111, 88, 255, 0.18), transparent 72%);
+  }
+
+  .hero-orb {
+    width: 28rem;
+    height: 28rem;
+    border-radius: 999px;
+    filter: blur(90px);
+    opacity: 0.17;
+    animation: orb-drift 12s ease-in-out infinite alternate;
+  }
+
+  .hero-orb-left {
+    left: -16rem;
+    top: 8rem;
+    background: #6e56ff;
+  }
+
+  .hero-orb-right {
+    right: -18rem;
+    top: 22rem;
+    background: #9d4edd;
+    animation-delay: -5s;
+  }
+
+  @keyframes orb-drift {
+    to { transform: translate3d(2rem, 1.5rem, 0) scale(1.08); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb { animation: none; }
+  }
+</style>
