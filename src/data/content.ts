@@ -35,93 +35,93 @@ export const proofMetrics = [
 export const pipelineStages = [
   {
     step: "01",
-    name: "Idea & Session",
-    summary: "An idea becomes a persistent session with memory.",
+    name: "Define",
+    summary: "Turn intent into a testable delivery contract.",
     detail:
-      "Say what you want. Every raw idea is initialized as a dedicated session with its own memory. Teams can pause, resume, and move many sessions forward in parallel without context decay.",
-    enforces: "No context is lost; your ideas compile into structured session streams.",
+      "Start from a real issue with falsifiable acceptance criteria, explicit scope, and a verification plan the whole delivery loop can carry forward.",
+    enforces: "The builder and reviewer work from the same acceptance contract.",
   },
   {
     step: "02",
-    name: "Autonomous Build",
-    summary: "AI executors build across isolated slots.",
+    name: "Build",
+    summary: "Run Otta inside the coding harness you already use.",
     detail:
-      "Specialized agents (such as Claude Code or Codex) spin up in their own git worktrees, executing tasks on autopilot without manual ticket-grooming.",
-    enforces: "Parallel dev speed with zero risk of branch collisions.",
+      "Native Claude Code commands and Codex skills guide test-first implementation in an isolated branch or worktree without forcing a separate coding environment.",
+    enforces: "A failing check comes before the smallest implementation that passes it.",
   },
   {
     step: "03",
-    name: "Govern & Gate",
-    summary: "GitHub-App-first merge-blocking verification.",
+    name: "Specialist review",
+    summary: "Four roles examine the change from different angles.",
     detail:
-      "Otta's native GitHub App enforces rigorous quality gates before a single line of code is integrated. Strict test-driven TDD, typechecks, and visual screenshot checks must pass.",
-    enforces: "Hard quality gates — never polite suggestions in a prompt.",
+      "The delivery path moves through builder → reviewer → qa → devops. Each specialist produces evidence for its own concern instead of letting the author self-approve.",
+    enforces: "Implementation, specification, user experience, and release readiness stay distinct.",
   },
   {
     step: "04",
-    name: "Measure & Telemetry",
-    summary: "Continuous cycle-time and cost tracking.",
+    name: "Enforce",
+    summary: "Pulse carries lifecycle evidence into GitHub.",
     detail:
-      "Otta Pulse logs exact token/API expenses, cycle times, and review depth for every agent run, compiling live DORA metrics for execution visibility.",
-    enforces: "Full budget accountability and quantitative performance ledger.",
+      "Otta Pulse reconstructs the issue-to-PR lifecycle from GitHub events and reports merge-gate verdicts, so repository policy does not depend on a prompt being remembered.",
+    enforces: "Acceptance, test, review, and visual evidence can block a premature merge.",
   },
   {
     step: "05",
-    name: "Self-Learn & Flywheel",
-    summary: "Lessons compile back into preflight rules.",
+    name: "Verify & learn",
+    summary: "Close the loop with release evidence and reviewed lessons.",
     detail:
-      "The system analyzes defects and failed runs, committing gotchas back into a git-canonical brain. Past errors automatically graduate into preflight guards so you never repeat a mistake.",
-    enforces: "The platform gets cleaner, faster, and cheaper the longer it works.",
+      "Release tags and deployment checks complete the delivery record. High-signal lessons can be promoted through explicit LEARN receipts instead of silently rewriting project rules.",
+    enforces: "Shipped, deployed, and verified remain separate, inspectable states.",
   },
 ];
 
 // Core differentiators vs generic "AI writes code" tools.
 export const differentiators = [
   {
-    title: "GitHub-App-First Governance",
-    body: "Otta installs as a native GitHub App. Merge-blocking checks, required visual evidence, and manual promotion gates are enforced at the repository level—meaning agents cannot self-approve or bypass rules.",
+    title: "Harness-native delivery",
+    body: "Use the Otta plugin in Claude Code or the Otta skills in Codex. The workflow lives where the agent already works instead of moving your code into a proprietary cockpit.",
   },
   {
-    title: "Persistent Session Memory",
-    body: "Most agents start from scratch every run. Otta gives every idea a persistent session with memory, allowing teams to collaborate across parallel streams without repeating mistakes or losing context.",
+    title: "GitHub-enforced evidence",
+    body: "Pulse turns acceptance criteria, tests, reviews, visual proof, and lifecycle events into repository-level verdicts that an implementation agent cannot approve for itself.",
   },
   {
-    title: "Actionable Measurement",
-    body: "Get real-time DORA metrics, PR cycle times, code quality trends, and exact token/API expense tracking. View exactly how much value your agent fleet is shipping and where they get blocked.",
+    title: "Specialist separation",
+    body: "Builder, reviewer, QA, and DevOps are four specialist stages with different responsibilities. A green typecheck cannot masquerade as product or release verification.",
   },
   {
-    title: "The Self-Learning Flywheel",
-    body: "Otta closes the loop between execution and intelligence. Hard-won code retro summaries and fixed bugs compile back into git-canonical brain rules, making future runs faster and cheaper.",
+    title: "Traceable lifecycle",
+    body: "Issue, branch, pull request, release, and deploy events stay linked. Pulse exposes what merged and shipped without asking a harness to remember the history.",
   },
   {
-    title: "Vibe Coding, Production Quality",
-    body: "Keep the speed, lose the chaos. Otta turns scattered, speculative vibe-coding sessions into a structured, reliable path to production-ready software.",
+    title: "Evidence before confidence",
+    body: "Otta asks for the smallest failing test, real browser proof for UI work, and explicit deploy evidence. Completion is a demonstrated state, not an agent's closing sentence.",
   },
   {
-    title: "Data Sovereignty & Control",
-    body: "Self-host on your own infrastructure. Your code, secrets, and agent memories remain completely under your control—by default, on every tier.",
+    title: "Reviewable learning",
+    body: "Optional telemetry and LEARN receipts surface reusable lessons for review. They do not silently mutate the rules or pretend the separate autonomous-engine roadmap is already shipped.",
   },
 ];
 
 // Memory / brain layer.
 export const memoryLayers = [
   {
-    name: "Session memory",
-    role: "Context-retentive workspace streams",
+    name: "Acceptance record",
+    role: "Issue → branch → pull request",
     detail:
-      "Every new idea or task starts a persistent session with memory. Teams can pause, resume, and run dozens of tasks in parallel without context decay.",
+      "A fenced acceptance block carries the same testable intent from the issue into implementation, review, and the final pull request evidence.",
   },
   {
-    name: "Git brain",
-    role: "Version-controlled wisdom ledger",
+    name: "Pulse ledger",
+    role: "GitHub lifecycle reconstruction",
     detail:
-      "Decisions, custom architecture guidelines, and bugfixes are stored directly in a private repository. High-signal, structured reference guidelines that agents never drift from.",
+      "GitHub events connect issues, verdicts, merged pull requests, version tags, and deployments so the delivery state remains inspectable across agent runs.",
   },
   {
-    name: "Flywheel",
-    role: "Retro → preflight rule translation",
+    name: "LEARN receipt",
+    role: "Reviewed improvement signal",
     detail:
-      "Defects and failed runs are analyzed automatically. Hard-won retro lessons are translated directly into automated preflight checks, ensuring past mistakes are never repeated.",
+      "When a failure reveals a durable pattern, Otta can package the lesson for explicit review and promotion into repository knowledge or a deterministic guard.",
   },
 ];
 
@@ -129,22 +129,22 @@ export const memoryLayers = [
 export const comparisonRows = [
   {
     dimension: "Focus",
-    us: "Governance, measurement, and learning layer wrapping existing execution agents",
-    them: "Raw autonomous coding agents focused purely on file-writing",
+    us: "Delivery control and evidence around the coding agents your team already uses",
+    them: "A replacement coding environment optimized for autonomous task execution",
   },
   {
     dimension: "Quality gates",
-    us: "GitHub-App-first merge-blocking TDD, visual screenshots, and health checks",
-    them: "Static file checks and code compilation only",
+    us: "Acceptance, regression, review, visual, and release evidence enforced through the repository workflow",
+    them: "Checks vary by platform and often remain inside the agent run",
   },
   {
-    dimension: "Memory",
-    us: "Persistent sessions with memory + git-canonical brain for continuous self-learning",
-    them: "Temporary task-based history; no cross-session recall",
+    dimension: "Review model",
+    us: "Builder → reviewer → qa → devops as distinct specialist stages",
+    them: "The same agent loop may build, judge, and declare completion",
   },
   {
     dimension: "Integration",
-    us: "GitHub App, MCP Server, and CLI that fit inside your existing dev setup (Claude Code, Codex)",
+    us: "Native Claude Code plugin, Codex skills, and Pulse GitHub enforcement",
     them: "Siloed web UI or proprietary desktop workspaces that force workflow migration",
   },
   {
@@ -153,13 +153,13 @@ export const comparisonRows = [
     them: "Enterprise teams focused on ticket-to-code volume rather than quality gates",
   },
   {
-    dimension: "Data control",
-    us: "Self-hostable on your own infra, every tier",
-    them: "On-prem is an Enterprise-only, custom-quote feature",
+    dimension: "Completion evidence",
+    us: "Merged, released, deployed, and verified remain separate lifecycle states",
+    them: "Task completion is commonly reported at code or pull-request creation",
   },
 ];
 
 export const philosophy = {
-  quote: "From raw concept to production software — with adaptive gates.",
-  body: "Otta turns vibe coding into a self-learning software factory. Instead of treating AI coding as a one-shot prompt, Otta gives every idea a structured production journey through adaptive quality gates — product clarity, implementation, tests, review, deployment, verification, and real-world feedback. Each gate checks, measures, and improves the work. When something breaks, fails, or produces poor results, Otta learns from that failure, adapts the gate, and prevents the same class of problem from happening again.",
+  quote: "Let agents move fast. Make the evidence keep up.",
+  body: "Otta is the delivery control plane around Claude Code and Codex. Native workflows guide the work from a real issue through test-first implementation and specialist review; Pulse carries the evidence into GitHub and keeps merged, released, deployed, and verified states honest.",
 };

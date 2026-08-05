@@ -10,7 +10,7 @@ export const SITE = {
   waitlistUrl: "#waitlist",
   // Underlying open-source platform.
   jeanUrl: "https://jean.build",
-  tagline: "The self-learning software factory for vibe-coded ideas.",
+  tagline: "Delivery control for coding agents.",
   subtitle:
-    "Otta turns vibe coding into a self-learning software factory — where every idea passes through adaptive quality gates, failures improve the system, and only production-ready software ships.",
+    "Otta gives Claude Code and Codex a disciplined path from issue to verified release, with specialist review stages and Pulse-enforced GitHub evidence.",
 };
