@@ -39,3 +39,9 @@ jobs:
 
       - name: Verify Otta deployment readiness
         run: bash scripts/verify-otta-deploy-readiness.sh
+
+      - name: Install Playwright Chromium
+        run: bunx playwright install --with-deps chromium
+
+      - name: Verify landing interactions and responsive behavior
+        run: bun run test:e2e

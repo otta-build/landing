@@ -3,14 +3,19 @@ import { individualTiers, teamTiers } from "../data/pricing";
 import PricingCard from "./PricingCard.astro";
 ---
 
-<section id="pricing" class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+<section id="pricing" class="otta-section">
+<div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
   <div class="mb-12 text-center">
-    <p class="text-sm font-semibold tracking-wide text-indigo-600 uppercase">
+    <p class="otta-eyebrow">
       Pricing Plans
     </p>
-    <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-      Local-first by default. Hosted when you need it.
+    <h2 class="mt-3 text-3xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
+      Open workflow today. Managed evidence as you grow.
     </h2>
+    <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-zinc-400">
+      The Apache-licensed plugin is available now. Paid tiers reflect the
+      early-access roadmap; request access to confirm current availability and fit.
+    </p>
   </div>
 
   <!-- Row 1 — individual tiers -->
@@ -22,4 +27,5 @@ import PricingCard from "./PricingCard.astro";
   <div class="mx-auto mt-6 max-w-5xl">
     {teamTiers.map((tier) => <PricingCard tier={tier} wide={true} />)}
   </div>
+</div>
 </section>

@@ -1,0 +1,139 @@
+---
+const claudeCommands = [
+  "/plugin marketplace add otta-build/plugin",
+  "/plugin install --scope user otta@otta",
+  "/otta:setup",
+];
+
+const codexCommands = ["Install Otta from the Codex Plugins surface", "$otta-setup"];
+---
+
+<section id="get-started" class="otta-section overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(92,70,220,.12),transparent_44%)]"></div>
+  <div class="relative mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="otta-eyebrow">Start where your agent works</p>
+      <h2 class="mt-3 text-3xl font-bold tracking-[-0.035em] text-white sm:text-5xl">
+        One delivery loop. Two native paths.
+      </h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-zinc-400">
+        Install the Otta workflow in Claude Code or Codex, then connect Pulse when
+        you want GitHub lifecycle evidence and repository-level gate verdicts.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-5xl gap-5 lg:grid-cols-2">
+      <article class="otta-card min-w-0 overflow-hidden rounded-3xl p-6 sm:p-8">
+        <div class="flex items-center justify-between gap-4">
+          <div class="min-w-0">
+            <p class="font-mono text-[10px] font-bold tracking-[0.16em] text-indigo-300 uppercase">Path 01</p>
+            <h3 class="mt-2 text-2xl font-bold text-white">Claude Code</h3>
+          </div>
+          <span class="flex-none rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">slash commands</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+          Add the marketplace, install Otta for your user, then initialize the repository.
+        </p>
+        <ol class="mt-6 grid min-w-0 gap-3">
+          {
+            claudeCommands.map((command, index) => (
+              <li class="group min-w-0 rounded-xl border border-white/10 bg-black/30 p-3">
+                <div class="flex min-w-0 items-start gap-3">
+                  <span class="mt-0.5 font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
+                  <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-zinc-200 sm:text-sm" data-command-text>
+                    {command}
+                  </code>
+                  <button
+                    type="button"
+                    class="min-h-11 min-w-11 flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    data-copy-command={command}
+                    aria-label={`Copy ${command}`}
+                  >
+                    Copy
+                  </button>
+                </div>
+                <span class="mt-2 block min-h-4 text-right text-[10px] text-indigo-300" data-copy-status aria-live="polite"></span>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="mt-5 rounded-xl border border-amber-300/15 bg-amber-300/[0.055] px-4 py-3 text-xs leading-relaxed text-amber-100/80">
+          Fully restart Claude Code after installation. If the commands are still
+          missing, open /plugin and enable otta.
+        </p>
+      </article>
+
+      <article class="otta-card min-w-0 overflow-hidden rounded-3xl p-6 sm:p-8">
+        <div class="flex items-center justify-between gap-4">
+          <div class="min-w-0">
+            <p class="font-mono text-[10px] font-bold tracking-[0.16em] text-indigo-300 uppercase">Path 02</p>
+            <h3 class="mt-2 text-2xl font-bold text-white">Codex</h3>
+          </div>
+          <span class="flex-none rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-zinc-400">native skills</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+          Install Otta from Codex's Plugins surface, then run the setup skill in your repository.
+        </p>
+        <ol class="mt-6 grid min-w-0 gap-3">
+          {
+            codexCommands.map((command, index) => (
+              <li class="group min-w-0 rounded-xl border border-white/10 bg-black/30 p-3">
+                <div class="flex min-w-0 items-start gap-3">
+                  <span class="mt-0.5 font-mono text-[10px] text-zinc-600">{String(index + 1).padStart(2, "0")}</span>
+                  <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-xs text-zinc-200 sm:text-sm" data-command-text>
+                    {command}
+                  </code>
+                  <button
+                    type="button"
+                    class="min-h-11 min-w-11 flex-none rounded-md border border-white/10 px-2.5 py-1.5 text-[10px] font-semibold text-zinc-400 transition hover:border-indigo-300/30 hover:text-white"
+                    data-copy-command={command}
+                    aria-label={`Copy ${command}`}
+                  >
+                    Copy
+                  </button>
+                </div>
+                <span class="mt-2 block min-h-4 text-right text-[10px] text-indigo-300" data-copy-status aria-live="polite"></span>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="mt-5 rounded-xl border border-indigo-300/15 bg-indigo-300/[0.055] px-4 py-3 text-xs leading-relaxed text-indigo-100/80">
+          Codex uses <code class="font-mono text-indigo-200">$otta-*</code> skills. It does not use Claude Code's <code class="font-mono text-indigo-200">/otta:*</code> commands.
+        </p>
+      </article>
+    </div>
+
+    <div class="mx-auto mt-5 max-w-5xl rounded-2xl border border-white/10 bg-white/[0.025] px-5 py-4 text-sm text-zinc-400 sm:flex sm:items-center sm:justify-between sm:gap-6">
+      <span><strong class="text-zinc-200">Add Pulse when you need enforcement.</strong> The GitHub App records lifecycle evidence and gate verdicts outside the coding harness.</span>
+      <a href="https://pulse.otta.build/status" class="mt-3 inline-flex flex-none font-semibold text-indigo-300 transition hover:text-indigo-200 sm:mt-0">View live Pulse →</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const copyButtons = document.querySelectorAll<HTMLButtonElement>("[data-copy-command]");
+
+  for (const button of copyButtons) {
+    button.addEventListener("click", async () => {
+      const command = button.dataset.copyCommand;
+      const row = button.closest("li");
+      const status = row?.querySelector<HTMLElement>("[data-copy-status]");
+      const commandText = row?.querySelector<HTMLElement>("[data-command-text]");
+      if (!command || !status) return;
+
+      try {
+        await navigator.clipboard.writeText(command);
+        status.textContent = "Copied";
+      } catch {
+        const selection = window.getSelection();
+        if (selection && commandText) {
+          const range = document.createRange();
+          range.selectNodeContents(commandText);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        status.textContent = "Select and copy";
+      }
+    });
+  }
+</script>
