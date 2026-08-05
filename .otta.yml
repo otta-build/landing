@@ -1,0 +1,38 @@
+version: "1"
+# Otta delivery contract — otta.build's own landing site (issue #16).
+#
+# merge-and-deploy + allow_production: true is a DELIBERATE opt-in (owner
+# decision, 2026-08-04), not copied from a repo where it's harmless: merging a
+# PR here ships otta.build live. This repo's own deploy.yml already deploys on
+# every push to main, so this contract doesn't change what happens on merge —
+# it makes that existing behavior visible to Otta instead of leaving every PR
+# stuck on the "unknown deploy block" human-approve default, which is what let
+# three GEO issues (#7/#8/#9) sit open since 2026-08-01 holding the SEO loop's
+# WIP slots (otta-engine#193).
+base: "main"
+staging: null
+
+deploy:
+  auto: "merge-and-deploy"
+  target: "production"
+  allow_production: true
+  # deploy.yml (native GitHub Actions → Cloudflare Pages) is the only
+  # deployment path; there's no Coolify/github-workflow executor for Otta to
+  # drive, so verification is SHA-match against the health artifact below.
+  provider: "none"
+  verify: "sha-match"
+  health_url: "https://otta.build/build-info.json"
+  health_commit_field: "commit"
+
+ci:
+  required: true
+
+pulse:
+  installed: true
+
+learn:
+  enabled: true
+  consult: true
+  capture: true
+  expiry_days: 180
+  cadence: weekly
