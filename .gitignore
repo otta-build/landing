@@ -1,3 +1,8 @@
 .astro/
 dist/
 node_modules/
+
+# Ephemeral PR body scratch — a present .pr-body.md goes stale at every merge,
+# and the push gate reads it from whichever repo the session started in, which
+# blocks unrelated pushes (otta-engine#160 did the same for that repo).
+.pr-body.md
